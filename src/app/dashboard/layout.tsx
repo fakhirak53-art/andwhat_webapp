@@ -1,10 +1,11 @@
+import Image from "next/image";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 import type { ReactNode } from "react";
 import { logout } from "@/app/actions/auth";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
 import { Button } from "@/components/ui/Button";
-import Logo from "@/components/ui/Logo";
 import { ToastProvider } from "@/components/ui/Toast";
 import { getStudentProfile } from "@/lib/dashboard";
 import { createClient } from "@/utils/supabase/server";
@@ -49,7 +50,16 @@ export default async function DashboardLayout({
       <div className="min-h-screen bg-paper">
         <aside className="hidden md:flex fixed left-0 top-0 h-screen w-60 bg-ink text-paper flex-col">
           <div className="p-6">
-            <Logo light />
+            <Link href="/" className="inline-block">
+              <Image
+                src="/logo.png"
+                alt="andwhat"
+                width={240}
+                height={64}
+                className="h-8 w-auto"
+                priority
+              />
+            </Link>
 
             <div className="mt-8">
               <div className="flex items-center gap-3">

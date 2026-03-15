@@ -1,8 +1,10 @@
 "use client";
 
+import Image from "next/image";
+import Link from "next/link";
 import { useState } from "react";
 import { adminLogin } from "@/app/actions/admin-auth";
-import { Button, Input, Logo } from "@/components/ui";
+import { Button, Input } from "@/components/ui";
 
 function WarningIcon() {
   return (
@@ -41,7 +43,16 @@ export default function AdminLoginPage() {
     <main className="min-h-screen flex flex-col md:flex-row">
       <div className="hidden md:flex md:flex-col md:justify-between bg-ink text-paper p-12 md:w-1/2">
         <div>
-          <Logo size="md" light className="mb-12" />
+          <Link href="/" className="inline-block mb-12">
+            <Image
+              src="/logo.png"
+              alt="andwhat"
+              width={240}
+              height={64}
+              className="h-8 w-auto"
+              priority
+            />
+          </Link>
         </div>
         <div>
           <h2 className="font-serif text-3xl md:text-4xl leading-tight mb-6">
