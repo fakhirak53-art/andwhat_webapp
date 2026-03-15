@@ -13,6 +13,17 @@
   --color-success: #16a34a;
   --font-serif: var(--font-instrument-serif);
   --font-sans: var(--font-dm-sans);
+  --font-display: var(--font-inter), ui-sans-serif, sans-serif;
+
+  /* Header (Figma design tokens) */
+  --color-header-bg: #ffffff;
+  --color-header-border: rgba(226, 232, 240, 0.6);
+  --color-nav-link: #0f172a;
+  --color-cta-text: #131313;
+  --color-cta-icon-bg: #004aab;
+  --shadow-header: 0 1px 3px rgba(0, 0, 0, 0.06);
+  --radius-header: 31px;
+  --header-border-width: 1px;
 }
 
 @theme {
@@ -31,6 +42,13 @@
   --radius-md: 8px;
   --radius-lg: 12px;
   --radius-xl: 16px;
+  --radius-header: var(--radius-header);
+  --color-header-bg: var(--color-header-bg);
+  --color-header-border: var(--color-header-border);
+  --color-nav-link: var(--color-nav-link);
+  --color-cta-text: var(--color-cta-text);
+  --color-cta-icon-bg: var(--color-cta-icon-bg);
+  --shadow-header: var(--shadow-header);
 }
 
 html {
@@ -44,17 +62,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
-}
-
-/* Grain texture overlay */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  opacity: 0.3;
-  pointer-events: none;
-  z-index: 999;
 }
 
 /* Base resets */

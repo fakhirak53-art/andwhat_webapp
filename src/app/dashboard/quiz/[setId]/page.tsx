@@ -29,7 +29,7 @@ export default async function QuizSetPage({ params }: QuizPageProps) {
         .eq("id", setId)
         .eq("is_active", true)
         .maybeSingle(),
-      getQuestionsForSet(setId, 10),
+      getQuestionsForSet(setId),
       supabase
         .from("student_enrollments")
         .select("id")
@@ -41,6 +41,14 @@ export default async function QuizSetPage({ params }: QuizPageProps) {
   const setData = setResponse.data;
   const questions = questionsResponse.data ?? [];
   const isEnrolled = Boolean(enrollmentResponse.data);
+  const subjectRelation = (
+    setData as unknown as {
+      subjects?: { name: string }[] | { name: string } | null;
+    } | null
+  )?.subjects;
+  const subjectName = Array.isArray(subjectRelation)
+    ? subjectRelation[0]?.name
+    : subjectRelation?.name;
 
   async function handleEnrollAndStart(): Promise<void> {
     "use server";
@@ -114,7 +122,7 @@ export default async function QuizSetPage({ params }: QuizPageProps) {
           <ArrowLeft className="w-4 h-4" />
           Back
         </Link>
-        <Badge variant="default">{setData.subjects?.name ?? "Subject"}</Badge>
+        <Badge variant="default">{subjectName ?? "Subject"}</Badge>
       </div>
       <h1 className="font-serif text-2xl text-ink mt-3">{setData.set_name}</h1>
 

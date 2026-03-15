@@ -50,6 +50,7 @@ export default function QuizEngine({
   const [showExitConfirm, setShowExitConfirm] = useState(false);
   const [showReview, setShowReview] = useState(false);
   const [result, setResult] = useState<QuizResult | null>(null);
+  const [saveFailures, setSaveFailures] = useState(0);
   const sessionStartTime = useRef(Date.now());
 
   const currentQuestion = sessionQuestions[currentIndex] ?? null;
@@ -112,15 +113,20 @@ export default function QuizEngine({
     setShowFeedback(true);
     setAnswers((prev) => [...prev, nextAnswer]);
 
-    void submitQuizAnswer({
-      question_id: currentQuestion.id,
-      question_set_id: questionSetId,
-      subject_id: subjectId,
-      school_id: schoolId,
-      selected_answer: option,
-      correct_answer: currentQuestion.correct_answer,
-      response_time_ms: timeMs,
-    });
+    void (async () => {
+      const response = await submitQuizAnswer({
+        question_id: currentQuestion.id,
+        question_set_id: questionSetId,
+        subject_id: subjectId,
+        school_id: schoolId,
+        selected_answer: option,
+        correct_answer: currentQuestion.correct_answer,
+        response_time_ms: timeMs,
+      });
+      if (!response.success) {
+        setSaveFailures((prev) => prev + 1);
+      }
+    })();
 
     window.setTimeout(() => {
       const isLast = currentIndex >= sessionQuestions.length - 1;
@@ -145,6 +151,7 @@ export default function QuizEngine({
     setResult(null);
     setShowReview(false);
     setShowExitConfirm(false);
+    setSaveFailures(0);
     sessionStartTime.current = Date.now();
     setQuestionStartTime(Date.now());
   }
@@ -201,6 +208,15 @@ export default function QuizEngine({
             {getNextReviewMessage(result.accuracy)}
           </p>
         </Card>
+
+        {saveFailures > 0 ? (
+          <Card className="mt-3 border-amber-200 bg-amber-50" padding="sm">
+            <p className="text-sm text-amber-800">
+              Some answers could not be saved ({saveFailures}). Your score is
+              shown, but progress may not fully update yet.
+            </p>
+          </Card>
+        ) : null}
 
         <button
           type="button"

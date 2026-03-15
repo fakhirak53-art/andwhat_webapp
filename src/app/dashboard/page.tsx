@@ -55,6 +55,7 @@ export default async function DashboardPage() {
   const greeting = getGreeting();
 
   const dueToday = reviewSchedule.filter((item) => item.is_due_today);
+  const activeSetsCount = enrolledSets.length;
 
   return (
     <div>
@@ -134,8 +135,8 @@ export default async function DashboardPage() {
         />
         <StatCard
           label="Active Sets"
-          value={stats.activeSets}
-          description="question sets in progress"
+          value={activeSetsCount}
+          description="currently enrolled sets"
         />
 
         <div className="col-span-2 md:col-span-4">

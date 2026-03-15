@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, DM_Sans } from "next/font/google";
+import { Instrument_Serif, DM_Sans, Inter } from "next/font/google";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -15,6 +15,12 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
+const inter = Inter({
+  weight: ["500", "700"],
+  subsets: ["latin"],
+  variable: "--font-inter",
+});
+
 export const metadata: Metadata = {
   title: "andwhat",
   description: "Learn before you scroll",
@@ -26,7 +32,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable}`}>
+    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} ${inter.variable}`}>
       <body className="font-sans antialiased">{children}</body>
     </html>
   );

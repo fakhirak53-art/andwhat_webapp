@@ -76,7 +76,7 @@ export default function ActivityTable({ logs }: ActivityTableProps) {
                     Question Set
                   </th>
                   <th className="px-4 py-3 text-xs text-muted uppercase tracking-widest font-medium">
-                    Site
+                    Trigger site
                   </th>
                   <th className="px-4 py-3 text-xs text-muted uppercase tracking-widest font-medium">
                     Result
@@ -102,7 +102,9 @@ export default function ActivityTable({ logs }: ActivityTableProps) {
                       {log.question_sets?.set_name ?? "Unknown set"}
                     </td>
                     <td className="px-4 py-3 text-xs text-muted/60 italic">
-                      {log.blocked_site ? `via ${log.blocked_site}` : "—"}
+                      {log.blocked_site
+                        ? `via ${log.blocked_site}`
+                        : "Dashboard practice"}
                     </td>
                     <td className="px-4 py-3">
                       <Badge variant={log.is_correct ? "lime" : "default"}>
@@ -130,7 +132,9 @@ export default function ActivityTable({ logs }: ActivityTableProps) {
                       {log.question_sets?.set_name ?? "Unknown set"}
                     </p>
                     <p className="text-xs text-muted/60 italic mt-1">
-                      {log.blocked_site ? `via ${log.blocked_site}` : "—"}
+                      {log.blocked_site
+                        ? `via ${log.blocked_site}`
+                        : "Dashboard practice"}
                     </p>
                   </div>
                   <div className="text-right shrink-0">

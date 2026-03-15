@@ -55,24 +55,38 @@ export async function submitQuizAnswer(payload: {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { error: "Not authenticated" };
+  if (!user) return { success: false, error: "Not authenticated" };
 
   const studentRow = await getStudentRow(user.id);
+  const candidateStudentIds = Array.from(
+    new Set(
+      [user.id, studentRow?.id].filter(
+        (value): value is string =>
+          typeof value === "string" && value.length > 0,
+      ),
+    ),
+  );
 
-  const { error } = await supabase.from("question_logs").insert({
-    student_id: user.id,
-    school_id: studentRow?.school_id ?? payload.school_id,
-    question_id: payload.question_id,
-    question_set_id: payload.question_set_id,
-    subject_id: payload.subject_id,
-    selected_answer: payload.selected_answer,
-    is_correct: payload.selected_answer === payload.correct_answer,
-    attempt_number: 1,
-    response_time_ms: payload.response_time_ms,
-    blocked_site: null,
-  });
+  let lastError: string | null = null;
+  for (const studentId of candidateStudentIds) {
+    const { error } = await supabase.from("question_logs").insert({
+      student_id: studentId,
+      school_id: studentRow?.school_id ?? payload.school_id,
+      question_id: payload.question_id,
+      question_set_id: payload.question_set_id,
+      subject_id: payload.subject_id,
+      selected_answer: payload.selected_answer,
+      is_correct: payload.selected_answer === payload.correct_answer,
+      attempt_number: 1,
+      response_time_ms: payload.response_time_ms,
+      blocked_site: null,
+    });
 
-  if (error) return { error: error.message };
+    if (!error) return { success: true };
+    lastError = error.message;
+  }
+
+  if (lastError) return { success: false, error: lastError };
   return { success: true };
 }
 
@@ -84,12 +98,13 @@ export async function updateSubjectPreferences(
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  if (!user) return { error: "Not authenticated" };
+  if (!user) return { success: false, error: "Not authenticated" };
 
   const studentId = await getStudentId(user.id);
 
   if (!studentId) {
     return {
+      success: false,
       error:
         "Your student record is not set up yet. Please contact your school admin to link your account.",
     };
@@ -100,7 +115,7 @@ export async function updateSubjectPreferences(
     .delete()
     .eq("student_id", studentId);
 
-  if (deleteError) return { error: deleteError.message };
+  if (deleteError) return { success: false, error: deleteError.message };
 
   if (subjectIds.length === 0) return { success: true };
 
@@ -115,7 +130,7 @@ export async function updateSubjectPreferences(
     .from("student_subject_preferences")
     .insert(rows);
 
-  if (insertError) return { error: insertError.message };
+  if (insertError) return { success: false, error: insertError.message };
   return { success: true };
 }
 
@@ -132,10 +147,16 @@ function shuffle<T>(items: T[]): T[] {
 
 export async function getQuestionsForSet(
   questionSetId: string,
-  limit = 5,
+  limit?: number,
 ): Promise<ActionResult<QuizQuestion[]>> {
   try {
     const supabase = await createClient();
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+
+    if (!user) return { error: "Not authenticated" };
+
     const { data, error } = await supabase
       .from("questions")
       .select(
@@ -147,8 +168,40 @@ export async function getQuestionsForSet(
       return { error: error.message };
     }
 
-    const shuffled = shuffle((data ?? []) as QuizQuestion[]);
-    return { data: shuffled.slice(0, Math.max(1, limit)) };
+    const allQuestions = (data ?? []) as QuizQuestion[];
+    if (allQuestions.length === 0) return { data: [] };
+
+    const studentId = await getStudentId(user.id);
+    const logStudentIds = Array.from(
+      new Set(
+        [user.id, studentId].filter(
+          (value): value is string =>
+            typeof value === "string" && value.length > 0,
+        ),
+      ),
+    );
+
+    const { data: logs } = await supabase
+      .from("question_logs")
+      .select("question_id")
+      .in("student_id", logStudentIds)
+      .eq("question_set_id", questionSetId);
+
+    const answeredQuestionIds = new Set(
+      (logs ?? []).map((row) => row.question_id),
+    );
+    const unseen = allQuestions.filter((q) => !answeredQuestionIds.has(q.id));
+    const seen = allQuestions.filter((q) => answeredQuestionIds.has(q.id));
+
+    // If there are unseen questions, practice those first.
+    // Once everything has been seen, fall back to full-set revision mode.
+    const preferredPool = unseen.length > 0 ? shuffle(unseen) : shuffle(seen);
+
+    if (typeof limit === "number") {
+      return { data: preferredPool.slice(0, Math.max(1, limit)) };
+    }
+
+    return { data: preferredPool };
   } catch {
     return { error: "Could not load questions for this set." };
   }

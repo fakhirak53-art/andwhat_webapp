@@ -135,6 +135,26 @@ function mapQuestionSetRow(row: {
   };
 }
 
+async function resolveLogStudentIds(authUserId: string): Promise<string[]> {
+  try {
+    const supabase = await createClient();
+    const ids = [authUserId];
+    const { data: studentRow } = await supabase
+      .from("students")
+      .select("id")
+      .eq("auth_user_id", authUserId)
+      .maybeSingle();
+
+    if (studentRow?.id && studentRow.id !== authUserId) {
+      ids.push(studentRow.id);
+    }
+
+    return ids;
+  } catch {
+    return [authUserId];
+  }
+}
+
 export async function getStudentProfile(
   userId: string,
 ): Promise<{ profile: Profile; student: HighSchoolStudent | null } | null> {
@@ -172,10 +192,11 @@ export async function getDashboardStats(
 ): Promise<DashboardStats> {
   try {
     const supabase = await createClient();
+    const logStudentIds = await resolveLogStudentIds(userId);
     const { data, error } = await supabase
       .from("question_logs")
       .select("is_correct, answered_at, question_set_id")
-      .eq("student_id", userId);
+      .in("student_id", logStudentIds);
 
     if (error || !data) return EMPTY_STATS;
 
@@ -218,12 +239,13 @@ export async function getRecentActivity(
 ): Promise<QuestionLog[]> {
   try {
     const supabase = await createClient();
+    const logStudentIds = await resolveLogStudentIds(userId);
     const { data, error } = await supabase
       .from("question_logs")
       .select(
         "id, student_id, question_id, question_set_id, subject_id, selected_answer, is_correct, attempt_number, response_time_ms, blocked_site, answered_at, question_sets(set_name), subjects(name)",
       )
-      .eq("student_id", userId)
+      .in("student_id", logStudentIds)
       .order("answered_at", { ascending: false })
       .limit(10);
 
@@ -240,16 +262,23 @@ export async function getActiveQuestionSets(
 ): Promise<QuestionSet[]> {
   try {
     const supabase = await createClient();
+    const logStudentIds = await resolveLogStudentIds(userId);
+
+    const { data: studentRow } = await supabase
+      .from("students")
+      .select("id")
+      .eq("auth_user_id", userId)
+      .maybeSingle();
 
     const [logsResponse, prefsResponse] = await Promise.all([
       supabase
         .from("question_logs")
         .select("question_set_id")
-        .eq("student_id", userId),
+        .in("student_id", logStudentIds),
       supabase
         .from("student_subject_preferences")
         .select("subject_id")
-        .eq("student_id", userId)
+        .eq("student_id", studentRow?.id ?? userId)
         .eq("is_active", true),
     ]);
 
@@ -474,10 +503,11 @@ export async function getAccuracyBySubject(
 > {
   try {
     const supabase = await createClient();
+    const logStudentIds = await resolveLogStudentIds(userId);
     const { data, error } = await supabase
       .from("question_logs")
       .select("subject_id, is_correct, subjects(name)")
-      .eq("student_id", userId);
+      .in("student_id", logStudentIds);
 
     if (error || !data || data.length === 0) return [];
 
@@ -603,6 +633,7 @@ export async function getSpacedRepetitionSchedule(
 ): Promise<SpacedRepetitionItem[]> {
   try {
     const supabase = await createClient();
+    const logStudentIds = await resolveLogStudentIds(userId);
     const enrolledSets = await getEnrolledSets(userId);
 
     if (enrolledSets.length === 0) return [];
@@ -610,7 +641,7 @@ export async function getSpacedRepetitionSchedule(
     const { data: logs, error: logsError } = await supabase
       .from("question_logs")
       .select("question_set_id, is_correct, answered_at")
-      .eq("student_id", userId)
+      .in("student_id", logStudentIds)
       .in(
         "question_set_id",
         enrolledSets.map((set) => set.id),
@@ -639,45 +670,48 @@ export async function getSpacedRepetitionSchedule(
       grouped.set(row.question_set_id, current);
     }
 
-    const schedule: SpacedRepetitionItem[] = enrolledSets.map((set) => {
-      const entries = grouped.get(set.id) ?? [];
-      if (entries.length === 0) {
+    const schedule: SpacedRepetitionItem[] = enrolledSets
+      .map((set) => {
+        const entries = grouped.get(set.id) ?? [];
+        if (entries.length === 0) {
+          return {
+            question_set_id: set.id,
+            set_name: set.set_name,
+            subject_name: set.subject?.name ?? "Unknown subject",
+            last_answered: "",
+            next_due: today.toISOString(),
+            is_due_today: false,
+            interval_days: 0,
+            accuracy_rate: 0,
+            total_attempts: 0,
+          };
+        }
+
+        const lastAnswered = entries[0].answered_at;
+        const correct = entries.filter((entry) => entry.is_correct).length;
+        const totalAttempts = entries.length;
+        const accuracyRate = Math.round((correct / totalAttempts) * 100);
+        const intervalDays = accuracyRate < 60 ? 1 : accuracyRate < 80 ? 3 : 7;
+        const nextDueDate = addDays(
+          startOfDay(new Date(lastAnswered)),
+          intervalDays,
+        );
+        const isDueToday = nextDueDate.getTime() <= today.getTime();
+
         return {
           question_set_id: set.id,
           set_name: set.set_name,
           subject_name: set.subject?.name ?? "Unknown subject",
-          last_answered: "",
-          next_due: today.toISOString(),
-          is_due_today: true,
-          interval_days: 0,
-          accuracy_rate: 0,
-          total_attempts: 0,
+          last_answered: lastAnswered,
+          next_due: nextDueDate.toISOString(),
+          is_due_today: isDueToday,
+          interval_days: intervalDays,
+          accuracy_rate: accuracyRate,
+          total_attempts: totalAttempts,
         };
-      }
-
-      const lastAnswered = entries[0].answered_at;
-      const correct = entries.filter((entry) => entry.is_correct).length;
-      const totalAttempts = entries.length;
-      const accuracyRate = Math.round((correct / totalAttempts) * 100);
-      const intervalDays = accuracyRate < 60 ? 1 : accuracyRate < 80 ? 3 : 7;
-      const nextDueDate = addDays(
-        startOfDay(new Date(lastAnswered)),
-        intervalDays,
-      );
-      const isDueToday = nextDueDate.getTime() <= today.getTime();
-
-      return {
-        question_set_id: set.id,
-        set_name: set.set_name,
-        subject_name: set.subject?.name ?? "Unknown subject",
-        last_answered: lastAnswered,
-        next_due: nextDueDate.toISOString(),
-        is_due_today: isDueToday,
-        interval_days: intervalDays,
-        accuracy_rate: accuracyRate,
-        total_attempts: totalAttempts,
-      };
-    });
+      })
+      // Only include sets that have been practiced at least once.
+      .filter((item) => item.total_attempts > 0);
 
     return schedule.sort((a, b) => {
       if (a.is_due_today !== b.is_due_today) return a.is_due_today ? -1 : 1;
@@ -700,6 +734,7 @@ export async function getSetProgress(
 }> {
   try {
     const supabase = await createClient();
+    const logStudentIds = await resolveLogStudentIds(userId);
 
     const [questionsResponse, logsResponse] = await Promise.all([
       supabase
@@ -709,7 +744,7 @@ export async function getSetProgress(
       supabase
         .from("question_logs")
         .select("question_id, is_correct, answered_at")
-        .eq("student_id", userId)
+        .in("student_id", logStudentIds)
         .eq("question_set_id", questionSetId)
         .order("answered_at", { ascending: false }),
     ]);

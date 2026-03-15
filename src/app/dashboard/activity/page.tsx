@@ -12,6 +12,20 @@ export default async function DashboardActivityPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
+  const { data: studentRow } = await supabase
+    .from("students")
+    .select("id")
+    .eq("auth_user_id", user.id)
+    .maybeSingle();
+  const logStudentIds = Array.from(
+    new Set(
+      [user.id, studentRow?.id].filter(
+        (value): value is string =>
+          typeof value === "string" && value.length > 0,
+      ),
+    ),
+  );
+
   const [stats, logsResponse] = await Promise.all([
     getDashboardStats(user.id),
     supabase
@@ -19,7 +33,7 @@ export default async function DashboardActivityPage() {
       .select(
         "id, student_id, question_id, question_set_id, subject_id, selected_answer, is_correct, attempt_number, response_time_ms, blocked_site, answered_at, question_sets(set_name), subjects(name)",
       )
-      .eq("student_id", user.id)
+      .in("student_id", logStudentIds)
       .order("answered_at", { ascending: false })
       .limit(50),
   ]);
@@ -27,7 +41,7 @@ export default async function DashboardActivityPage() {
   const logs: QuestionLog[] =
     logsResponse.error || !logsResponse.data
       ? []
-      : (logsResponse.data as QuestionLog[]);
+      : (logsResponse.data as unknown as QuestionLog[]);
 
   return (
     <div>
