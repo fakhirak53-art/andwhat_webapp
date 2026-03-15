@@ -394,7 +394,9 @@ export async function searchQuestionSets(
 
     const { data, error } = isUUID(trimmed)
       ? await baseQuery.eq("id", trimmed).limit(1)
-      : await baseQuery.ilike("set_name", `%${trimmed}%`).limit(10);
+      : trimmed.startsWith("QS-") || trimmed.length <= 10
+        ? await baseQuery.ilike("reference_code", trimmed).limit(10)
+        : await baseQuery.ilike("set_name", `%${trimmed}%`).limit(10);
 
     if (error || !data || data.length === 0) return [];
 

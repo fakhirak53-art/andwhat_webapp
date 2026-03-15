@@ -243,7 +243,7 @@ export default async function DashboardPage() {
             <EmptyState
               icon={<Search className="w-10 h-10" />}
               title="No active sets"
-              description="Enter a reference number above or ask your teacher to assign a set."
+              description="Enter a reference code above or ask your teacher to assign a set."
             />
           ) : (
             <div className="flex flex-col gap-3">

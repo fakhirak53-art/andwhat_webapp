@@ -1,13 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { login, signup } from "@/app/actions/auth";
+import { adminLogin } from "@/app/actions/admin-auth";
 import { Button, Input, Logo } from "@/components/ui";
 
 function WarningIcon() {
   return (
     <svg
-      className="w-4 h-4 shrink-0"
+      className="h-4 w-4 shrink-0"
       fill="currentColor"
       viewBox="0 0 20 20"
       aria-hidden
@@ -22,17 +22,15 @@ function WarningIcon() {
   );
 }
 
-export default function LoginPage() {
-  const [isSignup, setIsSignup] = useState(false);
+export default function AdminLoginPage() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
-  async function handleSubmit(formData: FormData) {
+  async function handleSubmit(formData: FormData): Promise<void> {
     setLoading(true);
     setError(null);
 
-    const result = isSignup ? await signup(formData) : await login(formData);
-
+    const result = await adminLogin(formData);
     if (result?.error) {
       setError(result.error);
       setLoading(false);
@@ -41,27 +39,26 @@ export default function LoginPage() {
 
   return (
     <main className="min-h-screen flex flex-col md:flex-row">
-      {/* Left column — hidden on mobile */}
       <div className="hidden md:flex md:flex-col md:justify-between bg-ink text-paper p-12 md:w-1/2">
         <div>
           <Logo size="md" light className="mb-12" />
         </div>
         <div>
           <h2 className="font-serif text-3xl md:text-4xl leading-tight mb-6">
-            Turn screen time into <em>learn time.</em>
+            Manage your school&apos;s learning.
           </h2>
           <ul className="space-y-3 text-paper/90 font-sans text-sm md:text-base">
             <li className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
-              Quick quizzes before you browse
+              Upload and manage question sets
             </li>
             <li className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
-              Track your progress over time
+              Track student engagement and progress
             </li>
             <li className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
-              Assigned by your school, built for you
+              Configure browser extension rules
             </li>
           </ul>
         </div>
@@ -70,7 +67,6 @@ export default function LoginPage() {
         </p>
       </div>
 
-      {/* Right column */}
       <div className="flex flex-col justify-center bg-paper p-8 md:p-16 md:w-1/2 flex-1 relative">
         <p className="absolute top-6 right-6 md:top-8 md:right-8 text-muted text-xs">
           Need help?{" "}
@@ -84,54 +80,14 @@ export default function LoginPage() {
 
         <div className="max-w-sm mx-auto w-full">
           <p className="text-muted text-xs uppercase tracking-widest font-medium mb-2">
-            Student portal
+            Admin portal
           </p>
-          <h1 className="font-serif text-3xl text-ink mb-1">
-            {isSignup ? "Create account" : "Welcome back"}
-          </h1>
+          <h1 className="font-serif text-3xl text-ink mb-1">Welcome back</h1>
           <p className="text-muted text-sm mb-8">
-            Log in with your school email to continue.
+            Log in with your admin account to continue.
           </p>
-
-          {/* Tabs */}
-          <div className="flex gap-1 p-1 rounded-md border border-border bg-cream/50 mb-6">
-            <button
-              type="button"
-              onClick={() => {
-                setIsSignup(false);
-                setError(null);
-              }}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${
-                !isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"
-              }`}
-            >
-              Log in
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setIsSignup(true);
-                setError(null);
-              }}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${
-                isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"
-              }`}
-            >
-              Sign up
-            </button>
-          </div>
 
           <form action={handleSubmit} className="space-y-4">
-            {isSignup && (
-              <Input
-                label="Full name"
-                id="full_name"
-                name="full_name"
-                type="text"
-                placeholder="Your name"
-                required
-              />
-            )}
             <Input
               label="Email"
               id="email"
@@ -150,7 +106,7 @@ export default function LoginPage() {
               minLength={6}
             />
 
-            {error && (
+            {error ? (
               <div
                 className="bg-red-50 border border-error/20 text-error text-sm rounded-md p-3 flex items-start gap-2"
                 role="alert"
@@ -158,7 +114,7 @@ export default function LoginPage() {
                 <WarningIcon />
                 <span>{error}</span>
               </div>
-            )}
+            ) : null}
 
             <Button
               type="submit"
@@ -167,24 +123,9 @@ export default function LoginPage() {
               loading={loading}
               className="w-full justify-center"
             >
-              {loading
-                ? "Please wait..."
-                : isSignup
-                  ? "Create account →"
-                  : "Log in →"}
+              {loading ? "Please wait..." : "Log in →"}
             </Button>
           </form>
-
-          <div className="flex items-center gap-3 my-6">
-            <span className="flex-1 h-px bg-border" />
-            <span className="text-muted text-xs uppercase">or</span>
-            <span className="flex-1 h-px bg-border" />
-          </div>
-
-          <p className="text-muted text-xs text-center">
-            Have a question set reference code? You can enter it after logging
-            in.
-          </p>
         </div>
       </div>
     </main>

@@ -163,24 +163,22 @@ export default function SetSearch({
       <header>
         <h1 className="font-serif text-2xl text-ink">Question Sets</h1>
         <p className="text-muted text-sm mt-1">
-          Browse your assigned sets or enter a reference number.
+          Browse your assigned sets or enter a reference code.
         </p>
       </header>
 
       <Card className="mt-6 border-2 border-lime/50 bg-lime/5" padding="md">
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
-            <p className="text-sm font-medium text-ink">
-              Enter reference number
-            </p>
+            <p className="text-sm font-medium text-ink">Enter reference code</p>
             <p className="text-xs text-muted mt-1">
-              Paste the UUID reference number given by your teacher
+              Enter the short code from your teacher (for example, QS-BIO-07)
             </p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-3">
             <Input
-              placeholder="e.g. 3f2504e0-4f89-11d3-9a0c-0305e82c3301"
+              placeholder="e.g. QS-BIO-07"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               className="font-mono text-sm"
@@ -193,7 +191,7 @@ export default function SetSearch({
           {searchError ? (
             <p className="text-sm text-error">
               {searchError.includes("No question set found")
-                ? "No question set found with that reference number."
+                ? "No question set found with that reference code."
                 : searchError}
             </p>
           ) : null}
@@ -281,7 +279,7 @@ export default function SetSearch({
             <EmptyState
               icon={<Search className="w-10 h-10" />}
               title="No active sets"
-              description="Enter a reference number above or ask your teacher to assign a set."
+              description="Enter a reference code above or ask your teacher to assign a set."
             />
           </div>
         ) : (
