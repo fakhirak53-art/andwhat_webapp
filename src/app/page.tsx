@@ -1,13 +1,29 @@
-import { createClient } from '@/utils/supabase/server'
+import Header from "@/components/home/Header";
+import HeroSection from "@/components/home/HeroSection";
+import TrustedBySection from "@/components/home/TrustedBySection";
+import WhyStudentsSection from "@/components/home/WhyStudentsSection";
+import PowerfulFeaturesSection from "@/components/home/PowerfulFeaturesSection";
+import AboutSection from "@/components/home/AboutSection";
+import TestimonialsSection from "@/components/home/TestimonialsSection";
+import FAQSection from "@/components/home/FAQSection";
+import ContactSection from "@/components/home/ContactSection";
+import Footer from "@/components/home/Footer";
 
-export default async function HomePage() {
-  const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
+export default function HomePage() {
   return (
-    <main>
-      <h1>andwhat</h1>
-      <p>User: {user ? user.email : 'Not logged in'}</p>
-    </main>
-  )
+    <>
+      <Header />
+      <main>
+        <HeroSection />
+        <TrustedBySection />
+        <WhyStudentsSection />
+        <PowerfulFeaturesSection />
+        <AboutSection />
+        <TestimonialsSection />
+        <FAQSection />
+        <ContactSection />
+      </main>
+      <Footer />
+    </>
+  );
 }

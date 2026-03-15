@@ -10,7 +10,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 const dmSans = DM_Sans({
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
   variable: "--font-dm-sans",
 });
@@ -27,7 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+      <body className="font-sans ">{children}</body>
     </html>
   );
 }

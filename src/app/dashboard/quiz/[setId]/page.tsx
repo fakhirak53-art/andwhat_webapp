@@ -114,7 +114,7 @@ export default async function QuizSetPage({ params }: QuizPageProps) {
           <ArrowLeft className="w-4 h-4" />
           Back
         </Link>
-        <Badge variant="default">{setData.subjects?.name ?? "Subject"}</Badge>
+        <Badge variant="default">{(setData.subjects as { name: string }[])?.[0]?.name ?? "Subject"}</Badge>
       </div>
       <h1 className="font-serif text-2xl text-ink mt-3">{setData.set_name}</h1>
 

@@ -27,7 +27,7 @@ export default async function DashboardActivityPage() {
   const logs: QuestionLog[] =
     logsResponse.error || !logsResponse.data
       ? []
-      : (logsResponse.data as QuestionLog[]);
+      : (logsResponse.data as unknown as QuestionLog[]);
 
   return (
     <div>
