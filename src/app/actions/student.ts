@@ -56,6 +56,7 @@ export async function submitQuizAnswer(payload: {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { success: false, error: "Not authenticated" };
+  if (!user) return { success: false, error: "Not authenticated" };
 
   const studentRow = await getStudentRow(user.id);
   const candidateStudentIds = Array.from(
@@ -99,11 +100,13 @@ export async function updateSubjectPreferences(
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { success: false, error: "Not authenticated" };
+  if (!user) return { success: false, error: "Not authenticated" };
 
   const studentId = await getStudentId(user.id);
 
   if (!studentId) {
     return {
+      success: false,
       success: false,
       error:
         "Your student record is not set up yet. Please contact your school admin to link your account.",
@@ -115,6 +118,7 @@ export async function updateSubjectPreferences(
     .delete()
     .eq("student_id", studentId);
 
+  if (deleteError) return { success: false, error: deleteError.message };
   if (deleteError) return { success: false, error: deleteError.message };
 
   if (subjectIds.length === 0) return { success: true };
@@ -130,6 +134,7 @@ export async function updateSubjectPreferences(
     .from("student_subject_preferences")
     .insert(rows);
 
+  if (insertError) return { success: false, error: insertError.message };
   if (insertError) return { success: false, error: insertError.message };
   return { success: true };
 }

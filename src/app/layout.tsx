@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Instrument_Serif, DM_Sans, Inter } from "next/font/google";
+import { DM_Sans, Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -10,7 +10,7 @@ const instrumentSerif = Instrument_Serif({
 });
 
 const dmSans = DM_Sans({
-  weight: ["300", "400", "500"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin"],
   variable: "--font-dm-sans",
 });
@@ -32,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} ${inter.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable}`}>
+      <body className="font-sans ">{children}</body>
     </html>
   );
 }
