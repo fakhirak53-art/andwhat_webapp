@@ -1,5 +1,3 @@
-import SectionWrapper from "./SectionWrapper";
-import SectionHeader from "./SectionHeader";
 import FAQItem from "./FAQItem";
 
 const faqs = [
@@ -51,11 +49,15 @@ export default function FAQSection() {
   const right = faqs.filter((_, i) => i % 2 !== 0);
 
   return (
-    <section id="faq" className="py-14 sm:py-20 bg-white">
-      <SectionWrapper>
-        <div className="mb-10 sm:mb-14">
-          <SectionHeader title="Frequently Ask Questions" centered />
-        </div>
+    <section id="faq" className="py-16 sm:py-20 bg-white">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16">
+        {/* Heading */}
+        <h2 className="text-[26px] sm:text-[34px] lg:text-[42px] font-black text-[#0a1628] text-center uppercase leading-tight tracking-wide mb-12 sm:mb-16">
+          Frequently{" "}
+          <span className="text-[#0048AE]">Ask</span>{" "}
+          Questions
+        </h2>
+
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Left column */}
           <div className="flex flex-col gap-4">
@@ -79,7 +81,7 @@ export default function FAQSection() {
             ))}
           </div>
         </div>
-      </SectionWrapper>
+      </div>
     </section>
   );
 }

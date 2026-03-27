@@ -4,29 +4,35 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const navLinks = ["Features", "Benefits", "About", "FAQ"];
+const navLinks = [
+  { label: "How it Works", href: "#how-it-works" },
+  { label: "Features", href: "#features" },
+  { label: "Reviews", href: "#reviews" },
+  { label: "FAQ", href: "#faq" },
+  { label: "Contact", href: "#contact" },
+];
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100 shadow-sm">
-      <div className="max-w-screen-2xl mx-auto px-6 md:px-10 lg:px-16">
-        <div className="flex items-center justify-between h-[70px]">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-[#faf7f2] border-b border-[#ede8df]">
+      <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16">
+        <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
-          <Link href="/">
-            <Image src="/logo.png" alt="AndWhat Logo" width={140} height={40} priority />
+          <Link href="/" className="flex-shrink-0">
+            <Image src="/images/logo.png" alt="AndWhat - Learning Gatekeeper" width={130} height={44} priority />
           </Link>
 
           {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-[15px] font-medium text-gray-700 hover:text-[#0048AE] transition-colors"
+                key={item.label}
+                href={item.href}
+                className="text-[15px] font-medium text-gray-700 hover:text-[#0048AE] transition-colors whitespace-nowrap"
               >
-                {item}
+                {item.label}
               </a>
             ))}
           </nav>
@@ -34,12 +40,10 @@ export default function Header() {
           {/* Register button */}
           <Link
             href="/login"
-            className="hidden md:flex items-center gap-2 bg-gray-900 text-white pl-5 pr-1.5 py-1.5 rounded-full text-[14px] font-semibold hover:bg-gray-800 transition-colors"
+            className="hidden md:flex items-center gap-2 bg-[#0a1628] text-white px-5 py-2.5 rounded-full text-[14px] font-semibold hover:bg-[#162340] transition-colors whitespace-nowrap"
           >
             Register Now
-            <span className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center text-white text-sm font-bold">
-              ↗
-            </span>
+            <span className="text-base leading-none">›</span>
           </Link>
 
           {/* Mobile hamburger */}
@@ -47,6 +51,7 @@ export default function Header() {
             type="button"
             className="md:hidden p-2 text-gray-700"
             onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -61,20 +66,20 @@ export default function Header() {
 
         {/* Mobile nav */}
         {mobileOpen && (
-          <div className="md:hidden border-t border-gray-100 py-5 flex flex-col gap-5">
+          <div className="md:hidden border-t border-[#ede8df] py-5 flex flex-col gap-5">
             {navLinks.map((item) => (
               <a
-                key={item}
-                href={`#${item.toLowerCase()}`}
-                className="text-[15px] font-medium text-gray-700"
+                key={item.label}
+                href={item.href}
+                className="text-[15px] font-medium text-gray-700 hover:text-[#0048AE] transition-colors"
                 onClick={() => setMobileOpen(false)}
               >
-                {item}
+                {item.label}
               </a>
             ))}
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 bg-gray-900 text-white pl-5 pr-1.5 py-1.5 rounded-full text-[14px] font-semibold w-fit"
+              className="inline-flex items-center gap-2 bg-[#0a1628] text-white px-5 py-2.5 rounded-full text-[14px] font-semibold w-fit"
             >
               Register Now
               <span className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold">
