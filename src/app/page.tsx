@@ -1,13 +1,13 @@
-import AboutSection from "@/components/home/AboutSection";
-import ContactSection from "@/components/home/ContactSection";
 import FAQSection from "@/components/home/FAQSection";
 import Footer from "@/components/home/Footer";
+import ForEducatorsParentsSection from "@/components/home/ForEducatorsParentsSection";
 import Header from "@/components/home/Header";
 import HeroSection from "@/components/home/HeroSection";
+import HowItWorksSection from "@/components/home/HowItWorksSection";
 import PowerfulFeaturesSection from "@/components/home/PowerfulFeaturesSection";
+import QuoteSection from "@/components/home/QuoteSection";
+import SupportCardsSection from "@/components/home/SupportCardsSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
-import TrustedBySection from "@/components/home/TrustedBySection";
-import WhyStudentsSection from "@/components/home/WhyStudentsSection";
 
 export default function HomePage() {
   return (
@@ -15,13 +15,13 @@ export default function HomePage() {
       <Header />
       <main>
         <HeroSection />
-        <TrustedBySection />
-        <WhyStudentsSection />
+        <QuoteSection />
+        <HowItWorksSection />
         <PowerfulFeaturesSection />
-        <AboutSection />
-        <TestimonialsSection />
+        <ForEducatorsParentsSection />
+        <SupportCardsSection />
         <FAQSection />
-        <ContactSection />
+        <TestimonialsSection />
       </main>
       <Footer />
     </>

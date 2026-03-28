@@ -32,8 +32,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable}`}>
-      <body className="font-sans ">{children}</body>
+    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} bg-white`}>
+      <body className="font-sans bg-white!">{children}</body>
     </html>
   );
 }

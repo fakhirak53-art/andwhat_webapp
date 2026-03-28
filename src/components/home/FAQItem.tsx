@@ -12,28 +12,36 @@ export default function FAQItem({ question, answer, defaultOpen = false }: FAQIt
   const [isOpen, setIsOpen] = useState(defaultOpen);
 
   return (
-    <div className="border border-gray-200 rounded-2xl overflow-hidden bg-white">
+    <div className="overflow-hidden">
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center gap-4 px-6 py-5 text-left hover:bg-gray-50 transition-colors"
+        className={`w-full flex items-center justify-between gap-4 px-6 py-4 rounded-full text-left transition-colors ${
+          isOpen
+            ? "bg-[#1e3a8a] text-white"
+            : "bg-white border border-gray-200 text-[#0a1628] hover:border-[#0048AE]"
+        }`}
       >
-        <span className="w-7 h-7 flex items-center justify-center flex-shrink-0">
-          {isOpen ? (
-            <svg className="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
-            </svg>
-          ) : (
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-            </svg>
-          )}
+        <span className="text-[14px] sm:text-[15px] font-semibold leading-snug">{question}</span>
+        <span
+          className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
+            isOpen ? "bg-[#38bdf8] text-white" : "bg-gray-700 text-white"
+          }`}
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2.5}
+              d={isOpen ? "M5 15l7-7 7 7" : "M19 9l-7 7-7-7"}
+            />
+          </svg>
         </span>
-        <span className="text-[15px] font-semibold text-gray-900">{question}</span>
       </button>
+
       {isOpen && (
-        <div className="px-5 sm:px-6 pb-5 pl-[52px] sm:pl-[68px]">
-          <p className="text-[14px] text-gray-500 leading-relaxed">{answer}</p>
+        <div className="px-6 py-4">
+          <p className="text-[14px] text-[#4b5563] leading-relaxed">{answer}</p>
         </div>
       )}
     </div>
