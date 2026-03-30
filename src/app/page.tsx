@@ -9,10 +9,16 @@ import QuoteSection from "@/components/home/QuoteSection";
 import SupportCardsSection from "@/components/home/SupportCardsSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
 
-export default function HomePage() {
+const homeNavLinks = [
+  { label: "For Students", href: "/" },
+  { label: "For Wellbeing & NDIS", href: "#" },
+  { label: "For Schools & RTOs", href: "/schools" },
+];
+
+export default function HomePage() {99
   return (
     <>
-      <Header />
+      <Header navLinks={homeNavLinks} activeHref="/" />
       <main>
         <HeroSection />
         <QuoteSection />

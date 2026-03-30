@@ -1,6 +1,18 @@
 import FAQItem from "./FAQItem";
 
-const faqs = [
+export interface FAQ {
+  question: string;
+  answer: string;
+  defaultOpen?: boolean;
+}
+
+interface FAQSectionProps {
+  faqs?: FAQ[];
+  bgColor?: string;
+  id?: string;
+}
+
+const defaultFaqs: FAQ[] = [
   {
     question: "How do students log in to the platform?",
     answer:
@@ -44,12 +56,20 @@ const faqs = [
   },
 ];
 
-export default function FAQSection() {
+export default function FAQSection({
+  faqs = defaultFaqs,
+  bgColor,
+  id = "faq",
+}: FAQSectionProps) {
   const left = faqs.filter((_, i) => i % 2 === 0);
   const right = faqs.filter((_, i) => i % 2 !== 0);
 
   return (
-    <section id="faq" className="py-16 sm:py-20 bg-white">
+    <section
+      id={id}
+      className="py-16 sm:py-20"
+      style={{ backgroundColor: bgColor ?? "white" }}
+    >
       <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16">
         {/* Heading */}
         <h2 className="text-[26px] sm:text-[34px] lg:text-[42px] font-black text-[#0a1628] text-center uppercase leading-tight tracking-wide mb-12 sm:mb-16">
@@ -77,6 +97,7 @@ export default function FAQSection() {
                 key={faq.question}
                 question={faq.question}
                 answer={faq.answer}
+                defaultOpen={faq.defaultOpen}
               />
             ))}
           </div>

@@ -4,7 +4,19 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-const navLinks = [
+interface NavLink {
+  label: string;
+  href: string;
+}
+
+interface HeaderProps {
+  navLinks?: NavLink[];
+  activeHref?: string;
+  registerHref?: string;
+  registerLabel?: string;
+}
+
+const defaultNavLinks: NavLink[] = [
   { label: "How it Works", href: "#how-it-works" },
   { label: "Features", href: "#features" },
   { label: "Reviews", href: "#reviews" },
@@ -12,7 +24,12 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-export default function Header() {
+export default function Header({
+  navLinks = defaultNavLinks,
+  activeHref,
+  registerHref = "/login",
+  registerLabel = "Register Now",
+}: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -21,7 +38,13 @@ export default function Header() {
         <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
           <Link href="/" className="flex-shrink-0">
-            <Image src="/images/logo.png" alt="AndWhat - Learning Gatekeeper" width={130} height={44} priority />
+            <Image
+              src="/images/logo.png"
+              alt="AndWhat - Learning Gatekeeper"
+              width={130}
+              height={44}
+              priority
+            />
           </Link>
 
           {/* Desktop nav */}
@@ -30,7 +53,11 @@ export default function Header() {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-[15px] font-medium text-gray-700 hover:text-[#0048AE] transition-colors whitespace-nowrap"
+                className={`text-[15px] font-medium transition-colors whitespace-nowrap ${
+                  activeHref === item.href
+                    ? "text-[#0048AE] underline underline-offset-4 decoration-2"
+                    : "text-gray-700 hover:text-[#0048AE]"
+                }`}
               >
                 {item.label}
               </a>
@@ -39,10 +66,10 @@ export default function Header() {
 
           {/* Register button */}
           <Link
-            href="/login"
+            href={registerHref}
             className="hidden md:flex items-center gap-2 bg-[#0a1628] text-white px-5 py-2.5 rounded-full text-[14px] font-semibold hover:bg-[#162340] transition-colors whitespace-nowrap"
           >
-            Register Now
+            {registerLabel}
             <span className="text-base leading-none">›</span>
           </Link>
 
@@ -71,20 +98,20 @@ export default function Header() {
               <a
                 key={item.label}
                 href={item.href}
-                className="text-[15px] font-medium text-gray-700 hover:text-[#0048AE] transition-colors"
+                className={`text-[15px] font-medium transition-colors ${
+                  activeHref === item.href ? "text-[#0048AE]" : "text-gray-700 hover:text-[#0048AE]"
+                }`}
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}
               </a>
             ))}
             <Link
-              href="/login"
+              href={registerHref}
               className="inline-flex items-center gap-2 bg-[#0a1628] text-white px-5 py-2.5 rounded-full text-[14px] font-semibold w-fit"
             >
-              Register Now
-              <span className="w-7 h-7 bg-white/20 rounded-full flex items-center justify-center text-sm font-bold">
-                ↗
-              </span>
+              {registerLabel}
+              <span className="text-base leading-none">›</span>
             </Link>
           </div>
         )}
