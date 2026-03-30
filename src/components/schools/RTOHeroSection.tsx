@@ -83,15 +83,31 @@ export default function RTOHeroSection() {
         style={{ width: "52%", height: "100%", paddingTop: "72px" }}
       >
         {/* SVG clip-path definition */}
-        <svg className="absolute" width="0" height="0" aria-hidden="true">
-          <defs>
-            <clipPath id="heroCurve" clipPathUnits="objectBoundingBox">
-              <path d="M 0.12 0 C 0 0.25, 0 0.75, 0.12 1 L 1 1 L 1 0 Z" />
-            </clipPath>
-          </defs>
-        </svg>
+       <svg className="absolute inset-0 w-full h-full pointer-events-none">
+  <defs>
+    <clipPath id="heroCurve" clipPathUnits="objectBoundingBox">
+      <path d="M 0.12 0 C 0 0.25, 0 0.75, 0.12 1 L 1 1 L 1 0 Z" />
+    </clipPath>
+  </defs>
 
-        <div className="relative w-full h-full " style={{ clipPath: "url(#heroCurve)" }}>
+  {/* Border SVG */}
+  <svg
+    viewBox="0 0 1 1"
+    preserveAspectRatio="none"
+    className="absolute inset-0 w-full h-full"
+  >
+    <path
+      d="M 0.12 0 C 0 0.25, 0 0.75, 0.12 1"
+      fill="none"
+      stroke="#1E3A8A"
+      strokeWidth="0.015"
+      vectorEffect="non-scaling-stroke"
+      transform="translate(0.005, 0)" 
+    />
+  </svg>
+</svg>
+
+        <div className="relative w-full h-full  " style={{ clipPath: "url(#heroCurve)" }}>
           <img
             src="/images/new/rtoHeroImage.png"
             alt="Vocational training students on a worksite"

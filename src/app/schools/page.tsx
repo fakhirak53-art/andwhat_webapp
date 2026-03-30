@@ -9,8 +9,8 @@ import TestimonialQuoteSection from "@/components/schools/TestimonialQuoteSectio
 
 const schoolsNavLinks = [
   { label: "For Students", href: "/" },
-  { label: "For Wellbeing & NDIS", href: "#" },
   { label: "For Schools & RTOs", href: "/schools" },
+  { label: "For Wellbeing & NDIS", href: "/wellbeing" },
 ];
 
 const schoolsFaqs: FAQ[] = [

@@ -11,11 +11,11 @@ import TestimonialsSection from "@/components/home/TestimonialsSection";
 
 const homeNavLinks = [
   { label: "For Students", href: "/" },
-  { label: "For Wellbeing & NDIS", href: "#" },
   { label: "For Schools & RTOs", href: "/schools" },
+  { label: "For Wellbeing & NDIS", href: "/wellbeing" },
 ];
 
-export default function HomePage() {99
+export default function HomePage() {
   return (
     <>
       <Header navLinks={homeNavLinks} activeHref="/" />
@@ -25,9 +25,9 @@ export default function HomePage() {99
         <HowItWorksSection />
         <PowerfulFeaturesSection />
         <ForEducatorsParentsSection />
-        <SupportCardsSection />
         <FAQSection />
         <TestimonialsSection />
+        <SupportCardsSection />
       </main>
       <Footer />
     </>
