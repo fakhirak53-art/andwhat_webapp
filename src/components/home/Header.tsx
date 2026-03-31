@@ -41,8 +41,8 @@ export default function Header({
             <Image
               src="/images/logo.png"
               alt="AndWhat - Learning Gatekeeper"
-              width={130}
-              height={44}
+              width={110}
+              height={66}
               priority
             />
           </Link>
