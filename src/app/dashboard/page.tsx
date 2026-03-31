@@ -1,6 +1,3 @@
-import { BookOpen, Flame, Search } from "lucide-react";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 import EmptyState from "@/components/dashboard/EmptyState";
 import ProgressBar from "@/components/dashboard/ProgressBar";
 import StatCard from "@/components/dashboard/StatCard";
@@ -22,6 +19,9 @@ import {
   getGreeting,
 } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
+import { BookOpen, Flame, Search } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const supabase = await createClient();

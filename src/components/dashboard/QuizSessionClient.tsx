@@ -25,9 +25,11 @@ export default function QuizSessionClient({
 
   function handleComplete(result: QuizResult): void {
     toast.success(`Quiz complete: ${result.correct}/${result.total} correct`);
+    void router.refresh();
   }
 
   function handleExit(): void {
+    void router.refresh();
     router.push("/dashboard/sets");
   }
 

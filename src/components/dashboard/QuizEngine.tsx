@@ -131,8 +131,12 @@ export default function QuizEngine({
     window.setTimeout(() => {
       const isLast = currentIndex >= sessionQuestions.length - 1;
       if (isLast) {
-        const finalAnswers = [...answers, nextAnswer];
-        completeQuiz(finalAnswers);
+        // Use functional update so the result screen always matches saved answers
+        // (avoids a stale `answers` closure on the last question).
+        setAnswers((prev) => {
+          completeQuiz(prev);
+          return prev;
+        });
         return;
       }
       setQuestionStartTime(Date.now());

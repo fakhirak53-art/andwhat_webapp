@@ -1,7 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import type { ReactNode } from "react";
 import { logout } from "@/app/actions/auth";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
@@ -9,6 +5,10 @@ import { Button } from "@/components/ui/Button";
 import { ToastProvider } from "@/components/ui/Toast";
 import { getStudentProfile } from "@/lib/dashboard";
 import { createClient } from "@/utils/supabase/server";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import type { ReactNode } from "react";
 
 interface DashboardLayoutProps {
   children: ReactNode;

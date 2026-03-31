@@ -1,8 +1,5 @@
 "use client";
 
-import { Check, MoreHorizontal, Search } from "lucide-react";
-import Link from "next/link";
-import { type FormEvent, useMemo, useState, useTransition } from "react";
 import { searchSetAction } from "@/app/actions/sets";
 import {
   enrollInQuestionSet,
@@ -16,6 +13,9 @@ import Input from "@/components/ui/Input";
 import { useToast } from "@/components/ui/Toast";
 import { formatFullDate, formatRelativeTime } from "@/lib/utils";
 import type { QuestionSet, SpacedRepetitionItem } from "@/types/database";
+import { Check, MoreHorizontal, Search } from "lucide-react";
+import Link from "next/link";
+import { type FormEvent, useMemo, useState, useTransition } from "react";
 
 interface SetSearchProps {
   initialSets: QuestionSet[];

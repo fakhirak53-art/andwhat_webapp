@@ -293,18 +293,18 @@ export async function getActiveQuestionSets(
 
     const setQueries: Promise<{
       data:
-        | {
-            id: string;
-            set_name: string;
-            year_level: number;
-            is_active: boolean;
-            subject_id: string;
-            school_id: string;
-            created_at: string;
-            subjects?: Subject | null;
-            schools?: School | null;
-          }[]
-        | null;
+      | {
+        id: string;
+        set_name: string;
+        year_level: number;
+        is_active: boolean;
+        subject_id: string;
+        school_id: string;
+        created_at: string;
+        subjects?: Subject | null;
+        schools?: School | null;
+      }[]
+      | null;
       error: Error | null;
     }>[] = [];
 
@@ -317,21 +317,21 @@ export async function getActiveQuestionSets(
           )
           .in("id", Array.from(logSetIds))
           .eq("is_active", true) as unknown as Promise<{
-          data:
+            data:
             | {
-                id: string;
-                set_name: string;
-                year_level: number;
-                is_active: boolean;
-                subject_id: string;
-                school_id: string;
-                created_at: string;
-                subjects?: Subject | null;
-                schools?: School | null;
-              }[]
+              id: string;
+              set_name: string;
+              year_level: number;
+              is_active: boolean;
+              subject_id: string;
+              school_id: string;
+              created_at: string;
+              subjects?: Subject | null;
+              schools?: School | null;
+            }[]
             | null;
-          error: Error | null;
-        }>,
+            error: Error | null;
+          }>,
       );
     }
 
@@ -344,21 +344,21 @@ export async function getActiveQuestionSets(
           )
           .in("subject_id", Array.from(preferredSubjectIds))
           .eq("is_active", true) as unknown as Promise<{
-          data:
+            data:
             | {
-                id: string;
-                set_name: string;
-                year_level: number;
-                is_active: boolean;
-                subject_id: string;
-                school_id: string;
-                created_at: string;
-                subjects?: Subject | null;
-                schools?: School | null;
-              }[]
+              id: string;
+              set_name: string;
+              year_level: number;
+              is_active: boolean;
+              subject_id: string;
+              school_id: string;
+              created_at: string;
+              subjects?: Subject | null;
+              schools?: School | null;
+            }[]
             | null;
-          error: Error | null;
-        }>,
+            error: Error | null;
+          }>,
       );
     }
 
