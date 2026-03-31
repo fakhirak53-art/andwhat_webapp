@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { getStudentProfile, getSubjectPreferences } from "@/lib/dashboard";
+import { marketingTheme as t } from "@/lib/marketing-theme";
 import { formatFullDate } from "@/lib/utils";
 import type { Subject } from "@/types/database";
 import { createClient } from "@/utils/supabase/server";
@@ -55,47 +56,104 @@ export default async function DashboardProfilePage() {
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
       <div className="lg:col-span-1">
         <Card padding="lg">
-          <div className="w-20 h-20 rounded-full bg-lime text-ink font-serif text-3xl mx-auto flex items-center justify-center">
+          <div
+            className={[
+              "w-20 h-20 rounded-full font-serif text-3xl mx-auto flex items-center justify-center",
+              t.avatar,
+            ].join(" ")}
+          >
             {getInitials(fullName)}
           </div>
-          <h1 className="font-serif text-2xl text-center mt-4 text-ink">
+          <h1
+            className={[
+              "font-serif text-2xl text-center mt-4",
+              t.textHeading,
+            ].join(" ")}
+          >
             {fullName}
           </h1>
           <div className="flex justify-center mt-3">
             <Badge>High School Student</Badge>
           </div>
 
-          <div className="my-6 border-t border-border" />
+          <div className={["my-6 border-t", t.borderSubtle].join(" ")} />
 
           <div className="flex flex-col gap-4">
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted">
+              <p
+                className={[
+                  "text-xs uppercase tracking-widest",
+                  t.textMuted,
+                ].join(" ")}
+              >
                 Email
               </p>
-              <p className="text-sm text-ink font-medium mt-1">{email}</p>
+              <p
+                className={["text-sm font-medium mt-1", t.textHeading].join(
+                  " ",
+                )}
+              >
+                {email}
+              </p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted">
+              <p
+                className={[
+                  "text-xs uppercase tracking-widest",
+                  t.textMuted,
+                ].join(" ")}
+              >
                 School
               </p>
-              <p className="text-sm text-ink font-medium mt-1">{schoolName}</p>
+              <p
+                className={["text-sm font-medium mt-1", t.textHeading].join(
+                  " ",
+                )}
+              >
+                {schoolName}
+              </p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted">
+              <p
+                className={[
+                  "text-xs uppercase tracking-widest",
+                  t.textMuted,
+                ].join(" ")}
+              >
                 Year level
               </p>
-              <p className="text-sm text-ink font-medium mt-1">{yearLevel}</p>
+              <p
+                className={["text-sm font-medium mt-1", t.textHeading].join(
+                  " ",
+                )}
+              >
+                {yearLevel}
+              </p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted">
+              <p
+                className={[
+                  "text-xs uppercase tracking-widest",
+                  t.textMuted,
+                ].join(" ")}
+              >
                 Member since
               </p>
-              <p className="text-sm text-ink font-medium mt-1">
+              <p
+                className={["text-sm font-medium mt-1", t.textHeading].join(
+                  " ",
+                )}
+              >
                 {createdAt ? formatFullDate(createdAt) : "Not set"}
               </p>
             </div>
             <div>
-              <p className="text-xs uppercase tracking-widest text-muted">
+              <p
+                className={[
+                  "text-xs uppercase tracking-widest",
+                  t.textMuted,
+                ].join(" ")}
+              >
                 Parent consent
               </p>
               <div className="mt-1">
@@ -118,24 +176,28 @@ export default async function DashboardProfilePage() {
         </Card>
 
         <Card padding="md" className="mt-4">
-          <h2 className="font-serif text-lg text-ink">Account</h2>
+          <h2 className={["font-serif text-lg", t.textHeading].join(" ")}>
+            Account
+          </h2>
 
           <div className="mt-4 flex flex-col gap-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm text-muted">Account type</p>
-              <p className="text-sm text-ink font-medium">
+              <p className={["text-sm", t.textMuted].join(" ")}>Account type</p>
+              <p className={["text-sm font-medium", t.textHeading].join(" ")}>
                 High School Student
               </p>
             </div>
             <div className="flex items-center justify-between">
-              <p className="text-sm text-muted">Auth provider</p>
-              <p className="text-sm text-ink font-medium">
+              <p className={["text-sm", t.textMuted].join(" ")}>
+                Auth provider
+              </p>
+              <p className={["text-sm font-medium", t.textHeading].join(" ")}>
                 Email &amp; Password
               </p>
             </div>
           </div>
 
-          <div className="mt-6 pt-4 border-t border-border">
+          <div className={["mt-6 pt-4 border-t", t.borderSubtle].join(" ")}>
             <form action={logout}>
               <Button
                 type="submit"

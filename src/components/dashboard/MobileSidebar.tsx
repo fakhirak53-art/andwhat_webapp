@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { logout } from "@/app/actions/auth";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import { Button } from "@/components/ui/Button";
+import { marketingTheme } from "@/lib/marketing-theme";
 
 interface MobileSidebarProps {
   fullName: string;
@@ -36,7 +37,12 @@ export default function MobileSidebar({
 
   return (
     <>
-      <div className="md:hidden sticky top-0 z-50 bg-ink px-4 py-3 flex items-center justify-between">
+      <div
+        className={[
+          "md:hidden sticky top-0 z-50 px-4 py-3 flex items-center justify-between",
+          marketingTheme.bgSidebar,
+        ].join(" ")}
+      >
         <Link href="/" className="inline-block">
           <Image
             src="/logo.png"
@@ -50,7 +56,7 @@ export default function MobileSidebar({
         <button
           type="button"
           onClick={() => setIsOpen((prev) => !prev)}
-          className="text-paper/80 hover:text-paper transition-colors"
+          className="text-white/80 hover:text-white transition-colors"
           aria-label={isOpen ? "Close menu" : "Open menu"}
         >
           {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -67,14 +73,17 @@ export default function MobileSidebar({
       >
         <button
           type="button"
-          className="absolute inset-0 bg-ink/50"
+          className={["absolute inset-0", marketingTheme.overlayScrim].join(
+            " ",
+          )}
           aria-label="Close menu backdrop"
           onClick={() => setIsOpen(false)}
         />
 
         <aside
           className={[
-            "relative h-full w-72 bg-ink text-paper flex flex-col p-6 transition-transform duration-200",
+            "relative h-full w-72 text-white flex flex-col p-6 transition-transform duration-200",
+            marketingTheme.bgSidebar,
             isOpen ? "translate-x-0" : "-translate-x-full",
           ].join(" ")}
         >
@@ -90,14 +99,19 @@ export default function MobileSidebar({
           </Link>
 
           <div className="mt-8 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-lime text-ink font-serif text-sm font-medium flex items-center justify-center">
+            <div
+              className={[
+                "w-10 h-10 rounded-full font-serif text-sm font-medium flex items-center justify-center",
+                marketingTheme.avatar,
+              ].join(" ")}
+            >
               {initials}
             </div>
             <div className="min-w-0">
-              <p className="text-paper text-sm font-medium truncate">
+              <p className="text-white text-sm font-medium truncate">
                 {fullName}
               </p>
-              <p className="text-paper/50 text-xs truncate">
+              <p className="text-white/50 text-xs truncate">
                 {yearLevel ? `Year ${yearLevel}` : email}
               </p>
             </div>
@@ -107,7 +121,7 @@ export default function MobileSidebar({
 
           <div className="mt-auto">
             {schoolName ? (
-              <p className="text-paper/40 text-xs truncate mb-4">
+              <p className="text-white/40 text-xs truncate mb-4">
                 {schoolName}
               </p>
             ) : null}
@@ -115,7 +129,7 @@ export default function MobileSidebar({
               <Button
                 type="submit"
                 variant="ghost"
-                className="text-paper/50 hover:text-paper/90 px-0 py-0 text-sm"
+                className="text-white/50 hover:text-white/90 px-0 py-0 text-sm"
               >
                 Logout
               </Button>

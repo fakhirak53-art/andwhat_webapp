@@ -143,3 +143,11 @@ export interface StudentEnrollment {
   enrolled_at: string;
   question_sets?: QuestionSet;
 }
+
+/** Daily wellbeing card from Edge Function `daily-message` — each option is the full support message. */
+export interface DailyMessageCard {
+  card_id: string;
+  topic: string;
+  options: string[];
+  message: string;
+}

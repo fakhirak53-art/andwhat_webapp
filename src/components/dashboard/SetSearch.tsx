@@ -1,5 +1,8 @@
 "use client";
 
+import { Check, MoreHorizontal, Search } from "lucide-react";
+import Link from "next/link";
+import { type FormEvent, useMemo, useState, useTransition } from "react";
 import { searchSetAction } from "@/app/actions/sets";
 import {
   enrollInQuestionSet,
@@ -11,11 +14,9 @@ import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import Input from "@/components/ui/Input";
 import { useToast } from "@/components/ui/Toast";
+import { marketingTheme as t } from "@/lib/marketing-theme";
 import { formatFullDate, formatRelativeTime } from "@/lib/utils";
 import type { QuestionSet, SpacedRepetitionItem } from "@/types/database";
-import { Check, MoreHorizontal, Search } from "lucide-react";
-import Link from "next/link";
-import { type FormEvent, useMemo, useState, useTransition } from "react";
 
 interface SetSearchProps {
   initialSets: QuestionSet[];
@@ -161,17 +162,26 @@ export default function SetSearch({
   return (
     <div>
       <header>
-        <h1 className="font-serif text-2xl text-ink">Question Sets</h1>
-        <p className="text-muted text-sm mt-1">
+        <h1 className={["font-serif text-2xl", t.textHeading].join(" ")}>
+          Question Sets
+        </h1>
+        <p className={["text-sm mt-1", t.textMuted].join(" ")}>
           Browse your assigned sets or enter a reference code.
         </p>
       </header>
 
-      <Card className="mt-6 border-2 border-lime/50 bg-lime/5" padding="md">
+      <Card
+        className={["mt-6 border-2", t.borderAccentSoft, t.bgAccentTint].join(
+          " ",
+        )}
+        padding="md"
+      >
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
-            <p className="text-sm font-medium text-ink">Enter reference code</p>
-            <p className="text-xs text-muted mt-1">
+            <p className={["text-sm font-medium", t.textHeading].join(" ")}>
+              Enter reference code
+            </p>
+            <p className={["text-xs mt-1", t.textMuted].join(" ")}>
               Enter the short code from your teacher (for example, QS-BIO-07)
             </p>
           </div>
@@ -198,16 +208,16 @@ export default function SetSearch({
         </form>
 
         {searchResult ? (
-          <div className="mt-4 bg-paper border-2 border-lime rounded-lg p-5">
+          <div className="mt-4 bg-white border-2 border-[#0048AE] rounded-lg p-5">
             <div className="flex items-start gap-3">
-              <div className="w-8 h-8 rounded-full bg-lime flex items-center justify-center shrink-0">
-                <Check className="w-4 h-4 text-ink" />
+              <div className="w-8 h-8 rounded-full bg-[#0048AE] flex items-center justify-center shrink-0">
+                <Check className="w-4 h-4 text-white" />
               </div>
               <div className="min-w-0">
-                <h3 className="font-serif text-xl text-ink">
+                <h3 className={["font-serif text-xl", t.textHeading].join(" ")}>
                   {searchResult.set_name}
                 </h3>
-                <p className="text-sm text-muted mt-1">
+                <p className={["text-sm mt-1", t.textMuted].join(" ")}>
                   {searchResult.subject?.name ?? "Unknown subject"} · Year{" "}
                   {searchResult.year_level} ·{" "}
                   {searchResult.school?.name ?? "Unknown school"}
@@ -248,7 +258,7 @@ export default function SetSearch({
         ) : null}
       </Card>
 
-      <p className="text-center text-muted text-xs mt-6">
+      <p className={["text-center text-xs mt-6", t.textMuted].join(" ")}>
         - or browse your enrolled sets -
       </p>
 
@@ -264,8 +274,8 @@ export default function SetSearch({
                 className={[
                   "rounded-full px-3 py-1 text-xs whitespace-nowrap transition-colors",
                   active
-                    ? "bg-ink text-paper"
-                    : "bg-cream border border-border text-muted hover:text-ink",
+                    ? "bg-[#0a1628] text-white"
+                    : "bg-[#faf7f2] border border-[#ede8df] text-gray-600 hover:text-[#0a1628]",
                 ].join(" ")}
               >
                 {subject}
@@ -291,7 +301,12 @@ export default function SetSearch({
                 className="hover:shadow-sm transition-shadow duration-150"
               >
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="font-serif text-lg text-ink line-clamp-1">
+                  <h3
+                    className={[
+                      "font-serif text-lg line-clamp-1",
+                      t.textHeading,
+                    ].join(" ")}
+                  >
                     {set.set_name}
                   </h3>
                   <span className="w-2 h-2 rounded-full bg-green-500 shrink-0 mt-2" />
@@ -304,7 +319,7 @@ export default function SetSearch({
                   <Badge variant="default">Year {set.year_level}</Badge>
                 </div>
 
-                <p className="text-xs text-muted mt-2">
+                <p className={["text-xs mt-2", t.textMuted].join(" ")}>
                   {set.school?.name ?? "Unknown school"}
                 </p>
 
@@ -320,16 +335,16 @@ export default function SetSearch({
 
                   return (
                     <div className="mt-3">
-                      <div className="w-full h-1.5 rounded-full bg-cream border border-border overflow-hidden">
+                      <div className="w-full h-1.5 rounded-full bg-[#faf7f2] border border-[#ede8df] overflow-hidden">
                         <div
-                          className="h-full bg-lime-dark transition-all duration-300"
+                          className="h-full bg-[#0048AE] transition-all duration-300"
                           style={{ width: `${progressPct}%` }}
                         />
                       </div>
-                      <p className="text-xs text-muted mt-1">
+                      <p className={["text-xs mt-1", t.textMuted].join(" ")}>
                         {practiced}/{total} questions practiced
                       </p>
-                      <p className="text-xs text-muted">
+                      <p className={["text-xs", t.textMuted].join(" ")}>
                         {progress?.last_practiced
                           ? `Last practiced ${formatRelativeTime(progress.last_practiced)}`
                           : "Not practiced yet"}
@@ -338,7 +353,7 @@ export default function SetSearch({
                   );
                 })()}
 
-                <div className="my-3 border-t border-border" />
+                <div className={["my-3 border-t", t.borderSubtle].join(" ")} />
 
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -350,7 +365,7 @@ export default function SetSearch({
                         </Badge>
                       );
                     })()}
-                    <p className="text-xs text-muted">
+                    <p className={["text-xs", t.textMuted].join(" ")}>
                       Added {formatRelativeTime(set.created_at)}
                     </p>
                   </div>
@@ -361,7 +376,7 @@ export default function SetSearch({
                     </Link>
                     <button
                       type="button"
-                      className="text-muted hover:text-ink p-1"
+                      className={["p-1", t.textMuted, t.linkHover].join(" ")}
                       onClick={() =>
                         setMenuOpenForSetId((prev) =>
                           prev === set.id ? null : set.id,
@@ -371,10 +386,13 @@ export default function SetSearch({
                       <MoreHorizontal className="w-4 h-4" />
                     </button>
                     {menuOpenForSetId === set.id ? (
-                      <div className="absolute right-0 top-8 z-20 min-w-40 bg-paper border border-border rounded-md shadow-sm p-1">
+                      <div className="absolute right-0 top-8 z-20 min-w-40 bg-white border border-[#ede8df] rounded-md shadow-sm p-1">
                         <button
                           type="button"
-                          className="w-full text-left px-2 py-1.5 text-xs text-ink hover:bg-cream rounded"
+                          className={[
+                            "w-full text-left px-2 py-1.5 text-xs rounded hover:bg-[#faf7f2]",
+                            t.textHeading,
+                          ].join(" ")}
                           onClick={() => {
                             const progress = localProgressBySetId[set.id];
                             toast.info(

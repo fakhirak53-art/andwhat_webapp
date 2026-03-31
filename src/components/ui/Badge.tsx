@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export interface BadgeProps {
   variant?: "default" | "success" | "warning" | "lime";
@@ -7,10 +7,10 @@ export interface BadgeProps {
 }
 
 const variantClasses = {
-  lime: "bg-lime text-ink",
+  lime: "bg-[#0048AE]/15 text-[#0a1628] border border-[#0048AE]/25",
   success: "bg-green-100 text-green-800",
   warning: "bg-amber-100 text-amber-800",
-  default: "bg-cream border border-border text-muted",
+  default: "bg-[#faf7f2] border border-[#ede8df] text-gray-600",
 };
 
 export function Badge({

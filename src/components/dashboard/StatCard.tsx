@@ -1,4 +1,5 @@
 import { Card } from "@/components/ui/Card";
+import { marketingTheme } from "@/lib/marketing-theme";
 
 interface StatCardProps {
   label: string;
@@ -11,15 +12,24 @@ export default function StatCard({
   label,
   value,
   description,
-  valueClassName = "text-ink",
+  valueClassName = marketingTheme.textHeading,
 }: StatCardProps) {
   return (
     <Card className="h-full">
-      <p className="text-xs uppercase tracking-widest text-muted">{label}</p>
+      <p
+        className={[
+          "text-xs uppercase tracking-widest",
+          marketingTheme.textMuted,
+        ].join(" ")}
+      >
+        {label}
+      </p>
       <p className={["font-serif text-4xl mt-2", valueClassName].join(" ")}>
         {value}
       </p>
-      <p className="text-muted text-xs mt-1">{description}</p>
+      <p className={["text-xs mt-1", marketingTheme.textMuted].join(" ")}>
+        {description}
+      </p>
     </Card>
   );
 }

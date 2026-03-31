@@ -1,14 +1,15 @@
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import type { ReactNode } from "react";
 import { logout } from "@/app/actions/auth";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
 import { Button } from "@/components/ui/Button";
 import { ToastProvider } from "@/components/ui/Toast";
 import { getStudentProfile } from "@/lib/dashboard";
+import { marketingTheme } from "@/lib/marketing-theme";
 import { createClient } from "@/utils/supabase/server";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import type { ReactNode } from "react";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -47,8 +48,13 @@ export default async function DashboardLayout({
 
   return (
     <ToastProvider>
-      <div className="min-h-screen bg-paper">
-        <aside className="hidden md:flex fixed left-0 top-0 h-screen w-60 bg-ink text-paper flex-col">
+      <div className={["min-h-screen", marketingTheme.bgPage].join(" ")}>
+        <aside
+          className={[
+            "hidden md:flex fixed left-0 top-0 h-screen w-60 text-white flex-col",
+            marketingTheme.bgSidebar,
+          ].join(" ")}
+        >
           <div className="p-6">
             <Link href="/" className="inline-block">
               <Image
@@ -63,14 +69,19 @@ export default async function DashboardLayout({
 
             <div className="mt-8">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-full bg-lime text-ink font-serif text-sm font-medium flex items-center justify-center">
+                <div
+                  className={[
+                    "w-10 h-10 rounded-full font-serif text-sm font-medium flex items-center justify-center",
+                    marketingTheme.avatar,
+                  ].join(" ")}
+                >
                   {initials}
                 </div>
                 <div className="min-w-0">
-                  <p className="text-paper text-sm font-medium truncate">
+                  <p className="text-white text-sm font-medium truncate">
                     {fullName}
                   </p>
-                  <p className="text-paper/50 text-xs truncate">
+                  <p className="text-white/50 text-xs truncate">
                     {yearLevel ? `Year ${yearLevel}` : email}
                   </p>
                 </div>
@@ -82,7 +93,7 @@ export default async function DashboardLayout({
 
           <div className="mt-auto p-6">
             {schoolName ? (
-              <p className="text-paper/40 text-xs truncate mb-4">
+              <p className="text-white/40 text-xs truncate mb-4">
                 {schoolName}
               </p>
             ) : null}
@@ -90,7 +101,7 @@ export default async function DashboardLayout({
               <Button
                 type="submit"
                 variant="ghost"
-                className="text-paper/50 hover:text-paper/90 px-0 py-0 text-sm"
+                className="text-white/50 hover:text-white/90 px-0 py-0 text-sm"
               >
                 Logout
               </Button>
@@ -98,7 +109,11 @@ export default async function DashboardLayout({
           </div>
         </aside>
 
-        <div className="ml-0 md:ml-60 min-h-screen bg-paper">
+        <div
+          className={["ml-0 md:ml-60 min-h-screen", marketingTheme.bgPage].join(
+            " ",
+          )}
+        >
           <MobileSidebar
             fullName={fullName}
             email={email}

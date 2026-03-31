@@ -1,4 +1,4 @@
-import { type ReactNode } from "react";
+import type { ReactNode } from "react";
 
 export interface CardProps {
   children: ReactNode;
@@ -12,15 +12,11 @@ const paddingClasses = {
   lg: "p-8",
 };
 
-export function Card({
-  children,
-  className = "",
-  padding = "md",
-}: CardProps) {
+export function Card({ children, className = "", padding = "md" }: CardProps) {
   return (
     <div
       className={[
-        "bg-cream border border-border rounded-lg",
+        "bg-white border border-[#ede8df] rounded-lg",
         paddingClasses[padding],
         className,
       ]

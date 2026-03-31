@@ -1,3 +1,6 @@
+import { BookOpen, Flame, Search } from "lucide-react";
+import Link from "next/link";
+import { redirect } from "next/navigation";
 import EmptyState from "@/components/dashboard/EmptyState";
 import ProgressBar from "@/components/dashboard/ProgressBar";
 import StatCard from "@/components/dashboard/StatCard";
@@ -12,6 +15,7 @@ import {
   getSpacedRepetitionSchedule,
   getStudentProfile,
 } from "@/lib/dashboard";
+import { marketingTheme as t } from "@/lib/marketing-theme";
 import {
   formatRelativeTime,
   getAccuracyColor,
@@ -19,9 +23,6 @@ import {
   getGreeting,
 } from "@/lib/utils";
 import { createClient } from "@/utils/supabase/server";
-import { BookOpen, Flame, Search } from "lucide-react";
-import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -60,24 +61,31 @@ export default async function DashboardPage() {
   return (
     <div>
       <header>
-        <h1 className="font-serif text-2xl md:text-3xl text-ink">
+        <h1
+          className={["font-serif text-2xl md:text-3xl", t.textHeading].join(
+            " ",
+          )}
+        >
           {greeting}, {firstName}.
         </h1>
-        <p className="text-muted text-sm mt-1">
+        <p className={["text-sm mt-1", t.textMuted].join(" ")}>
           Here&apos;s how your learning is going.
         </p>
       </header>
 
       <section className="mt-6">
         {dueToday.length > 0 ? (
-          <Card className="border-2 border-lime bg-lime/5" padding="md">
+          <Card
+            className={["border-2", t.borderAccent, t.bgAccentTint].join(" ")}
+            padding="md"
+          >
             <div className="flex items-center justify-between gap-3">
-              <h2 className="font-serif text-xl text-ink">
+              <h2 className={["font-serif text-xl", t.textHeading].join(" ")}>
                 🧠 Due for review today
               </h2>
               <Badge variant="lime">{dueToday.length} sets</Badge>
             </div>
-            <p className="text-muted text-sm mt-2">
+            <p className={["text-sm mt-2", t.textMuted].join(" ")}>
               Based on your last practice, these sets are ready for review.
               Testing yourself now locks the memory in.
             </p>
@@ -86,13 +94,23 @@ export default async function DashboardPage() {
               {dueToday.map((item) => (
                 <div
                   key={item.question_set_id}
-                  className="flex items-center justify-between gap-3 py-2 border-b border-border last:border-0"
+                  className={[
+                    "flex items-center justify-between gap-3 py-2 border-b last:border-0",
+                    t.borderSubtle,
+                  ].join(" ")}
                 >
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-ink truncate">
+                    <p
+                      className={[
+                        "text-sm font-medium truncate",
+                        t.textHeading,
+                      ].join(" ")}
+                    >
                       {item.set_name}
                     </p>
-                    <p className="text-xs text-muted">{item.subject_name}</p>
+                    <p className={["text-xs", t.textMuted].join(" ")}>
+                      {item.subject_name}
+                    </p>
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <Badge variant="default">{item.accuracy_rate}%</Badge>
@@ -105,11 +123,14 @@ export default async function DashboardPage() {
             </div>
           </Card>
         ) : (
-          <Card className="bg-cream border-dashed" padding="md">
-            <h2 className="font-serif text-lg text-ink">
+          <Card
+            className={["border-dashed", t.cardMutedBg].join(" ")}
+            padding="md"
+          >
+            <h2 className={["font-serif text-lg", t.textHeading].join(" ")}>
               ✓ You&apos;re all caught up!
             </h2>
-            <p className="text-muted text-sm mt-1">
+            <p className={["text-sm mt-1", t.textMuted].join(" ")}>
               No sets due for review today. Check back tomorrow.
             </p>
           </Card>
@@ -142,22 +163,35 @@ export default async function DashboardPage() {
         <div className="col-span-2 md:col-span-4">
           {stats.streakDays > 0 ? (
             <Card
-              className="bg-lime border-0 rounded-lg p-4 flex items-center justify-between"
+              className={[
+                "border rounded-lg p-4 flex items-center justify-between",
+                t.softBluePanel,
+                t.borderAccentSoft,
+              ].join(" ")}
               padding="sm"
             >
-              <p className="font-serif text-xl text-ink flex items-center gap-2">
-                <Flame className="w-5 h-5" />
+              <p
+                className={[
+                  "font-serif text-xl flex items-center gap-2",
+                  t.textHeading,
+                ].join(" ")}
+              >
+                <Flame className="w-5 h-5 text-[#0048AE]" />
                 {stats.streakDays} day streak
               </p>
-              <p className="text-ink/70 text-sm">Keep it up!</p>
+              <p className={["text-sm", t.textBody].join(" ")}>Keep it up!</p>
             </Card>
           ) : (
             <Card
-              className="bg-cream border border-border rounded-lg p-4"
+              className={[
+                "border rounded-lg p-4",
+                t.cardMutedBg,
+                t.borderSubtle,
+              ].join(" ")}
               padding="sm"
             >
               <div className="flex items-center justify-between">
-                <p className="font-serif text-xl text-muted">
+                <p className={["font-serif text-xl", t.textMuted].join(" ")}>
                   Start your streak today
                 </p>
               </div>
@@ -169,10 +203,12 @@ export default async function DashboardPage() {
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
         <div className="md:col-span-2">
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-serif text-xl text-ink">Recent activity</h2>
+            <h2 className={["font-serif text-xl", t.textHeading].join(" ")}>
+              Recent activity
+            </h2>
             <Link
               href="/dashboard/activity"
-              className="text-sm text-muted hover:text-ink"
+              className={["text-sm", t.textMuted, t.linkHover].join(" ")}
             >
               View all -&gt;
             </Link>
@@ -193,18 +229,27 @@ export default async function DashboardPage() {
                       <span
                         className={[
                           "w-2 h-2 rounded-full mt-1.5",
-                          activity.is_correct ? "bg-lime" : "bg-red-400",
+                          activity.is_correct ? "bg-[#0048AE]" : "bg-red-400",
                         ].join(" ")}
                       />
                       <div className="min-w-0">
-                        <p className="text-sm font-medium text-ink">
+                        <p
+                          className={[
+                            "text-sm font-medium",
+                            t.textHeading,
+                          ].join(" ")}
+                        >
                           {activity.subjects?.name ?? "Unknown subject"}
                         </p>
-                        <p className="text-xs text-muted truncate">
+                        <p
+                          className={["text-xs truncate", t.textMuted].join(
+                            " ",
+                          )}
+                        >
                           {activity.question_sets?.set_name ?? "Unknown set"}
                         </p>
                         {activity.blocked_site ? (
-                          <p className="text-xs text-muted/60 italic">
+                          <p className="text-xs text-gray-500 italic">
                             via {activity.blocked_site}
                           </p>
                         ) : null}
@@ -212,7 +257,7 @@ export default async function DashboardPage() {
                     </div>
 
                     <div className="text-right shrink-0">
-                      <p className="text-xs text-muted">
+                      <p className={["text-xs", t.textMuted].join(" ")}>
                         {formatRelativeTime(activity.answered_at)}
                       </p>
                       <Badge
@@ -231,10 +276,12 @@ export default async function DashboardPage() {
 
         <div>
           <div className="flex items-center justify-between mb-3">
-            <h2 className="font-serif text-xl text-ink">My sets</h2>
+            <h2 className={["font-serif text-xl", t.textHeading].join(" ")}>
+              My sets
+            </h2>
             <Link
               href="/dashboard/sets"
-              className="text-sm text-muted hover:text-ink"
+              className={["text-sm", t.textMuted, t.linkHover].join(" ")}
             >
               Browse all -&gt;
             </Link>
@@ -252,12 +299,17 @@ export default async function DashboardPage() {
                 <Card
                   key={set.id}
                   padding="sm"
-                  className="hover:border-ink/30 transition cursor-pointer"
+                  className="hover:border-[#0a1628]/25 transition cursor-pointer"
                 >
-                  <h3 className="text-sm font-medium text-ink line-clamp-1">
+                  <h3
+                    className={[
+                      "text-sm font-medium line-clamp-1",
+                      t.textHeading,
+                    ].join(" ")}
+                  >
                     {set.set_name}
                   </h3>
-                  <p className="text-xs text-muted mt-1">
+                  <p className={["text-xs mt-1", t.textMuted].join(" ")}>
                     {set.subject?.name ?? "Unknown subject"} · Year{" "}
                     {set.year_level}
                   </p>
@@ -275,7 +327,7 @@ export default async function DashboardPage() {
       </section>
 
       <section className="mt-8">
-        <h2 className="font-serif text-xl text-ink mb-4">
+        <h2 className={["font-serif text-xl mb-4", t.textHeading].join(" ")}>
           Accuracy by subject
         </h2>
 
@@ -298,10 +350,14 @@ export default async function DashboardPage() {
               return (
                 <div key={subject.subject_name}>
                   <div className="flex items-center justify-between mb-1.5">
-                    <p className="text-sm font-medium text-ink">
+                    <p
+                      className={["text-sm font-medium", t.textHeading].join(
+                        " ",
+                      )}
+                    >
                       {subject.subject_name}
                     </p>
-                    <p className="text-sm text-muted">
+                    <p className={["text-sm", t.textMuted].join(" ")}>
                       {subject.rate}% ({subject.correct}/{subject.total})
                     </p>
                   </div>

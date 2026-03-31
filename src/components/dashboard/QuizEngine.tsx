@@ -6,6 +6,7 @@ import { submitQuizAnswer } from "@/app/actions/student";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { marketingTheme as t } from "@/lib/marketing-theme";
 import type { QuizAnswer, QuizQuestion, QuizResult } from "@/types/database";
 
 interface QuizEngineProps {
@@ -163,16 +164,16 @@ export default function QuizEngine({
   function getOptionState(option: "A" | "B" | "C"): string {
     if (!showFeedback) {
       if (selectedOption === option) {
-        return "border-ink bg-ink text-paper";
+        return "border-[#0a1628] bg-[#0a1628] text-white";
       }
-      return "border-border bg-cream hover:border-ink/30 hover:bg-paper";
+      return "border-[#ede8df] bg-[#faf7f2] hover:border-[#0a1628]/30 hover:bg-white";
     }
 
     const isSelected = selectedOption === option;
     const isCorrect = currentQuestion?.correct_answer === option;
 
     if (isSelected && isCorrect) {
-      return "border-lime-dark bg-lime text-ink";
+      return "border-[#0048AE] bg-[#0048AE]/15 text-[#0a1628]";
     }
 
     if (isSelected && !isCorrect) {
@@ -180,34 +181,51 @@ export default function QuizEngine({
     }
 
     if (isCorrect) {
-      return "border-lime-dark bg-lime/30 text-ink";
+      return "border-[#0048AE]/50 bg-[#0048AE]/10 text-[#0a1628]";
     }
 
-    return "border-border bg-cream text-ink";
+    return "border-[#ede8df] bg-[#faf7f2] text-[#0a1628]";
   }
 
   if (result) {
     return (
       <Card padding="lg" className="mt-6">
-        <p className="text-xs uppercase tracking-widest text-muted">
+        <p
+          className={["text-xs uppercase tracking-widest", t.textMuted].join(
+            " ",
+          )}
+        >
           Quiz complete
         </p>
-        <h2 className="font-serif text-xl text-ink mt-1">{setName}</h2>
+        <h2 className={["font-serif text-xl mt-1", t.textHeading].join(" ")}>
+          {setName}
+        </h2>
 
         <div className="mt-6 text-center">
-          <p className="font-serif text-6xl text-ink">
+          <p className={["font-serif text-6xl", t.textHeading].join(" ")}>
             {result.correct}/{result.total}
           </p>
-          <p className="font-serif text-2xl text-muted mt-2">
+          <p className={["font-serif text-2xl mt-2", t.textMuted].join(" ")}>
             {result.accuracy}%
           </p>
-          <p className="font-serif italic text-xl text-muted mt-4">
+          <p
+            className={["font-serif italic text-xl mt-4", t.textMuted].join(
+              " ",
+            )}
+          >
             {getPerformanceMessage(result.accuracy)}
           </p>
         </div>
 
-        <Card className="mt-4 bg-lime/10 border-lime/30" padding="sm">
-          <p className="text-sm text-ink flex items-center gap-2">
+        <Card
+          className={["mt-4", t.bgAccentTint, t.borderAccentSoft].join(" ")}
+          padding="sm"
+        >
+          <p
+            className={["text-sm flex items-center gap-2", t.textHeading].join(
+              " ",
+            )}
+          >
             <CalendarDays className="w-4 h-4" />
             {getNextReviewMessage(result.accuracy)}
           </p>
@@ -225,7 +243,7 @@ export default function QuizEngine({
         <button
           type="button"
           onClick={() => setShowReview((prev) => !prev)}
-          className="mt-4 text-sm text-muted hover:text-ink"
+          className={["mt-4 text-sm", t.textMuted, t.linkHover].join(" ")}
         >
           {showReview ? "Hide answer review" : "Review answers"}
         </button>
@@ -244,12 +262,14 @@ export default function QuizEngine({
                   className={[
                     "rounded-md border px-3 py-3",
                     answer.is_correct
-                      ? "border-lime-dark/40 bg-lime/10"
+                      ? "border-[#0048AE]/40 bg-[#0048AE]/10"
                       : "border-red-300 bg-red-50",
                   ].join(" ")}
                 >
-                  <p className="text-xs text-muted">Question {idx + 1}</p>
-                  <p className="text-sm text-ink mt-1">
+                  <p className={["text-xs", t.textMuted].join(" ")}>
+                    Question {idx + 1}
+                  </p>
+                  <p className={["text-sm mt-1", t.textHeading].join(" ")}>
                     {question.question_text}
                   </p>
                   <p className="text-xs mt-2">
@@ -277,7 +297,7 @@ export default function QuizEngine({
   if (!currentQuestion) {
     return (
       <Card padding="lg" className="mt-6">
-        <p className="text-muted">No questions available.</p>
+        <p className={t.textMuted}>No questions available.</p>
       </Card>
     );
   }
@@ -285,13 +305,13 @@ export default function QuizEngine({
   return (
     <div className="mt-6">
       <div className="flex items-center justify-between">
-        <div className="w-full h-1 rounded-full bg-cream border border-border overflow-hidden mr-3">
+        <div className="w-full h-1 rounded-full bg-[#faf7f2] border border-[#ede8df] overflow-hidden mr-3">
           <div
-            className="h-full bg-lime-dark transition-all duration-300"
+            className="h-full bg-[#0048AE] transition-all duration-300"
             style={{ width: `${progressPercent}%` }}
           />
         </div>
-        <p className="text-xs text-muted text-right shrink-0">
+        <p className={["text-xs text-right shrink-0", t.textMuted].join(" ")}>
           {currentIndex + 1} of {sessionQuestions.length}
         </p>
       </div>
@@ -306,7 +326,9 @@ export default function QuizEngine({
           <div>
             {showExitConfirm ? (
               <div className="flex items-center gap-2">
-                <span className="text-xs text-muted">Exit quiz?</span>
+                <span className={["text-xs", t.textMuted].join(" ")}>
+                  Exit quiz?
+                </span>
                 <button
                   type="button"
                   className="text-xs text-red-600 hover:text-red-700"
@@ -316,7 +338,7 @@ export default function QuizEngine({
                 </button>
                 <button
                   type="button"
-                  className="text-xs text-muted hover:text-ink"
+                  className={["text-xs", t.textMuted, t.linkHover].join(" ")}
                   onClick={() => setShowExitConfirm(false)}
                 >
                   No
@@ -325,7 +347,7 @@ export default function QuizEngine({
             ) : (
               <button
                 type="button"
-                className="text-sm text-muted hover:text-ink"
+                className={["text-sm", t.textMuted, t.linkHover].join(" ")}
                 onClick={() => setShowExitConfirm(true)}
               >
                 x Exit
@@ -334,7 +356,12 @@ export default function QuizEngine({
           </div>
         </div>
 
-        <h2 className="font-serif text-xl md:text-2xl leading-relaxed text-ink pr-24">
+        <h2
+          className={[
+            "font-serif text-xl md:text-2xl leading-relaxed pr-24",
+            t.textHeading,
+          ].join(" ")}
+        >
           {currentQuestion.question_text}
         </h2>
 
@@ -368,10 +395,10 @@ export default function QuizEngine({
                   className={[
                     "w-8 h-8 rounded-full border flex items-center justify-center text-sm font-medium shrink-0",
                     showFeedback && isSelected && isCorrect
-                      ? "bg-lime-dark text-paper border-lime-dark"
+                      ? "bg-[#0048AE] text-white border-[#0048AE]"
                       : isWrongSelected
-                        ? "bg-red-400 text-paper border-red-400"
-                        : "bg-paper text-muted border-border",
+                        ? "bg-red-400 text-white border-red-400"
+                        : "bg-white text-gray-600 border-[#ede8df]",
                   ].join(" ")}
                 >
                   {showFeedback && isSelected && isCorrect ? (
@@ -384,7 +411,7 @@ export default function QuizEngine({
                 </span>
                 <span className="min-w-0">
                   {showCorrectLabel ? (
-                    <span className="block text-xs text-lime-dark mb-0.5">
+                    <span className="block text-xs text-[#0048AE] mb-0.5">
                       Correct answer
                     </span>
                   ) : null}
@@ -411,7 +438,7 @@ export default function QuizEngine({
         ) : null}
       </Card>
 
-      <p className="mt-3 text-xs text-muted">
+      <p className={["mt-3 text-xs", t.textMuted].join(" ")}>
         Score so far: {correctCount}/{answers.length}
       </p>
     </div>

@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Card } from "@/components/ui/Card";
+import { marketingTheme } from "@/lib/marketing-theme";
 
 interface EmptyStateProps {
   icon: ReactNode;
@@ -17,13 +18,29 @@ export default function EmptyState({
   return (
     <Card
       padding="lg"
-      className="text-center border-dashed border-2 border-border"
+      className={[
+        "text-center border-dashed border-2",
+        marketingTheme.borderSubtle,
+      ].join(" ")}
     >
-      <div className="text-muted/40 flex justify-center mb-3 text-4xl">
+      <div className="text-gray-400 flex justify-center mb-3 text-4xl">
         {icon}
       </div>
-      <h3 className="font-serif text-lg text-ink mt-2">{title}</h3>
-      <p className="text-muted text-sm mt-1 max-w-xs mx-auto">{description}</p>
+      <h3
+        className={["font-serif text-lg mt-2", marketingTheme.textHeading].join(
+          " ",
+        )}
+      >
+        {title}
+      </h3>
+      <p
+        className={[
+          "text-sm mt-1 max-w-xs mx-auto",
+          marketingTheme.textMuted,
+        ].join(" ")}
+      >
+        {description}
+      </p>
       {action ? <div className="mt-4">{action}</div> : null}
     </Card>
   );

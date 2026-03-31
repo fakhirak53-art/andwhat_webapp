@@ -35,8 +35,8 @@ export default function DashboardNav({ onNavigate }: DashboardNavProps) {
             className={[
               "flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition-all duration-150",
               isActive
-                ? "bg-paper/10 text-paper font-medium"
-                : "text-paper/50 hover:text-paper hover:bg-paper/5",
+                ? "bg-white/10 text-white font-medium"
+                : "text-white/50 hover:text-white hover:bg-white/5",
             ].join(" ")}
           >
             <Icon className="h-4 w-4" />

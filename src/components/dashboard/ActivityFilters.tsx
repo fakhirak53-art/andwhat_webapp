@@ -29,8 +29,8 @@ export default function ActivityFilters({
             className={[
               "rounded-full px-3 py-1 text-xs whitespace-nowrap transition-colors",
               isActive
-                ? "bg-ink text-paper"
-                : "bg-cream border border-border text-muted hover:text-ink",
+                ? "bg-[#0a1628] text-white"
+                : "bg-[#faf7f2] border border-[#ede8df] text-gray-600 hover:text-[#0a1628]",
             ].join(" ")}
           >
             {option.label}

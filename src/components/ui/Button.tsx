@@ -1,4 +1,4 @@
-import { type ButtonHTMLAttributes, type ReactNode } from "react";
+import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { Spinner } from "./Spinner";
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -17,11 +17,11 @@ const sizeClasses = {
 
 const variantClasses = {
   primary:
-    "bg-ink text-paper rounded-md hover:bg-ink/80 hover:-translate-y-px active:translate-y-0",
+    "bg-[#0a1628] text-white rounded-md hover:bg-[#162340] hover:-translate-y-px active:translate-y-0",
   secondary:
-    "border border-border text-ink bg-transparent hover:bg-cream rounded-md",
+    "border border-[#ede8df] text-[#0a1628] bg-transparent hover:bg-[#faf7f2] rounded-md",
   ghost:
-    "text-muted hover:text-ink underline-offset-4 hover:underline bg-transparent",
+    "text-gray-600 hover:text-[#0a1628] underline-offset-4 hover:underline bg-transparent",
 };
 
 export function Button({

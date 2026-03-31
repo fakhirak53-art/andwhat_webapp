@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
 import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 interface NavLink {
   label: string;
@@ -53,11 +53,10 @@ export default function Header({
               <a
                 key={item.label}
                 href={item.href}
-                className={`text-[15px] font-medium transition-colors whitespace-nowrap ${
-                  activeHref === item.href
+                className={`text-[15px] font-medium transition-colors whitespace-nowrap ${activeHref === item.href
                     ? "text-[#0048AE] underline underline-offset-4 decoration-2"
                     : "text-gray-700 hover:text-[#0048AE]"
-                }`}
+                  }`}
               >
                 {item.label}
               </a>
@@ -98,9 +97,8 @@ export default function Header({
               <a
                 key={item.label}
                 href={item.href}
-                className={`text-[15px] font-medium transition-colors ${
-                  activeHref === item.href ? "text-[#0048AE]" : "text-gray-700 hover:text-[#0048AE]"
-                }`}
+                className={`text-[15px] font-medium transition-colors ${activeHref === item.href ? "text-[#0048AE]" : "text-gray-700 hover:text-[#0048AE]"
+                  }`}
                 onClick={() => setMobileOpen(false)}
               >
                 {item.label}

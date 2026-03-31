@@ -6,6 +6,7 @@ import { updateSubjectPreferences } from "@/app/actions/student";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { useToast } from "@/components/ui/Toast";
+import { marketingTheme as t } from "@/lib/marketing-theme";
 import type { StudentSubjectPreference, Subject } from "@/types/database";
 
 interface SubjectSelectorProps {
@@ -80,7 +81,9 @@ export default function SubjectSelector({
 
   return (
     <div>
-      <h2 className="font-serif text-lg text-ink">My Subjects</h2>
+      <h2 className={["font-serif text-lg", t.textHeading].join(" ")}>
+        My Subjects
+      </h2>
       <p className="text-muted text-sm mt-1">
         Select the subjects you&apos;re studying this year.
       </p>
@@ -97,8 +100,8 @@ export default function SubjectSelector({
                 "rounded-md px-3 py-2 text-sm text-left transition-colors",
                 "flex items-center gap-2",
                 selected
-                  ? "bg-ink text-paper border border-ink font-medium"
-                  : "bg-cream border border-border text-muted hover:border-ink/30 hover:text-ink",
+                  ? "bg-[#0a1628] text-white border border-[#0a1628] font-medium"
+                  : "bg-[#faf7f2] border border-[#ede8df] text-gray-600 hover:border-[#0a1628]/30 hover:text-[#0a1628]",
               ].join(" ")}
             >
               {selected ? (

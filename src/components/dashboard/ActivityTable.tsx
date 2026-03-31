@@ -9,6 +9,7 @@ import EmptyState from "@/components/dashboard/EmptyState";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { marketingTheme as t } from "@/lib/marketing-theme";
 import { formatDateTime, formatRelativeTime } from "@/lib/utils";
 import type { QuestionLog } from "@/types/database";
 
@@ -62,26 +63,56 @@ export default function ActivityTable({ logs }: ActivityTableProps) {
         />
       ) : (
         <>
-          <div className="hidden md:block overflow-x-auto border border-border rounded-lg bg-cream">
+          <div className="hidden md:block overflow-x-auto border border-[#ede8df] rounded-lg bg-[#faf7f2]">
             <table className="w-full text-left">
               <thead>
-                <tr className="border-b border-border">
-                  <th className="px-4 py-3 text-xs text-muted uppercase tracking-widest font-medium">
+                <tr className="border-b border-[#ede8df]">
+                  <th
+                    className={[
+                      "px-4 py-3 text-xs uppercase tracking-widest font-medium",
+                      t.textMuted,
+                    ].join(" ")}
+                  >
                     Date/Time
                   </th>
-                  <th className="px-4 py-3 text-xs text-muted uppercase tracking-widest font-medium">
+                  <th
+                    className={[
+                      "px-4 py-3 text-xs uppercase tracking-widest font-medium",
+                      t.textMuted,
+                    ].join(" ")}
+                  >
                     Subject
                   </th>
-                  <th className="px-4 py-3 text-xs text-muted uppercase tracking-widest font-medium">
+                  <th
+                    className={[
+                      "px-4 py-3 text-xs uppercase tracking-widest font-medium",
+                      t.textMuted,
+                    ].join(" ")}
+                  >
                     Question Set
                   </th>
-                  <th className="px-4 py-3 text-xs text-muted uppercase tracking-widest font-medium">
+                  <th
+                    className={[
+                      "px-4 py-3 text-xs uppercase tracking-widest font-medium",
+                      t.textMuted,
+                    ].join(" ")}
+                  >
                     Trigger site
                   </th>
-                  <th className="px-4 py-3 text-xs text-muted uppercase tracking-widest font-medium">
+                  <th
+                    className={[
+                      "px-4 py-3 text-xs uppercase tracking-widest font-medium",
+                      t.textMuted,
+                    ].join(" ")}
+                  >
                     Result
                   </th>
-                  <th className="px-4 py-3 text-xs text-muted uppercase tracking-widest font-medium">
+                  <th
+                    className={[
+                      "px-4 py-3 text-xs uppercase tracking-widest font-medium",
+                      t.textMuted,
+                    ].join(" ")}
+                  >
                     Response time
                   </th>
                 </tr>
@@ -90,18 +121,30 @@ export default function ActivityTable({ logs }: ActivityTableProps) {
                 {pageLogs.map((log) => (
                   <tr
                     key={log.id}
-                    className="border-b border-border last:border-b-0"
+                    className="border-b border-[#ede8df] last:border-b-0"
                   >
-                    <td className="px-4 py-3 text-sm text-ink">
+                    <td
+                      className={["px-4 py-3 text-sm", t.textHeading].join(" ")}
+                    >
                       {formatDateTime(log.answered_at)}
                     </td>
-                    <td className="px-4 py-3 text-sm font-medium text-ink">
+                    <td
+                      className={[
+                        "px-4 py-3 text-sm font-medium",
+                        t.textHeading,
+                      ].join(" ")}
+                    >
                       {log.subjects?.name ?? "Unknown subject"}
                     </td>
-                    <td className="px-4 py-3 text-sm text-muted truncate max-w-xs">
+                    <td
+                      className={[
+                        "px-4 py-3 text-sm truncate max-w-xs",
+                        t.textMuted,
+                      ].join(" ")}
+                    >
                       {log.question_sets?.set_name ?? "Unknown set"}
                     </td>
-                    <td className="px-4 py-3 text-xs text-muted/60 italic">
+                    <td className="px-4 py-3 text-xs text-gray-500 italic">
                       {log.blocked_site
                         ? `via ${log.blocked_site}`
                         : "Dashboard practice"}
@@ -111,7 +154,9 @@ export default function ActivityTable({ logs }: ActivityTableProps) {
                         {log.is_correct ? "Correct" : "Incorrect"}
                       </Badge>
                     </td>
-                    <td className="px-4 py-3 text-xs text-muted">
+                    <td
+                      className={["px-4 py-3 text-xs", t.textMuted].join(" ")}
+                    >
                       {log.response_time_ms ? `${log.response_time_ms}ms` : "—"}
                     </td>
                   </tr>
@@ -125,20 +170,24 @@ export default function ActivityTable({ logs }: ActivityTableProps) {
               <Card key={log.id} padding="sm">
                 <div className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-ink">
+                    <p
+                      className={["text-sm font-medium", t.textHeading].join(
+                        " ",
+                      )}
+                    >
                       {log.subjects?.name ?? "Unknown subject"}
                     </p>
-                    <p className="text-xs text-muted truncate">
+                    <p className={["text-xs truncate", t.textMuted].join(" ")}>
                       {log.question_sets?.set_name ?? "Unknown set"}
                     </p>
-                    <p className="text-xs text-muted/60 italic mt-1">
+                    <p className="text-xs text-gray-500 italic mt-1">
                       {log.blocked_site
                         ? `via ${log.blocked_site}`
                         : "Dashboard practice"}
                     </p>
                   </div>
                   <div className="text-right shrink-0">
-                    <p className="text-xs text-muted">
+                    <p className={["text-xs", t.textMuted].join(" ")}>
                       {formatRelativeTime(log.answered_at)}
                     </p>
                     <Badge
@@ -154,7 +203,7 @@ export default function ActivityTable({ logs }: ActivityTableProps) {
           </div>
 
           <div className="flex items-center justify-between pt-2">
-            <p className="text-xs text-muted">
+            <p className={["text-xs", t.textMuted].join(" ")}>
               Page {currentPage} of {totalPages}
             </p>
             <div className="flex items-center gap-2">

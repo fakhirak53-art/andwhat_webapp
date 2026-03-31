@@ -8,6 +8,7 @@ import PowerfulFeaturesSection from "@/components/home/PowerfulFeaturesSection";
 import QuoteSection from "@/components/home/QuoteSection";
 import SupportCardsSection from "@/components/home/SupportCardsSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
+import WellbeingPopupWrapper from "@/components/landing/WellbeingPopupWrapper";
 
 const homeNavLinks = [
   { label: "For Students", href: "/" },
@@ -18,6 +19,7 @@ const homeNavLinks = [
 export default function HomePage() {
   return (
     <>
+      <WellbeingPopupWrapper />
       <Header navLinks={homeNavLinks} activeHref="/" />
       <main>
         <HeroSection />

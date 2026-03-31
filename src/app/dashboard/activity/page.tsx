@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import ActivityTable from "@/components/dashboard/ActivityTable";
 import StatCard from "@/components/dashboard/StatCard";
 import { getDashboardStats } from "@/lib/dashboard";
+import { marketingTheme as t } from "@/lib/marketing-theme";
 import type { QuestionLog } from "@/types/database";
 import { createClient } from "@/utils/supabase/server";
 
@@ -46,8 +47,10 @@ export default async function DashboardActivityPage() {
   return (
     <div>
       <header>
-        <h1 className="font-serif text-2xl text-ink">My Activity</h1>
-        <p className="text-muted text-sm mt-1">
+        <h1 className={["font-serif text-2xl", t.textHeading].join(" ")}>
+          My Activity
+        </h1>
+        <p className={["text-sm mt-1", t.textMuted].join(" ")}>
           A complete record of your quiz answers.
         </p>
       </header>

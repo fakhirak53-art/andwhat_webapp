@@ -8,7 +8,7 @@ interface ProgressBarProps {
 }
 
 const colorClasses: Record<NonNullable<ProgressBarProps["color"]>, string> = {
-  lime: "bg-lime-dark",
+  lime: "bg-[#0048AE]",
   amber: "bg-amber-400",
   red: "bg-red-400",
 };
@@ -29,7 +29,7 @@ export default function ProgressBar({
   }, [normalized]);
 
   return (
-    <div className="w-full h-2 bg-cream rounded-full border border-border overflow-hidden">
+    <div className="w-full h-2 bg-[#faf7f2] rounded-full border border-[#ede8df] overflow-hidden">
       <div
         className={[
           "h-full rounded-full transition-all duration-700 ease-out",
