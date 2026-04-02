@@ -427,7 +427,7 @@ export default function QuizEngine({
             className={[
               "mt-4 inline-flex items-center rounded-full px-3 py-1 text-sm animate-[toast-in_220ms_ease-out]",
               selectedOption === currentQuestion.correct_answer
-                ? "bg-green-100 text-green-800"
+                ? "bg-[#0048AE] text-paper"
                 : "bg-red-100 text-red-700",
             ].join(" ")}
           >

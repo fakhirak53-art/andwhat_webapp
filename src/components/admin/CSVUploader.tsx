@@ -460,7 +460,7 @@ export default function CSVUploader({ questionSets }: CSVUploaderProps) {
           <p
             className={[
               "text-sm font-medium",
-              invalidRows.length === 0 ? "text-green-600" : "text-amber-600",
+              invalidRows.length === 0 ? "text-[#0048AE]" : "text-amber-600",
             ].join(" ")}
           >
             {rows.length} rows found · {validRows.length} valid ·{" "}
@@ -625,7 +625,7 @@ export default function CSVUploader({ questionSets }: CSVUploaderProps) {
               <Copy className="h-4 w-4" />
             </button>
             {copied ? (
-              <span className="text-xs text-green-700">Copied!</span>
+              <span className="text-xs text-[#0048AE]">Copied!</span>
             ) : null}
           </div>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-2">

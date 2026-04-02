@@ -191,7 +191,7 @@ export default function SetSearch({
               placeholder="e.g. QS-BIO-07"
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
-              className="font-mono text-sm"
+              className="text-sm"
             />
             <Button type="submit" loading={isPending}>
               Find Set
@@ -309,7 +309,7 @@ export default function SetSearch({
                   >
                     {set.set_name}
                   </h3>
-                  <span className="w-2 h-2 rounded-full bg-green-500 shrink-0 mt-2" />
+                  <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0 mt-2" />
                 </div>
 
                 <div className="mt-3 flex items-center gap-2 flex-wrap">

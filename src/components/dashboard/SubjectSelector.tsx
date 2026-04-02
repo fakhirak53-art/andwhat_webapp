@@ -140,7 +140,7 @@ export default function SubjectSelector({
           <p
             className={[
               "mt-2 text-sm transition-opacity duration-200",
-              isError ? "text-red-600" : "text-green-700",
+              isError ? "text-red-600" : t.accentText,
             ].join(" ")}
           >
             {saveMessage}

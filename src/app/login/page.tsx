@@ -1,10 +1,10 @@
 "use client";
 
+import { login, signup } from "@/app/actions/auth";
+import { Button, Input } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { login, signup } from "@/app/actions/auth";
-import { Button, Input } from "@/components/ui";
 
 function WarningIcon() {
   return (
@@ -48,11 +48,11 @@ export default function LoginPage() {
         <div>
           <Link href="/" className="inline-block mb-12">
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               alt="andwhat"
-              width={240}
-              height={64}
-              className="h-8 w-auto"
+              width={300}
+              height={80}
+              className="h-12 w-auto filter brightness-0 invert contrast-125"
               priority
             />
           </Link>
@@ -63,15 +63,15 @@ export default function LoginPage() {
           </h2>
           <ul className="space-y-3 text-paper/90 font-sans text-sm md:text-base">
             <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
               Quick quizzes before you browse
             </li>
             <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
               Track your progress over time
             </li>
             <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
               Assigned by your school, built for you
             </li>
           </ul>
@@ -112,9 +112,8 @@ export default function LoginPage() {
                 setIsSignup(false);
                 setError(null);
               }}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${
-                !isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"
-              }`}
+              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${!isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"
+                }`}
             >
               Log in
             </button>
@@ -124,9 +123,8 @@ export default function LoginPage() {
                 setIsSignup(true);
                 setError(null);
               }}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${
-                isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"
-              }`}
+              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"
+                }`}
             >
               Sign up
             </button>

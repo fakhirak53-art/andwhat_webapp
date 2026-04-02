@@ -1,7 +1,3 @@
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import type { ReactNode } from "react";
 import { logout } from "@/app/actions/auth";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
@@ -10,6 +6,10 @@ import { ToastProvider } from "@/components/ui/Toast";
 import { getStudentProfile } from "@/lib/dashboard";
 import { marketingTheme } from "@/lib/marketing-theme";
 import { createClient } from "@/utils/supabase/server";
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import type { ReactNode } from "react";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -58,11 +58,11 @@ export default async function DashboardLayout({
           <div className="p-6">
             <Link href="/" className="inline-block">
               <Image
-                src="/logo.png"
+                src="/images/logo.png"
                 alt="andwhat"
                 width={240}
                 height={64}
-                className="h-8 w-auto"
+                className="h-12 w-auto filter brightness-0 invert contrast-125"
                 priority
               />
             </Link>

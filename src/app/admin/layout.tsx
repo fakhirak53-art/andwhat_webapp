@@ -36,11 +36,11 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
         <div className="p-6">
           <Link href="/" className="inline-block">
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               alt="andwhat"
               width={240}
               height={64}
-              className="h-8 w-auto"
+              className="h-8 w-auto filter brightness-0 invert contrast-125"
               priority
             />
           </Link>
@@ -62,7 +62,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
 
         <div className="mt-auto p-6">
           <p className="text-paper/40 text-xs">School code</p>
-          <p className="text-paper/70 text-sm font-mono mt-1">
+          <p className="text-paper/70 text-sm mt-1">
             {adminProfile.school_code}
           </p>
           <div className="my-4 border-t border-paper/15" />

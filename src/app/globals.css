@@ -2,25 +2,25 @@
 
 /* ━━━ Brand & design system ━━━ */
 :root {
-  --color-ink: #111109;
-  --color-paper: #fdfaf4;
+  --color-ink: #0a1628;
+  --color-paper: #faf7f2;
   --color-cream: #f5f2eb;
   --color-lime: #c8f135;
   --color-lime-dark: #9dbf1a;
   --color-muted: #6b6860;
-  --color-border: rgba(17, 17, 9, 0.12);
+  --color-border: #ede8df;
   --color-error: #dc2626;
-  --color-success: #16a34a;
+  --color-success: #c8f135;
   --font-serif: var(--font-instrument-serif);
   --font-sans: var(--font-dm-sans);
   --font-display: var(--font-inter), ui-sans-serif, sans-serif;
 
   /* Header (Figma design tokens) */
   --color-header-bg: #ffffff;
-  --color-header-border: rgba(226, 232, 240, 0.6);
-  --color-nav-link: #0f172a;
+  --color-header-border: #ede8df;
+  --color-nav-link: #0a1628;
   --color-cta-text: #131313;
-  --color-cta-icon-bg: #004aab;
+  --color-cta-icon-bg: #0048AE;
   --shadow-header: 0 1px 3px rgba(0, 0, 0, 0.06);
   --radius-header: 31px;
   --header-border-width: 1px;

@@ -96,7 +96,7 @@ export default function LinkAccountForm({
         <p
           className={[
             "mt-3 text-sm",
-            isError ? "text-red-700" : "text-green-700",
+            isError ? "text-red-700" : "text-[#0048AE]",
           ].join(" ")}
         >
           {message}

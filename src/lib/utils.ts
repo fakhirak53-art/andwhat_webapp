@@ -103,7 +103,7 @@ export function calculateStreak(dates: string[]): number {
 }
 
 export function getAccuracyColor(rate: number): string {
-  if (rate >= 70) return "text-green-600";
+  if (rate >= 70) return "text-[#0048AE]";
   if (rate >= 40) return "text-amber-500";
   return "text-red-500";
 }

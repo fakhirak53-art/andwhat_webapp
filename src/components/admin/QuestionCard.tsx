@@ -15,7 +15,8 @@ interface QuestionCardProps {
 }
 
 function difficultyClass(difficulty: Question["difficulty"]): string {
-  if (difficulty === "easy") return "bg-green-100 text-green-800";
+  if (difficulty === "easy")
+    return "bg-[#0048AE]/15 text-ink border border-[#0048AE]/25";
   if (difficulty === "medium") return "bg-amber-100 text-amber-800";
   if (difficulty === "hard") return "bg-red-100 text-red-700";
   return "bg-cream text-muted border border-border";
@@ -143,7 +144,7 @@ export default function QuestionCard({ question, seq }: QuestionCardProps) {
                     "px-3 py-1.5 rounded-md text-sm border capitalize",
                     difficulty === key
                       ? key === "easy"
-                        ? "bg-green-100 text-green-800 border-green-200"
+                        ? "bg-[#0048AE]/15 text-ink border-[#0048AE]/25"
                         : key === "medium"
                           ? "bg-amber-100 text-amber-800 border-amber-200"
                           : "bg-red-100 text-red-700 border-red-200"

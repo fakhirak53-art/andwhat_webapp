@@ -45,11 +45,11 @@ export default function MobileSidebar({
       >
         <Link href="/" className="inline-block">
           <Image
-            src="/logo.png"
+            src="/images/logo.png"
             alt="andwhat"
             width={200}
             height={56}
-            className="h-7 w-auto"
+            className="h-7 w-auto filter brightness-0 invert contrast-125"
             priority
           />
         </Link>
@@ -89,11 +89,11 @@ export default function MobileSidebar({
         >
           <Link href="/" className="inline-block">
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               alt="andwhat"
               width={240}
               height={64}
-              className="h-8 w-auto"
+              className="h-8 w-auto filter brightness-0 invert contrast-125"
               priority
             />
           </Link>

@@ -45,11 +45,11 @@ export default function AdminLoginPage() {
         <div>
           <Link href="/" className="inline-block mb-12">
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               alt="andwhat"
-              width={240}
-              height={64}
-              className="h-8 w-auto"
+              width={280}
+              height={76}
+              className="h-10 w-auto filter brightness-0 invert contrast-125"
               priority
             />
           </Link>
@@ -60,15 +60,15 @@ export default function AdminLoginPage() {
           </h2>
           <ul className="space-y-3 text-paper/90 font-sans text-sm md:text-base">
             <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
               Upload and manage question sets
             </li>
             <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
               Track student engagement and progress
             </li>
             <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-lime shrink-0" />
+              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
               Configure browser extension rules
             </li>
           </ul>

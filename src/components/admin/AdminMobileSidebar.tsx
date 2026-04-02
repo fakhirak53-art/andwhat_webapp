@@ -41,11 +41,11 @@ export default function AdminMobileSidebar({
       <div className="md:hidden sticky top-0 z-50 bg-ink px-4 py-3 flex items-center justify-between">
         <Link href="/" className="inline-block">
           <Image
-            src="/logo.png"
+            src="/images/logo.png"
             alt="andwhat"
             width={200}
             height={56}
-            className="h-7 w-auto"
+            className="h-7 w-auto filter brightness-0 invert contrast-125"
             priority
           />
         </Link>
@@ -81,11 +81,11 @@ export default function AdminMobileSidebar({
         >
           <Link href="/" className="inline-block">
             <Image
-              src="/logo.png"
+              src="/images/logo.png"
               alt="andwhat"
               width={240}
               height={64}
-              className="h-8 w-auto"
+              className="h-8 w-auto filter brightness-0 invert contrast-125"
               priority
             />
           </Link>
@@ -111,7 +111,7 @@ export default function AdminMobileSidebar({
 
           <div className="mt-auto">
             <p className="text-paper/40 text-xs">School code</p>
-            <p className="text-paper/70 text-sm font-mono mt-1">{schoolCode}</p>
+            <p className="text-paper/70 text-sm mt-1">{schoolCode}</p>
             <div className="my-4 border-t border-paper/15" />
             <form action={logout}>
               <Button

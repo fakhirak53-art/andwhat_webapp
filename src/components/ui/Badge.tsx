@@ -8,7 +8,7 @@ export interface BadgeProps {
 
 const variantClasses = {
   lime: "bg-[#0048AE]/15 text-[#0a1628] border border-[#0048AE]/25",
-  success: "bg-green-100 text-green-800",
+  success: "bg-[#0048AE]/15 text-[#0a1628] border border-[#0048AE]/25",
   warning: "bg-amber-100 text-amber-800",
   default: "bg-[#faf7f2] border border-[#ede8df] text-gray-600",
 };

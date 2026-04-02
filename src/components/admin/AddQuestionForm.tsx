@@ -124,7 +124,7 @@ export default function AddQuestionForm({ setId }: AddQuestionFormProps) {
                 "px-3 py-1.5 rounded-md text-sm border capitalize",
                 difficulty === key
                   ? key === "easy"
-                    ? "bg-green-100 text-green-800 border-green-200"
+                    ? "bg-[#0048AE]/15 text-ink border-[#0048AE]/25"
                     : key === "medium"
                       ? "bg-amber-100 text-amber-800 border-amber-200"
                       : "bg-red-100 text-red-700 border-red-200"

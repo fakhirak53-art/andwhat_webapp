@@ -224,7 +224,7 @@ export default async function AdminSetDetailPage({
             <p className="text-xs uppercase tracking-widest text-muted">
               Reference code
             </p>
-            <p className="font-mono text-sm text-ink mt-1 break-all">
+            <p className="text-sm text-ink mt-1 break-all">
               {referenceDisplay}
             </p>
           </div>

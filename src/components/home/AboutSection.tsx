@@ -3,7 +3,7 @@ import SectionWrapper from "./SectionWrapper";
 const activeUserBars = [
   { color: "bg-[#0048AE]", width: "w-full", avatarBg: "bg-blue-200" },
   { color: "bg-purple-400", width: "w-3/4", avatarBg: "bg-purple-200" },
-  { color: "bg-green-400", width: "w-1/2", avatarBg: "bg-green-200" },
+  { color: "bg-[#0048AE]", width: "w-1/2", avatarBg: "bg-[#0048AE]/20" },
 ];
 
 export default function AboutSection() {
@@ -51,7 +51,7 @@ export default function AboutSection() {
               <div className="flex flex-col gap-3">
                 {activeUserBars.map((bar, i) => (
                   <div key={i} className="flex items-center gap-3">
-                    <div className="w-6 h-6 rounded-full overflow-hidden flex-shrink-0 bg-gray-200">
+                    <div className="w-6 h-6 rounded-full overflow-hidden shrink-0 bg-gray-200">
                       <img
                         src={`/images/student${i + 1}.png`}
                         alt="active user"

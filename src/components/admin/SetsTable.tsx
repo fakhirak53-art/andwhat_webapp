@@ -165,7 +165,7 @@ export default function SetsTable({ sets }: SetsTableProps) {
                         <Copy className="w-3.5 h-3.5" />
                       </button>
                       {copiedId === referenceCode ? (
-                        <span className="text-[11px] text-green-700">
+                        <span className="text-[11px] text-[#0048AE]">
                           Copied!
                         </span>
                       ) : null}

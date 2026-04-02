@@ -317,7 +317,7 @@ export default async function DashboardPage() {
                     <Badge variant="lime">
                       {set.question_count ?? 0} questions
                     </Badge>
-                    <span className="w-2 h-2 rounded-full bg-green-500" />
+                    <span className="w-2 h-2 rounded-full bg-[#0048AE]" />
                   </div>
                 </Card>
               ))}
