@@ -1,3 +1,4 @@
+import DailyVibeCheckSection from "@/components/home/DailyVibeCheckSection";
 import FAQSection from "@/components/home/FAQSection";
 import Footer from "@/components/home/Footer";
 import ForEducatorsParentsSection from "@/components/home/ForEducatorsParentsSection";
@@ -26,6 +27,7 @@ export default function HomePage() {
         <QuoteSection />
         <HowItWorksSection />
         <PowerfulFeaturesSection />
+        <DailyVibeCheckSection />
         <ForEducatorsParentsSection />
         <FAQSection />
         <TestimonialsSection />
