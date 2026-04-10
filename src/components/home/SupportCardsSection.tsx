@@ -31,9 +31,9 @@ const cards = [
 
 export default function SupportCardsSection() {
   return (
-    <section className=" relative overflow-hidden bg-red-500 ">
+    <section className=" relative overflow-hidden ">
       
-        <div className=" absolute left-0 top-0 w-full h-full  bg-red-500 " >
+        <div className=" absolute left-0 top-0 w-full h-full  " >
           <img
             src="/images/new/backgroundVector.png"
             alt="Support background"

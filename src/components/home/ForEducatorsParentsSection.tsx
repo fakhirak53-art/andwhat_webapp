@@ -125,44 +125,45 @@ export default function ForEducatorsParentsSection() {
   return (
     <section className="bg-white py-16 sm:py-20">
       <div className="mx-auto max-w-7xl overflow-hidden rounded-[28px] border border-[#e8edf3] shadow-[0_18px_40px_rgba(10,22,40,0.04)]">
-        <div className="grid grid-cols-2">
+        <div className="grid grid-cols-1 lg:grid-cols-2">
           <CopyTile
             heading="Daily Messaging:"
             description="So many things make learning hard. Sign up and our messaging arrives each day to help."
             points={messagingPoints}
-            className="border-r border-b border-[#e8edf3]"
+            className="border-b border-[#e8edf3] lg:border-r order-1 lg:order-1"
           />
           <ImageTile
             src="/images/new/3rdImage.jpg"
             alt="Student with a thought bubble representing daily wellbeing check-ins"
             fit="contain"
-            className="border-b border-[#e8edf3]"
+            className="border-b border-[#e8edf3] order-2 lg:order-2"
             objectPosition="center"
           />
 
           <ImageTile
             src="/images/new/educationImage1.png"
             alt="Educator working on a laptop"
-            className="border-r border-b border-[#e8edf3]"
+            className="border-b border-[#e8edf3] lg:border-r order-4 lg:order-3"
             objectPosition="center"
           />
           <CopyTile
             heading="For Educators:"
             accentHeading="Personalise The Learning"
             points={educatorPoints}
-            className="border-b border-[#e8edf3]"
+            className="border-b border-[#e8edf3] order-3 lg:order-4"
           />
 
           <CopyTile
             heading="For Parents:"
             accentHeading="Safety & Progress"
             points={parentPoints}
-            className="border-r border-[#e8edf3]"
+            className="border-b border-[#e8edf3] lg:border-r lg:border-b-0 order-5 lg:order-5"
           />
           <ImageTile
             src="/images/new/educationImage2.png"
             alt="Parent helping a student with school work"
             objectPosition="center"
+            className="order-6"
           />
         </div>
       </div>
