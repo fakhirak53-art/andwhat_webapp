@@ -1,12 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
 
-const DEFAULT_NEXT = "/login/update-password";
+const DEFAULT_AFTER_CODE = "/dashboard";
+const DEFAULT_AFTER_RECOVERY = "/login/update-password";
 
-function safeNextPath(next: string | null): string {
-  const path = next?.trim() || DEFAULT_NEXT;
+function safeNextPath(next: string | null, fallback: string): string {
+  const path = next?.trim() || fallback;
   if (!path.startsWith("/") || path.startsWith("//")) {
-    return DEFAULT_NEXT;
+    return fallback;
   }
   return path;
 }
@@ -24,9 +25,13 @@ export async function GET(request: NextRequest) {
   const code = url.searchParams.get("code");
   const token_hash = url.searchParams.get("token_hash");
   const type = url.searchParams.get("type");
-  const nextPath = safeNextPath(url.searchParams.get("next"));
+  const nextParam = url.searchParams.get("next");
 
-  let redirectResponse = NextResponse.redirect(new URL(nextPath, request.url));
+  const activeNext = code
+    ? safeNextPath(nextParam, DEFAULT_AFTER_CODE)
+    : safeNextPath(nextParam, DEFAULT_AFTER_RECOVERY);
+
+  let redirectResponse = NextResponse.redirect(new URL(activeNext, request.url));
 
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
@@ -34,7 +39,7 @@ export async function GET(request: NextRequest) {
         return request.cookies.getAll();
       },
       setAll(cookiesToSet) {
-        redirectResponse = NextResponse.redirect(new URL(nextPath, request.url));
+        redirectResponse = NextResponse.redirect(new URL(activeNext, request.url));
         cookiesToSet.forEach(({ name, value, options }) => {
           redirectResponse.cookies.set(name, value, options);
         });

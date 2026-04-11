@@ -51,6 +51,35 @@ export async function login(formData: FormData) {
     redirect('/dashboard')
 }
 
+export async function signInWithGoogle(): Promise<
+    { error: string } | undefined
+> {
+    const configError = missingSupabaseConfigMessage()
+    if (configError) {
+        return { error: configError }
+    }
+
+    const supabase = await createClient()
+    const siteUrl = getSiteUrl()
+    const redirectTo = `${siteUrl}/auth/callback?next=${encodeURIComponent('/dashboard')}`
+
+    const { data, error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+            redirectTo,
+        },
+    })
+
+    if (error) {
+        return { error: error.message }
+    }
+    if (!data.url) {
+        return { error: 'Could not start Google sign-in.' }
+    }
+
+    redirect(data.url)
+}
+
 export async function signup(formData: FormData) {
     const configError = missingSupabaseConfigMessage()
     if (configError) {
