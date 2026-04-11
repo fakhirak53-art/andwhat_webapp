@@ -37,12 +37,13 @@ export default function Header({
       <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16">
         <div className="flex items-center justify-between h-[72px]">
           {/* Logo */}
-          <Link href="/" className="flex-shrink-0">
+          <Link href="/" className="flex-shrink-0  ">
             <Image
-              src="/images/logo.png"
+              src="/images/new/andWhatLogo.png"
               alt="AndWhat - Learning Gatekeeper"
-              width={110}
-              height={66}
+              className="w-auto h-14"
+              width={220}
+              height={112}
               priority
             />
           </Link>
