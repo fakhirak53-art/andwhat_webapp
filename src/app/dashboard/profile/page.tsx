@@ -4,6 +4,7 @@ import SubjectSelector from "@/components/dashboard/SubjectSelector";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Form } from "@/components/ui/Form";
 import { getStudentProfile, getSubjectPreferences } from "@/lib/dashboard";
 import { marketingTheme as t } from "@/lib/marketing-theme";
 import { formatFullDate } from "@/lib/utils";
@@ -198,7 +199,7 @@ export default async function DashboardProfilePage() {
           </div>
 
           <div className={["mt-6 pt-4 border-t", t.borderSubtle].join(" ")}>
-            <form action={logout}>
+            <Form action={logout}>
               <Button
                 type="submit"
                 variant="ghost"
@@ -206,7 +207,7 @@ export default async function DashboardProfilePage() {
               >
                 Sign out of all devices
               </Button>
-            </form>
+            </Form>
           </div>
         </Card>
       </div>

@@ -2,7 +2,7 @@
 
 import { useMemo, useState, useTransition } from "react";
 import { createRule, updateRule } from "@/app/actions/rules-admin";
-import { Button, Input } from "@/components/ui";
+import { Button, Form, Input } from "@/components/ui";
 
 export interface RuleSetOption {
   id: string;
@@ -84,7 +84,7 @@ export default function RuleForm({
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <Form onSubmit={handleSubmit} className="space-y-4">
       <Input
         label="URL Pattern"
         value={pattern}
@@ -178,6 +178,6 @@ export default function RuleForm({
           Cancel
         </Button>
       </div>
-    </form>
+    </Form>
   );
 }

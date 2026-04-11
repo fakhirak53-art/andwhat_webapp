@@ -32,8 +32,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} bg-white`}>
-      <body className="font-sans bg-white!">{children}</body>
+    <html
+      lang="en"
+      className={`${instrumentSerif.variable} ${dmSans.variable} bg-white`}
+      suppressHydrationWarning
+    >
+      <body className="font-sans bg-white!" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }

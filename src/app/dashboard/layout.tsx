@@ -2,6 +2,7 @@ import { logout } from "@/app/actions/auth";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
 import { Button } from "@/components/ui/Button";
+import { Form } from "@/components/ui/Form";
 import { ToastProvider } from "@/components/ui/Toast";
 import { getStudentProfile } from "@/lib/dashboard";
 import { marketingTheme } from "@/lib/marketing-theme";
@@ -97,7 +98,7 @@ export default async function DashboardLayout({
                 {schoolName}
               </p>
             ) : null}
-            <form action={logout}>
+            <Form action={logout}>
               <Button
                 type="submit"
                 variant="ghost"
@@ -105,7 +106,7 @@ export default async function DashboardLayout({
               >
                 Logout
               </Button>
-            </form>
+            </Form>
           </div>
         </aside>
 

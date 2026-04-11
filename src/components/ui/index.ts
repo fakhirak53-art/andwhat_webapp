@@ -4,6 +4,7 @@ export { Button } from "./Button";
 export type { ButtonProps } from "./Button";
 export { Card } from "./Card";
 export type { CardProps } from "./Card";
+export { Form } from "./Form";
 export { default as Input } from "./Input";
 export type { InputProps } from "./Input";
 export { Logo } from "./Logo";

@@ -8,6 +8,7 @@ import { logout } from "@/app/actions/auth";
 import AdminNav from "@/components/admin/AdminNav";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Form } from "@/components/ui/Form";
 import type { AdminRole } from "@/types/admin";
 
 interface AdminMobileSidebarProps {
@@ -113,7 +114,7 @@ export default function AdminMobileSidebar({
             <p className="text-paper/40 text-xs">School code</p>
             <p className="text-paper/70 text-sm mt-1">{schoolCode}</p>
             <div className="my-4 border-t border-paper/15" />
-            <form action={logout}>
+            <Form action={logout}>
               <Button
                 type="submit"
                 variant="ghost"
@@ -121,7 +122,7 @@ export default function AdminMobileSidebar({
               >
                 Logout
               </Button>
-            </form>
+            </Form>
           </div>
         </aside>
       </div>

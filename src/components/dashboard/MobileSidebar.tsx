@@ -7,6 +7,7 @@ import { useMemo, useState } from "react";
 import { logout } from "@/app/actions/auth";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import { Button } from "@/components/ui/Button";
+import { Form } from "@/components/ui/Form";
 import { marketingTheme } from "@/lib/marketing-theme";
 
 interface MobileSidebarProps {
@@ -125,7 +126,7 @@ export default function MobileSidebar({
                 {schoolName}
               </p>
             ) : null}
-            <form action={logout}>
+            <Form action={logout}>
               <Button
                 type="submit"
                 variant="ghost"
@@ -133,7 +134,7 @@ export default function MobileSidebar({
               >
                 Logout
               </Button>
-            </form>
+            </Form>
           </div>
         </aside>
       </div>

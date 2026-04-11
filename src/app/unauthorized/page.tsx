@@ -2,6 +2,7 @@ import { ShieldOff } from "lucide-react";
 import Link from "next/link";
 import { logout } from "@/app/actions/auth";
 import { Button } from "@/components/ui/Button";
+import { Form } from "@/components/ui/Form";
 
 export default function UnauthorizedPage() {
   return (
@@ -17,11 +18,11 @@ export default function UnauthorizedPage() {
           <Link href="/dashboard">
             <Button>Go to student dashboard</Button>
           </Link>
-          <form action={logout}>
+          <Form action={logout}>
             <Button type="submit" variant="secondary">
               Log out
             </Button>
-          </form>
+          </Form>
         </div>
       </div>
     </main>

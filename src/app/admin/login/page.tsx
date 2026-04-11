@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 import { adminLogin } from "@/app/actions/admin-auth";
-import { Button, Input } from "@/components/ui";
+import { Button, Form, Input } from "@/components/ui";
 
 function WarningIcon() {
   return (
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
             Log in with your admin account to continue.
           </p>
 
-          <form action={handleSubmit} className="space-y-4">
+          <Form action={handleSubmit} className="space-y-4">
             <Input
               label="Email"
               id="email"
@@ -136,7 +136,7 @@ export default function AdminLoginPage() {
             >
               {loading ? "Please wait..." : "Log in →"}
             </Button>
-          </form>
+          </Form>
         </div>
       </div>
     </main>
