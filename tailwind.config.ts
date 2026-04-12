@@ -29,6 +29,7 @@ const config: Config = {
         serif: ["var(--font-serif)"],
         sans: ["var(--font-sans)"],
         display: ["var(--font-display)"],
+        brand: ["var(--font-brand)", "ui-sans-serif", "system-ui", "sans-serif"],
       },
       fontSize: {
         "nav-link": ["20.121px", { lineHeight: "28.744px", letterSpacing: "-0.5749px" }],

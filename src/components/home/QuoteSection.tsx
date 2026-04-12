@@ -1,3 +1,5 @@
+import { BrandName } from "@/components/ui/BrandName";
+
 export default function QuoteSection() {
   return (
     <section className="py-16 sm:py-20 bg-white">
@@ -13,10 +15,10 @@ export default function QuoteSection() {
         </div>
 
         <p className="text-[18px] sm:text-[20px] lg:text-[22px] font-normal text-[#374151] leading-relaxed">
-          Andwhat is here to make remembering what you learn in class way easy.
-          When you sit in class it&#39;s easy to switch off, that&#39;s when the lessons
-          become meaningless. Andwhat makes remembering lessons easy so you
-          don&#39;t have to panic or stress before exams.
+          <BrandName /> is here to make remembering what you learn in class way easy. When you
+          sit in class it&#39;s easy to switch off, that&#39;s when the lessons become
+          meaningless. <BrandName /> makes remembering lessons easy so you don&#39;t have to
+          panic or stress before exams.
         </p>
       </div>
     </section>

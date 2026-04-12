@@ -1,6 +1,7 @@
 import Header from "@/components/home/Header";
 import Footer from "@/components/home/Footer";
 import FAQSection, { FAQ } from "@/components/home/FAQSection";
+import { BrandName } from "@/components/ui/BrandName";
 import RTOHeroSection from "@/components/schools/RTOHeroSection";
 import StepsSection from "@/components/schools/StepsSection";
 import BenefitsSection from "@/components/schools/BenefitsSection";
@@ -23,13 +24,23 @@ const schoolsFaqs: FAQ[] = [
   },
   {
     question: "How do trainers upload question sets?",
-    answer:
-      "Trainers log in to the AndWhat web dashboard and use the question builder to add multiple-choice questions one at a time, or upload them in bulk via CSV. Each set is assigned a reference number to share with students.",
+    answer: (
+      <>
+        Trainers log in to the <BrandName /> web dashboard and use the question builder to add
+        multiple-choice questions one at a time, or upload them in bulk via CSV. Each set is
+        assigned a reference number to share with students.
+      </>
+    ),
   },
   {
     question: "Is this compatible with our current LMS?",
-    answer:
-      "AndWhat operates completely independently of your LMS. Because it works at the browser level via a Chrome extension, there is no integration or configuration needed with your existing systems.",
+    answer: (
+      <>
+        <BrandName /> operates completely independently of your LMS. Because it works at the
+        browser level via a Chrome extension, there is no integration or configuration
+        needed with your existing systems.
+      </>
+    ),
   },
   {
     question: "What if a student uninstalls the extension?",
@@ -38,8 +49,13 @@ const schoolsFaqs: FAQ[] = [
   },
   {
     question: "Which industries is this suitable for?",
-    answer:
-      "AndWhat works well for any RTO delivering certificate or diploma-level vocational training — including construction, hospitality, aged care, childcare, business, and more. Any course with knowledge-based exam components benefits.",
+    answer: (
+      <>
+        <BrandName /> works well for any RTO delivering certificate or diploma-level vocational
+        training — including construction, hospitality, aged care, childcare, business, and
+        more. Any course with knowledge-based exam components benefits.
+      </>
+    ),
   },
 ];
 

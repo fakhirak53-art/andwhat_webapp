@@ -13,7 +13,7 @@
   --color-success: #c8f135;
   --font-serif: var(--font-instrument-serif);
   --font-sans: var(--font-dm-sans);
-  --font-display: var(--font-inter), ui-sans-serif, sans-serif;
+  --font-display: ui-sans-serif, system-ui, sans-serif;
 
   /* Header (Figma design tokens) */
   --color-header-bg: #ffffff;

@@ -1,13 +1,14 @@
 "use client";
 
-import { useCallback, useState } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import { BrandName } from "@/components/ui/BrandName";
 import { createClient } from "@/utils/supabase/client";
+import Image from "next/image";
+import Link from "next/link";
+import { useCallback, useState } from "react";
 
 const CONTACT_PHONE_DISPLAY = "843-496-7759";
 const CONTACT_PHONE_TEL = "tel:+18434967759";
-const CONTACT_EMAIL = "hello@andwhat.com";
+const CONTACT_EMAIL = "admin@andwhat.au";
 
 const EMAIL_REGEX =
   /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
@@ -129,9 +130,9 @@ export default function Footer() {
               className="brightness-0 invert mb-5"
             />
             <p className="text-[13px] text-gray-400 leading-relaxed mb-6 max-w-[220px]">
-              Andwhat helps students learn smarter by turning everyday browsing into quick,
-              effective practice. Build better habits, remember more, and stay consistent
-              without extra study.
+              <BrandName tone="onDark" /> helps students learn smarter by turning everyday browsing into
+              quick, effective practice. Build better habits, remember more, and stay
+              consistent without extra study.
             </p>
             {/* Social icons */}
             <div className="flex items-center gap-3">
@@ -248,9 +249,17 @@ export default function Footer() {
 
       {/* Bottom bar */}
       <div className="border-t border-white/10">
-        <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16 py-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <p className="text-[13px] text-gray-500">© 2026 All rights reserved</p>
-          <p className="text-[13px] font-semibold text-gray-300">
+        <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16 py-4 flex flex-col sm:flex-row items-center justify-center sm:justify-between gap-3 flex-wrap">
+          <p className="text-[13px] text-gray-500 text-center sm:text-left">
+            © 2026 All rights reserved
+          </p>
+          <Link
+            href="/privacy-policy"
+            className="text-[13px] text-gray-400 hover:text-white transition-colors"
+          >
+            Privacy Policy
+          </Link>
+          <p className="text-[13px] font-semibold text-gray-300 text-center sm:text-right">
             Fully compliant with Australian Student Data Safety Standards.
           </p>
         </div>

@@ -1,10 +1,10 @@
 "use client";
 
+import { adminLogin } from "@/app/actions/admin-auth";
+import { Button, Form, Input } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { adminLogin } from "@/app/actions/admin-auth";
-import { Button, Form, Input } from "@/components/ui";
 
 function WarningIcon() {
   return (

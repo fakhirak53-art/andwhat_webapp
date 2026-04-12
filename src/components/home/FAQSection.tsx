@@ -1,8 +1,10 @@
 import FAQItem from "./FAQItem";
+import { BrandName } from "@/components/ui/BrandName";
+import type { ReactNode } from "react";
 
 export interface FAQ {
-  question: string;
-  answer: string;
+  question: ReactNode;
+  answer: ReactNode;
   defaultOpen?: boolean;
 }
 
@@ -31,8 +33,13 @@ const defaultFaqs: FAQ[] = [
   },
   {
     question: "What devices is the platform compatible with?",
-    answer:
-      "AndWhat is a responsive web application that works on any modern device — laptops, tablets, and smartphones. Students can access it from any browser without installing an app.",
+    answer: (
+      <>
+        <BrandName /> is a responsive web application that works on any modern device —
+        laptops, tablets, and smartphones. Students can access it from any browser without
+        installing an app.
+      </>
+    ),
   },
   {
     question: "Is student progress tracked?",
@@ -41,8 +48,12 @@ const defaultFaqs: FAQ[] = [
   },
   {
     question: "How are schools registered on the platform?",
-    answer:
-      "Schools are onboarded by the AndWhat team. Once set up, admins receive their school code and can start adding students and creating question sets immediately.",
+    answer: (
+      <>
+        Schools are onboarded by the <BrandName /> team. Once set up, admins receive their
+        school code and can start adding students and creating question sets immediately.
+      </>
+    ),
   },
   {
     question: "What is the Daily Learning Messages feature?",
@@ -81,9 +92,9 @@ export default function FAQSection({
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Left column */}
           <div className="flex flex-col gap-4">
-            {left.map((faq) => (
+            {left.map((faq, i) => (
               <FAQItem
-                key={faq.question}
+                key={`faq-left-${i}`}
                 question={faq.question}
                 answer={faq.answer}
                 defaultOpen={faq.defaultOpen}
@@ -92,9 +103,9 @@ export default function FAQSection({
           </div>
           {/* Right column */}
           <div className="flex flex-col gap-4">
-            {right.map((faq) => (
+            {right.map((faq, i) => (
               <FAQItem
-                key={faq.question}
+                key={`faq-right-${i}`}
                 question={faq.question}
                 answer={faq.answer}
                 defaultOpen={faq.defaultOpen}

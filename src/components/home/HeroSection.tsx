@@ -1,3 +1,4 @@
+import { BrandName } from "@/components/ui/BrandName";
 import Link from "next/link";
 
 export default function HeroSection() {
@@ -31,9 +32,9 @@ export default function HeroSection() {
             </h1>
 
             <p className="text-[15px] sm:text-[16px] text-[#374151] leading-relaxed mb-8 sm:mb-10 max-w-[420px]">
-              Stop stressing about exams. Andwhat makes remembering your lessons
-              easy by turning your favorite sites into quick study breaks.
-              Register, download the extension, and get started.
+              Stop stressing about exams. <BrandName /> makes remembering your lessons easy
+              by turning your favorite sites into quick study breaks. Register, download the
+              extension, and get started.
             </p>
 
             <Link

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 interface FAQItemProps {
-  question: string;
-  answer: string;
+  question: ReactNode;
+  answer: ReactNode;
   defaultOpen?: boolean;
 }
 

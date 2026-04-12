@@ -1,6 +1,7 @@
 import Header from "@/components/home/Header";
 import Footer from "@/components/home/Footer";
 import FAQSection, { FAQ } from "@/components/home/FAQSection";
+import { BrandName } from "@/components/ui/BrandName";
 import WellbeingHeroSection from "@/components/wellbeing/WellbeingHeroSection";
 import EvidenceBasedSection from "@/components/wellbeing/EvidenceBasedSection";
 import HowToGetStartedSection from "@/components/wellbeing/HowToGetStartedSection";
@@ -12,9 +13,18 @@ import { marketingNavLinks } from "@/lib/marketing-nav";
 
 const wellbeingFaqs: FAQ[] = [
   {
-    question: "Is AndWhat Covered By My NDIS Plan?",
-    answer:
-      "Yes. AndWhat Daily Messaging can be funded under Improved Daily Living or Social and Community Participation categories in your NDIS plan. We recommend speaking to your Support Coordinator or Plan Manager for confirmation.",
+    question: (
+      <>
+        Is <BrandName tone="inherit" /> Covered By My NDIS Plan?
+      </>
+    ),
+    answer: (
+      <>
+        Yes. <BrandName /> Daily Messaging can be funded under Improved Daily Living or Social
+        and Community Participation categories in your NDIS plan. We recommend speaking to
+        your Support Coordinator or Plan Manager for confirmation.
+      </>
+    ),
     defaultOpen: true,
   },
   {
@@ -40,8 +50,13 @@ const wellbeingFaqs: FAQ[] = [
   },
   {
     question: "How do I get started as an NDIS provider?",
-    answer:
-      "Simply click the 'Request Information For NDIS Providers' button on this page. Our team will get in touch to walk you through setup, onboarding, and how to integrate AndWhat into your participants' plans.",
+    answer: (
+      <>
+        Simply click the &apos;Request Information For NDIS Providers&apos; button on this
+        page. Our team will get in touch to walk you through setup, onboarding, and how to
+        integrate <BrandName /> into your participants&apos; plans.
+      </>
+    ),
   },
 ];
 

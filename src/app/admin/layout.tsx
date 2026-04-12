@@ -1,7 +1,3 @@
-import { headers } from "next/headers";
-import Image from "next/image";
-import Link from "next/link";
-import type { ReactNode } from "react";
 import { logout } from "@/app/actions/auth";
 import AdminMobileSidebar from "@/components/admin/AdminMobileSidebar";
 import AdminNav from "@/components/admin/AdminNav";
@@ -10,6 +6,10 @@ import { Button } from "@/components/ui/Button";
 import { Form } from "@/components/ui/Form";
 import { getAdminProfile } from "@/lib/admin";
 import { createClient } from "@/utils/supabase/server";
+import { headers } from "next/headers";
+import Image from "next/image";
+import Link from "next/link";
+import type { ReactNode } from "react";
 
 interface AdminLayoutProps {
   children: ReactNode;

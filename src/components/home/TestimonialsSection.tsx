@@ -1,22 +1,38 @@
 "use client";
 
-import { useState } from "react";
+import { BrandName } from "@/components/ui/BrandName";
+import { useState, type ReactNode } from "react";
 
-const testimonials = [
+const testimonials: {
+  name: string;
+  handle: string;
+  avatar: string;
+  content: ReactNode;
+  stars: number;
+}[] = [
   {
     name: "Jeremy McPeak",
     handle: "@jwmcpeak",
     avatar: "/images/student1.png",
-    content:
-      "I just received an invite to Andwhat, and holy crap! It is well thought out, and I can see this being my go-to study platform going forward. Well done! I'm looking forward to seeing how the app progresses.",
+    content: (
+      <>
+        I just received an invite to <BrandName />, and holy crap! It is well thought out, and
+        I can see this being my go-to study platform going forward. Well done! I&apos;m looking
+        forward to seeing how the app progresses.
+      </>
+    ),
     stars: 5,
   },
   {
     name: "Marcus Brown",
     handle: "@marcusbrown",
     avatar: "/images/student2.png",
-    content:
-      "Andwhat helped me stay focused during exam season. The concept of learning while browsing is genius — I barely noticed I was studying!",
+    content: (
+      <>
+        <BrandName /> helped me stay focused during exam season. The concept of learning
+        while browsing is genius — I barely noticed I was studying!
+      </>
+    ),
     stars: 5,
   },
   {
@@ -31,8 +47,12 @@ const testimonials = [
     name: "Sarah Mitchell",
     handle: "@sarahmitchell",
     avatar: "/images/student4.png",
-    content:
-      "My students are so much more engaged since we started using Andwhat. It's seamless and doesn't feel like extra work at all.",
+    content: (
+      <>
+        My students are so much more engaged since we started using <BrandName />. It&apos;s
+        seamless and doesn&apos;t feel like extra work at all.
+      </>
+    ),
     stars: 5,
   },
 ];

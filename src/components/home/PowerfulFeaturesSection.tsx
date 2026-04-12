@@ -1,4 +1,14 @@
-const features = [
+import { BrandName } from "@/components/ui/BrandName";
+import type { ReactNode } from "react";
+
+type Feature = {
+  title: string;
+  description: ReactNode;
+  dark: boolean;
+  icon: ReactNode;
+};
+
+const features: Feature[] = [
   {
     title: "ENGAGING WITH\nCLASSWORK",
     description:
@@ -23,8 +33,12 @@ const features = [
   },
   {
     title: "WELLBEING\nSUPPORT",
-    description:
-      "Andwhat supports students that sometimes struggle. We offer a hand up to everyone.",
+    description: (
+      <>
+        <BrandName /> supports students that sometimes struggle. We offer a hand up to
+        everyone.
+      </>
+    ),
     dark: false,
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -48,7 +62,7 @@ export default function PowerfulFeaturesSection() {
             Features
           </h2>
           <p className="text-[15px] sm:text-[16px] text-[#6b7280] mt-4 max-w-xl mx-auto">
-            Andwhat provides tools that make learning simple, effective, and engaging.
+            <BrandName /> provides tools that make learning simple, effective, and engaging.
           </p>
         </div>
 

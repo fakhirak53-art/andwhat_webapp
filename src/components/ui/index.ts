@@ -1,3 +1,5 @@
+export { BrandName } from "./BrandName";
+export type { BrandNameProps, BrandNameTone } from "./BrandName";
 export { Badge } from "./Badge";
 export type { BadgeProps } from "./Badge";
 export { Button } from "./Button";

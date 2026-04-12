@@ -34,6 +34,8 @@ const benefits = [
   },
 ];
 
+import { BrandName } from "@/components/ui/BrandName";
+
 export default function BenefitsSection() {
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-24">
@@ -44,7 +46,7 @@ export default function BenefitsSection() {
             className="font-black text-[#0a1628] uppercase tracking-tight"
             style={{ fontSize: "clamp(26px, 4vw, 46px)" }}
           >
-            How AndWhat Helps Your{" "}
+            How <BrandName /> Helps Your{" "}
             <span className="text-[#0048AE]">Organisation</span>
           </h2>
         </div>

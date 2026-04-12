@@ -1,3 +1,5 @@
+import { BrandName } from "@/components/ui/BrandName";
+
 export default function NDISFundingSection() {
   return (
     <section className="bg-white py-16 sm:py-20 lg:py-24">
@@ -24,9 +26,9 @@ export default function NDISFundingSection() {
             </h2>
 
             <p className="text-[14px] sm:text-[15px] text-[#6b7280] leading-relaxed mb-5">
-              AndWhat is a person-centred tool designed to support NDIS
-              participants under Improved Daily Living and Social &amp; Community
-              Participation funding categories.
+              <BrandName /> is a person-centred tool designed to support NDIS participants
+              under Improved Daily Living and Social &amp; Community Participation funding
+              categories.
             </p>
 
             <p className="text-[14px] sm:text-[15px] text-[#6b7280] leading-relaxed">
