@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface NavLink {
   label: string;
@@ -24,6 +24,19 @@ const defaultNavLinks: NavLink[] = [
   { label: "Contact", href: "#contact" },
 ];
 
+function isAppRoute(href: string) {
+  return href.startsWith("/");
+}
+
+function navItemClassName(active: boolean) {
+  return [
+    "inline-block text-[15px] tracking-tight transition-colors whitespace-nowrap pb-1 border-b-2",
+    active
+      ? "text-[#0048AE] font-semibold border-[#0048AE]"
+      : "text-[#0a1628]/75 border-transparent hover:text-[#0048AE]",
+  ].join(" ");
+}
+
 export default function Header({
   navLinks = defaultNavLinks,
   activeHref,
@@ -31,6 +44,23 @@ export default function Header({
   registerLabel = "Register Now",
 }: HeaderProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    if (!mobileOpen) return;
+    const previousBody = document.body.style.overflow;
+    const previousHtml = document.documentElement.style.overflow;
+    document.body.style.overflow = "hidden";
+    document.documentElement.style.overflow = "hidden";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMobileOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = previousBody;
+      document.documentElement.style.overflow = previousHtml;
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [mobileOpen]);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-[#faf7f2] border-b border-[#ede8df]">
@@ -49,19 +79,26 @@ export default function Header({
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`text-[15px] font-medium transition-colors whitespace-nowrap ${activeHref === item.href
-                    ? "text-[#0048AE] underline underline-offset-4 decoration-2"
-                    : "text-gray-700 hover:text-[#0048AE]"
-                  }`}
-              >
-                {item.label}
-              </a>
-            ))}
+          <nav
+            className="hidden md:flex items-center gap-7 lg:gap-9"
+            aria-label="Primary"
+          >
+            {navLinks.map((item) => {
+              const active = activeHref === item.href;
+              const className = navItemClassName(active);
+              if (isAppRoute(item.href)) {
+                return (
+                  <Link key={item.href} href={item.href} className={className}>
+                    {item.label}
+                  </Link>
+                );
+              }
+              return (
+                <a key={item.href} href={item.href} className={className}>
+                  {item.label}
+                </a>
+              );
+            })}
           </nav>
 
           {/* Register button */}
@@ -78,7 +115,9 @@ export default function Header({
             type="button"
             className="md:hidden p-2 text-gray-700"
             onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
+            aria-expanded={mobileOpen}
+            aria-controls="mobile-menu"
+            aria-label={mobileOpen ? "Close menu" : "Open menu"}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -90,31 +129,80 @@ export default function Header({
             </svg>
           </button>
         </div>
+      </div>
 
-        {/* Mobile nav */}
-        {mobileOpen && (
-          <div className="md:hidden border-t border-[#ede8df] py-5 flex flex-col gap-5">
-            {navLinks.map((item) => (
-              <a
-                key={item.label}
-                href={item.href}
-                className={`text-[15px] font-medium transition-colors ${activeHref === item.href ? "text-[#0048AE]" : "text-gray-700 hover:text-[#0048AE]"
-                  }`}
-                onClick={() => setMobileOpen(false)}
-              >
-                {item.label}
-              </a>
-            ))}
+      {/* Full-screen mobile menu: covers viewport + scroll lock via body overflow (see useEffect) */}
+      {mobileOpen ? (
+        <div
+          id="mobile-menu"
+          className="fixed inset-0 z-[100] flex flex-col bg-[#faf7f2] md:hidden min-h-0"
+          style={{ height: "100dvh" }}
+          role="dialog"
+          aria-modal="true"
+          aria-label="Menu"
+        >
+          <div className="mx-auto flex h-[72px] w-full max-w-screen-xl shrink-0 items-center justify-between border-b border-[#ede8df] px-6">
+            <Link
+              href="/"
+              className="shrink-0"
+              onClick={() => setMobileOpen(false)}
+            >
+              <Image
+                src="/images/new/andWhatLogo.png"
+                alt="AndWhat - Learning Gatekeeper"
+                className="h-14 w-auto"
+                width={220}
+                height={112}
+              />
+            </Link>
+            <button
+              type="button"
+              className="p-2 text-gray-700"
+              onClick={() => setMobileOpen(false)}
+              aria-label="Close menu"
+            >
+              <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+          <nav
+            className="mx-auto flex w-full max-w-screen-xl flex-1 flex-col gap-4 overflow-y-auto overscroll-contain px-6 py-6"
+            aria-label="Primary"
+          >
+            {navLinks.map((item) => {
+              const active = activeHref === item.href;
+              const className = [
+                "text-[15px] tracking-tight transition-colors py-1 border-l-2 pl-3 -ml-px",
+                active
+                  ? "text-[#0048AE] font-semibold border-[#0048AE]"
+                  : "text-[#0a1628]/80 border-transparent hover:text-[#0048AE]",
+              ].join(" ");
+              const close = () => setMobileOpen(false);
+              if (isAppRoute(item.href)) {
+                return (
+                  <Link key={item.href} href={item.href} className={className} onClick={close}>
+                    {item.label}
+                  </Link>
+                );
+              }
+              return (
+                <a key={item.href} href={item.href} className={className} onClick={close}>
+                  {item.label}
+                </a>
+              );
+            })}
             <Link
               href={registerHref}
-              className="inline-flex items-center gap-2 bg-[#0a1628] text-white px-5 py-2.5 rounded-full text-[14px] font-semibold w-fit"
+              className="inline-flex w-fit items-center gap-2 rounded-full bg-[#0a1628] px-5 py-2.5 text-[14px] font-semibold text-white"
+              onClick={() => setMobileOpen(false)}
             >
               {registerLabel}
               <span className="text-base leading-none">›</span>
             </Link>
-          </div>
-        )}
-      </div>
+          </nav>
+        </div>
+      ) : null}
     </header>
   );
 }

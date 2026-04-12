@@ -1,8 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { createClient } from "@/utils/supabase/client";
+
+const CONTACT_PHONE_DISPLAY = "843-496-7759";
+const CONTACT_PHONE_TEL = "tel:+18434967759";
+const CONTACT_EMAIL = "hello@andwhat.com";
+
+const EMAIL_REGEX =
+  /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
 const usefulLinks = [
   { label: "How it Works", href: "#how-it-works" },
@@ -54,8 +62,58 @@ const socialLinks = [
   },
 ];
 
+type SubscribeStatus = "idle" | "loading" | "success" | "error";
+
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const [subscribeStatus, setSubscribeStatus] = useState<SubscribeStatus>("idle");
+  const [subscribeMessage, setSubscribeMessage] = useState("");
+
+  const handleSubscribe = useCallback(
+    async (e: React.FormEvent) => {
+      e.preventDefault();
+      const trimmed = email.trim();
+      if (!trimmed) {
+        setSubscribeStatus("error");
+        setSubscribeMessage("Please enter your email.");
+        return;
+      }
+      if (!EMAIL_REGEX.test(trimmed)) {
+        setSubscribeStatus("error");
+        setSubscribeMessage("Please enter a valid email address.");
+        return;
+      }
+
+      setSubscribeStatus("loading");
+      setSubscribeMessage("");
+
+      const supabase = createClient();
+      const normalized = trimmed.toLowerCase();
+      const { error } = await supabase
+        .from("newsletter_signups")
+        .insert({ email: normalized });
+
+      if (error) {
+        if (error.code === "23505") {
+          setSubscribeStatus("success");
+          setSubscribeMessage("You’re already subscribed. Thanks!");
+          setEmail("");
+          return;
+        }
+        setSubscribeStatus("error");
+        setSubscribeMessage("Something went wrong. Please try again later.");
+        return;
+      }
+
+      setSubscribeStatus("success");
+      setSubscribeMessage("Thanks — you’re on the list.");
+      setEmail("");
+    },
+    [email],
+  );
+
+  const contactLinkClass =
+    "flex items-start gap-3 rounded-lg outline-none transition-opacity hover:opacity-90 focus-visible:ring-2 focus-visible:ring-[#0048AE] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0c1628]";
 
   return (
     <footer id="contact" className="bg-[#0c1628]">
@@ -94,35 +152,30 @@ export default function Footer() {
           <div>
             <h4 className="text-[15px] font-bold text-white mb-6">Contact Details</h4>
             <div className="flex flex-col gap-4">
-              {/* Phone */}
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-full bg-[#1e3a8a] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <a href={CONTACT_PHONE_TEL} className={contactLinkClass}>
+                <span className="w-9 h-9 rounded-full bg-[#1e3a8a] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                </div>
-                <div>
-                  <p className="text-[12px] text-gray-400">Call Us Now</p>
-                  <p className="text-[14px] font-bold text-white">843-496-7759</p>
-                </div>
-              </div>
-              {/* Email */}
-              <div className="flex items-start gap-3">
-                <div className="w-9 h-9 rounded-full bg-[#1e3a8a] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                </span>
+                <span>
+                  <span className="block text-[12px] text-gray-400">Call Us Now</span>
+                  <span className="block text-[14px] font-bold text-white">{CONTACT_PHONE_DISPLAY}</span>
+                </span>
+              </a>
+              <a href={`mailto:${CONTACT_EMAIL}`} className={contactLinkClass}>
+                <span className="w-9 h-9 rounded-full bg-[#1e3a8a] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
-                </div>
-                <div>
-                  <p className="text-[12px] text-gray-400">Send email</p>
-                  <a
-                    href="mailto:hello@andwhat.com"
-                    className="text-[14px] font-bold text-white hover:text-blue-300 transition-colors"
-                  >
-                    hello@andwhat.com
-                  </a>
-                </div>
-              </div>
+                </span>
+                <span>
+                  <span className="block text-[12px] text-gray-400">Send email</span>
+                  <span className="block text-[14px] font-bold text-white hover:text-blue-300 transition-colors">
+                    {CONTACT_EMAIL}
+                  </span>
+                </span>
+              </a>
             </div>
           </div>
 
@@ -149,22 +202,46 @@ export default function Footer() {
             <p className="text-[13px] text-gray-400 leading-relaxed mb-5">
               Get Notification From Our Latest News! Enter Your Email Here.
             </p>
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter Email Here"
-              className="w-full bg-white text-gray-700 placeholder-gray-400 text-[14px] rounded-lg px-4 py-3 mb-3 outline-none focus:ring-2 focus:ring-[#0048AE] border border-transparent"
-            />
-            <button
-              type="button"
-              className="w-full bg-[#0048AE] text-white text-[14px] font-semibold py-3 rounded-lg hover:bg-[#003d99] transition-colors flex items-center justify-center gap-2"
-            >
-              subscribe now
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </button>
+            <form onSubmit={handleSubscribe} className="space-y-3">
+              <input
+                type="email"
+                name="newsletter-email"
+                autoComplete="email"
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  if (subscribeStatus !== "idle") {
+                    setSubscribeStatus("idle");
+                    setSubscribeMessage("");
+                  }
+                }}
+                placeholder="Enter Email Here"
+                disabled={subscribeStatus === "loading"}
+                className="w-full bg-white text-gray-700 placeholder-gray-400 text-[14px] rounded-lg px-4 py-3 outline-none focus:ring-2 focus:ring-[#0048AE] border border-transparent disabled:opacity-60"
+              />
+              <button
+                type="submit"
+                disabled={subscribeStatus === "loading"}
+                className="w-full bg-[#0048AE] text-white text-[14px] font-semibold py-3 rounded-lg hover:bg-[#003d99] transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:pointer-events-none"
+              >
+                subscribe now
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+              {subscribeMessage ? (
+                <p
+                  className={
+                    subscribeStatus === "error"
+                      ? "text-[13px] text-red-300"
+                      : "text-[13px] text-green-300"
+                  }
+                  role={subscribeStatus === "error" ? "alert" : "status"}
+                >
+                  {subscribeMessage}
+                </p>
+              ) : null}
+            </form>
           </div>
         </div>
       </div>

@@ -9,19 +9,12 @@ import PowerfulFeaturesSection from "@/components/home/PowerfulFeaturesSection";
 import QuoteSection from "@/components/home/QuoteSection";
 import SupportCardsSection from "@/components/home/SupportCardsSection";
 import TestimonialsSection from "@/components/home/TestimonialsSection";
-import WellbeingPopupWrapper from "@/components/landing/WellbeingPopupWrapper";
-
-const homeNavLinks = [
-  { label: "For Students", href: "/" },
-  { label: "For Schools & RTOs", href: "/schools" },
-  { label: "For Wellbeing & NDIS", href: "/wellbeing" },
-];
+import { marketingNavLinks } from "@/lib/marketing-nav";
 
 export default function HomePage() {
   return (
     <>
-      <WellbeingPopupWrapper />
-      <Header navLinks={homeNavLinks} activeHref="/" />
+      <Header navLinks={[...marketingNavLinks]} activeHref="/" />
       <main>
         <HeroSection />
         <QuoteSection />

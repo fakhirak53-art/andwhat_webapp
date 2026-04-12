@@ -8,12 +8,7 @@ import NDISFundingSection from "@/components/wellbeing/NDISFundingSection";
 import DailySupportsSection from "@/components/wellbeing/DailySupportsSection";
 import WellbeingTestimonialSection from "@/components/wellbeing/WellbeingTestimonialSection";
 import DailyGoalsCTASection from "@/components/wellbeing/DailyGoalsCTASection";
-
-const wellbeingNavLinks = [
-  { label: "For Students", href: "/" },
-  { label: "For Schools & RTOs", href: "/schools" },
-  { label: "For Wellbeing & NDIS", href: "/wellbeing" },
-];
+import { marketingNavLinks } from "@/lib/marketing-nav";
 
 const wellbeingFaqs: FAQ[] = [
   {
@@ -54,7 +49,7 @@ export default function WellbeingPage() {
   return (
     <>
       <Header
-        navLinks={wellbeingNavLinks}
+        navLinks={[...marketingNavLinks]}
         activeHref="/wellbeing"
         registerHref="/login"
         registerLabel="Register Now"

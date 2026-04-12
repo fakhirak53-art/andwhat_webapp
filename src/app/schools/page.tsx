@@ -6,12 +6,7 @@ import StepsSection from "@/components/schools/StepsSection";
 import BenefitsSection from "@/components/schools/BenefitsSection";
 import CTABannerSection from "@/components/schools/CTABannerSection";
 import TestimonialQuoteSection from "@/components/schools/TestimonialQuoteSection";
-
-const schoolsNavLinks = [
-  { label: "For Students", href: "/" },
-  { label: "For Schools & RTOs", href: "/schools" },
-  { label: "For Wellbeing & NDIS", href: "/wellbeing" },
-];
+import { marketingNavLinks } from "@/lib/marketing-nav";
 
 const schoolsFaqs: FAQ[] = [
   {
@@ -52,7 +47,7 @@ export default function SchoolsPage() {
   return (
     <>
       <Header
-        navLinks={schoolsNavLinks}
+        navLinks={[...marketingNavLinks]}
         activeHref="/schools"
         registerHref="/login"
         registerLabel="Register Now"
