@@ -1,24 +1,20 @@
 "use client";
 
-import { BrandName } from "@/components/ui/BrandName";
-import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useCallback, useState } from "react";
+import { BrandName } from "@/components/ui/BrandName";
+import { CONTACT_EMAIL } from "@/lib/contact";
+import { createClient } from "@/utils/supabase/client";
 
-const CONTACT_PHONE_DISPLAY = "843-496-7759";
-const CONTACT_PHONE_TEL = "tel:+18434967759";
-const CONTACT_EMAIL = "admin@andwhat.au";
-
-const EMAIL_REGEX =
-  /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+const EMAIL_REGEX = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 
 const usefulLinks = [
   { label: "How it Works", href: "#how-it-works" },
   { label: "Features", href: "#features" },
   { label: "Reviews", href: "#reviews" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const socialLinks = [
@@ -26,7 +22,13 @@ const socialLinks = [
     label: "Facebook",
     href: "#",
     icon: (
-      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
+        <title>Facebook</title>
         <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
       </svg>
     ),
@@ -35,7 +37,13 @@ const socialLinks = [
     label: "Twitter",
     href: "#",
     icon: (
-      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
+        <title>Twitter</title>
         <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
       </svg>
     ),
@@ -44,7 +52,15 @@ const socialLinks = [
     label: "Instagram",
     href: "#",
     icon: (
-      <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth={2}
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
+        <title>Instagram</title>
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
         <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" />
         <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
@@ -55,9 +71,18 @@ const socialLinks = [
     label: "YouTube",
     href: "#",
     icon: (
-      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+      <svg
+        className="w-4 h-4"
+        fill="currentColor"
+        viewBox="0 0 24 24"
+        aria-hidden
+      >
+        <title>YouTube</title>
         <path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58 2.78 2.78 0 001.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
-        <polygon fill="white" points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+        <polygon
+          fill="white"
+          points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"
+        />
       </svg>
     ),
   },
@@ -67,7 +92,8 @@ type SubscribeStatus = "idle" | "loading" | "success" | "error";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
-  const [subscribeStatus, setSubscribeStatus] = useState<SubscribeStatus>("idle");
+  const [subscribeStatus, setSubscribeStatus] =
+    useState<SubscribeStatus>("idle");
   const [subscribeMessage, setSubscribeMessage] = useState("");
 
   const handleSubscribe = useCallback(
@@ -130,9 +156,10 @@ export default function Footer() {
               className="brightness-0 invert mb-5"
             />
             <p className="text-[13px] text-gray-400 leading-relaxed mb-6 max-w-[220px]">
-              <BrandName tone="onDark" /> helps students learn smarter by turning everyday browsing into
-              quick, effective practice. Build better habits, remember more, and stay
-              consistent without extra study.
+              <BrandName tone="onDark" /> helps students learn smarter by
+              turning everyday browsing into quick, effective practice. Build
+              better habits, remember more, and stay consistent without extra
+              study.
             </p>
             {/* Social icons */}
             <div className="flex items-center gap-3">
@@ -151,27 +178,32 @@ export default function Footer() {
 
           {/* Column 2 — Contact Details */}
           <div>
-            <h4 className="text-[15px] font-bold text-white mb-6">Contact Details</h4>
+            <h4 className="text-[15px] font-bold text-white mb-6">
+              Contact Details
+            </h4>
             <div className="flex flex-col gap-4">
-              <a href={CONTACT_PHONE_TEL} className={contactLinkClass}>
-                <span className="w-9 h-9 rounded-full bg-[#1e3a8a] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </span>
-                <span>
-                  <span className="block text-[12px] text-gray-400">Call Us Now</span>
-                  <span className="block text-[14px] font-bold text-white">{CONTACT_PHONE_DISPLAY}</span>
-                </span>
-              </a>
               <a href={`mailto:${CONTACT_EMAIL}`} className={contactLinkClass}>
                 <span className="w-9 h-9 rounded-full bg-[#1e3a8a] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  <svg
+                    className="w-4 h-4 text-white"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden
+                  >
+                    <title>Email</title>
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                    />
                   </svg>
                 </span>
                 <span>
-                  <span className="block text-[12px] text-gray-400">Send email</span>
+                  <span className="block text-[12px] text-gray-400">
+                    Send email
+                  </span>
                   <span className="block text-[14px] font-bold text-white hover:text-blue-300 transition-colors">
                     {CONTACT_EMAIL}
                   </span>
@@ -182,7 +214,9 @@ export default function Footer() {
 
           {/* Column 3 — Useful Links */}
           <div>
-            <h4 className="text-[15px] font-bold text-white mb-6">Useful Links</h4>
+            <h4 className="text-[15px] font-bold text-white mb-6">
+              Useful Links
+            </h4>
             <ul className="flex flex-col gap-3">
               {usefulLinks.map((link) => (
                 <li key={link.label}>
@@ -199,7 +233,9 @@ export default function Footer() {
 
           {/* Column 4 — Newsletter */}
           <div>
-            <h4 className="text-[15px] font-bold text-white mb-3">Get Notification</h4>
+            <h4 className="text-[15px] font-bold text-white mb-3">
+              Get Notification
+            </h4>
             <p className="text-[13px] text-gray-400 leading-relaxed mb-5">
               Get Notification From Our Latest News! Enter Your Email Here.
             </p>
@@ -226,8 +262,20 @@ export default function Footer() {
                 className="w-full bg-[#0048AE] text-white text-[14px] font-semibold py-3 rounded-lg hover:bg-[#003d99] transition-colors flex items-center justify-center gap-2 disabled:opacity-60 disabled:pointer-events-none"
               >
                 subscribe now
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden>
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden
+                >
+                  <title>Arrow</title>
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9 5l7 7-7 7"
+                  />
                 </svg>
               </button>
               {subscribeMessage ? (
