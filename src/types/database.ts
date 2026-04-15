@@ -144,10 +144,40 @@ export interface StudentEnrollment {
   question_sets?: QuestionSet;
 }
 
-/** Daily wellbeing card from Edge Function `daily-message` — each option is the full support message. */
-export interface DailyMessageCard {
-  card_id: string;
+/**
+ * Row shape from `public.mh_cards` (JSONB columns match DB constraints: 4 items each).
+ * Use `parseMhCard` in `@/lib/mh-cards` for validated arrays before UI.
+ */
+export interface MhCard {
+  id: string;
+  school_id: string | null;
   topic: string;
-  options: string[];
-  message: string;
+  target_group: string;
+  question_text: string;
+  answer_options: unknown;
+  info_texts: unknown;
+  positive_texts: unknown;
+  message: string | null;
+  active_from: string | null;
+  active_to: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+/** Normalised card for dashboard UI after JSONB validation. */
+export interface ParsedMhCard {
+  id: string;
+  school_id: string | null;
+  topic: string;
+  question_text: string;
+  answerOptions: [string, string, string, string];
+  infoTexts: [string, string, string, string];
+  positiveTexts: [string, string, string, string];
+  message: string | null;
+  active_from: string | null;
+  active_to: string | null;
+  is_active: boolean;
+  created_at: string;
+  updated_at: string;
 }
