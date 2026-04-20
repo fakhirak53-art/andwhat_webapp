@@ -36,46 +36,41 @@ const features = [
 
 export default function PowerfulFeaturesSection() {
   return (
-    <section id="features" className="relative overflow-hidden" style={{ backgroundColor: "#f0ece3" }}>
-      
-
-      <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16 pb-4 pt-16 sm:pt-20">
-        {/* Heading */}
-        <div className="text-center mb-12 sm:mb-16">
+    <section id="features" className="bg-white py-16 sm:py-20 lg:py-24">
+      <div className="max-w-7xl mx-auto px-6 md:px-10 lg:px-16">
+        <div className="mb-12 text-center sm:mb-16">
           <h2 className="text-[28px] sm:text-[36px] lg:text-[44px] font-black text-[#0a1628] uppercase leading-tight tracking-wide">
             Powerful{" "}
             <span className="text-[#0048AE]">Learning</span>{" "}
             Features
           </h2>
-          <p className="text-[15px] sm:text-[16px] text-[#6b7280] mt-4 max-w-xl mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-[15px] text-[#5b6474] sm:text-[16px]">
             Andwhat provides tools that make learning simple, effective, and engaging.
           </p>
         </div>
 
-        {/* Cards grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
+        <div className="mx-auto grid max-w-280 grid-cols-1 gap-6 md:grid-cols-3 md:items-stretch">
           {features.map((feature) => (
             <div
               key={feature.title}
-              className={`rounded-2xl p-8 sm:p-10 flex flex-col items-center text-center ${
+              className={`flex flex-col items-center rounded-3xl p-8 text-center sm:p-10 ${
                 feature.dark
-                  ? "bg-[#0a1628] text-white shadow-xl"
-                  : "bg-white border border-gray-100 shadow-sm"
+                  ? "bg-[#111a2d] text-white shadow-[0_22px_40px_rgba(10,22,40,0.12)]"
+                  : "border border-[#cfd8e4] bg-[#fbfdff] shadow-[0_14px_28px_rgba(10,22,40,0.04)]"
               }`}
             >
-              {/* Icon dashed circle */}
               <div
-                className={`w-16 h-16 rounded-full flex items-center justify-center mb-6 border-2 border-dashed ${
+                className={`mb-6 flex h-20 w-20 items-center justify-center rounded-full border ${
                   feature.dark
-                    ? "bg-white/10 border-white/30 text-white"
-                    : "bg-[#0048AE]/10 border-[#0048AE]/40 text-[#0048AE]"
+                    ? "border-[#d8e2f2] bg-white text-[#2440a4]"
+                    : "border-[#93a7df] bg-[#2440a4] text-white"
                 }`}
               >
                 {feature.icon}
               </div>
 
               <h3
-                className={`text-[14px] font-extrabold uppercase tracking-wider mb-4 leading-snug whitespace-pre-line ${
+                className={`mb-4 whitespace-pre-line text-[18px] font-extrabold uppercase leading-[1.15] ${
                   feature.dark ? "text-white" : "text-[#0a1628]"
                 }`}
               >
@@ -83,8 +78,8 @@ export default function PowerfulFeaturesSection() {
               </h3>
 
               <p
-                className={`text-[14px] leading-relaxed ${
-                  feature.dark ? "text-gray-300" : "text-[#6b7280]"
+                className={`max-w-70 text-[15px] leading-relaxed ${
+                  feature.dark ? "text-[#d5deed]" : "text-[#4d5867]"
                 }`}
               >
                 {feature.description}
@@ -93,21 +88,6 @@ export default function PowerfulFeaturesSection() {
           ))}
         </div>
       </div>
-
-      {/* Wave bottom — into white (ForEducators) */}
-     <div className="w-full overflow-hidden">
-  <svg
-    viewBox="0 0 1440 160"
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-full block"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M0,50 C480,160 960,160 1440,50 L1440,160 L0,160 Z"
-      fill="white"
-    />
-  </svg>
-</div>
     </section>
   );
 }

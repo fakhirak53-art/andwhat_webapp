@@ -1,44 +1,46 @@
+import Image from "next/image";
 import Link from "next/link";
 
 export default function HeroSection() {
   return (
     <section
-      className="relative pt-[72px] overflow-hidden"
-      style={{ backgroundColor: "#d4e8f7" }}
+      id="hero"
+      className="relative overflow-hidden rounded-b-[44px] pt-[74px] sm:rounded-b-[68px]"
+      style={{ backgroundColor: "#d7ecfb" }}
     >
-      {/* Square grid overlay */}
       <div
         className="absolute inset-0 pointer-events-none z-0"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(70,130,200,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(70,130,200,0.15) 1px, transparent 1px)",
+            "linear-gradient(rgba(70,130,200,0.13) 1px, transparent 1px), linear-gradient(90deg, rgba(70,130,200,0.13) 1px, transparent 1px)",
           backgroundSize: "48px 48px",
         }}
       />
 
-      <div className="relative z-10 max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16 pt-16 pb-32 sm:pb-40 lg:pt-24 lg:pb-48">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          {/* Left — copy */}
-          <div>
+      <div className="relative z-10 mx-auto max-w-screen-xl px-6 pb-16 pt-10 md:px-10 lg:px-16 lg:pb-20 lg:pt-12">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
+          <div className="max-w-[560px]">
             <h1
-              className="font-black text-[#0a1628] leading-[0.95] mb-6 tracking-tight uppercase"
-              style={{ fontSize: "clamp(50px, 7.5vw, 90px)" }}
+              className="mb-6 font-black uppercase leading-[0.94] tracking-[-0.04em] text-[#0a1628]"
+              style={{ fontSize: "clamp(44px, 7vw, 86px)" }}
             >
-              Study{" "}
-              <span className="text-[#0048AE]">Smarter,</span>
+              Struggling At
               <br />
-              Not Harder
+              School? <span className="text-[#2440a4]">Let&apos;s Change</span>
+              <br />
+              That
             </h1>
 
-            <p className="text-[15px] sm:text-[16px] text-[#374151] leading-relaxed mb-8 sm:mb-10 max-w-[420px]">
-              Stop stressing about exams. Andwhat makes remembering your lessons
-              easy by turning your favorite sites into quick study breaks.
-              Register, download the extension, and get started.
+            <p className="mb-8 max-w-[520px] text-[15px] leading-relaxed text-[#374151] sm:mb-10 sm:text-[18px]">
+              If you&apos;re going to be on your phone anyway, you might as well
+              accidentally pass your next test. We turn your distractions into tiny
+              brain power-ups. Add the extension, skip the stress, and get back to
+              what matters.
             </p>
 
             <Link
               href="/login"
-              className="inline-flex items-center gap-2 bg-[#0048AE] text-white px-8 py-4 rounded-full text-[15px] font-bold hover:bg-[#003d99] transition-colors"
+              className="inline-flex items-center gap-2 rounded-[10px] bg-[#2440a4] px-6 py-3.5 text-[14px] font-bold text-white transition-colors hover:bg-[#1f378e] sm:px-7"
             >
               Add Chrome Extension
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,59 +49,27 @@ export default function HeroSection() {
             </Link>
           </div>
 
-          {/* Right — image with dark rotated frame */}
-          <div className="relative w-full max-w-[560px] mx-auto lg:ml-auto lg:mr-0 mt-10 lg:mt-0">
-            {/* Dark navy tilted shadow frame */}
+          <div className="relative mx-auto mt-4 w-full max-w-[620px] lg:ml-auto lg:mr-0 lg:mt-0">
             <div
-              className="absolute bg-[#0c2355] rounded-2xl"
+              className="absolute inset-0 translate-x-4 -translate-y-4 rotate-[4deg] rounded-[34px] bg-[#2440a4] sm:translate-x-6 sm:-translate-y-5"
               style={{
-                inset: 0,
-                transform: "rotate(4deg) translate(12px, -8px)",
                 zIndex: 0,
               }}
             />
-            {/* Image */}
-            <div
-              className="relative rounded-2xl overflow-hidden"
-              style={{ zIndex: 1, aspectRatio: "4/3" }}
-            >
-              <img
-                src="/images/new/heroImage.png"
-                alt="Students studying together"
-                className="w-full h-full object-cover"
-              />
-            </div>
 
-            {/* Stat badge */}
-            <div
-              className="absolute -bottom-5 -left-4 bg-white rounded-xl px-4 py-3 shadow-lg flex items-center gap-3"
-              style={{ zIndex: 2 }}
-            >
-              <img
-                src="/images/heroSectionStudentProrfileWholeGroupProfiles.png"
-                alt="Student avatars"
-                className="h-7 object-contain"
+            <div className="relative overflow-hidden rounded-[34px] bg-white" style={{ zIndex: 1, aspectRatio: "1.08 / 1" }}>
+              <Image
+                src="/images/new/heroImage.png"
+                alt="Students smiling together outside school"
+                fill
+                priority
+                sizes="(min-width: 1024px) 42vw, 92vw"
+                className="object-cover"
               />
-              <div>
-                <p className="text-[13px] font-black text-[#0a1628] leading-none">10k+</p>
-                <p className="text-[11px] text-gray-500 leading-none mt-0.5">Students</p>
-              </div>
             </div>
           </div>
         </div>
       </div>
-
-      {/* Bottom white curve */}
-      {/* <div className="absolute bottom-0 left-0 right-0 z-20 pointer-events-none leading-[0]">
-        <svg
-          viewBox="0 0 1440 90"
-          xmlns="http://www.w3.org/2000/svg"
-          className="w-full block"
-          preserveAspectRatio="none"
-        >
-          <path d="M0,90 C480,10 960,10 1440,90 L1440,90 L0,90 Z" fill="white" />
-        </svg>
-      </div> */}
     </section>
   );
 }
