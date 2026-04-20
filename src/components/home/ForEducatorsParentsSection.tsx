@@ -23,9 +23,9 @@ function TriangleBullet() {
 }
 
 const messagingPoints = [
-  "We offer wellbeing tips, helping you any way we can.",
-  "Help with things like anxiety, coping skills, bullying, and more.",
-  "Learning to deal with issues helps. Asking for help helps too.",
+  "We offer wellbeing tips, helping you anyway we can.",
+  "Help with things like Anxiety, Coping skills, Bullying, others...",
+  "Learning to deal with issues helps. Asking helps.",
 ];
 
 const educatorPoints = [
@@ -105,7 +105,7 @@ function ImageTile({
 }: ImageTileProps) {
   return (
     <div
-      className={`relative min-h-47.5 bg-white sm:min-h-75 lg:min-h-85 ${className}`}
+      className={`relative min-h-[240px] bg-white sm:min-h-[320px] lg:min-h-[380px] ${className}`}
     >
       <Image
         src={src}
@@ -124,40 +124,40 @@ function ImageTile({
 export default function ForEducatorsParentsSection() {
   return (
     <section className="bg-white py-16 sm:py-20">
-      <div className="mx-auto max-w-7xl overflow-hidden rounded-[28px] border border-[#e8edf3] shadow-[0_18px_40px_rgba(10,22,40,0.04)]">
-        <div className="grid grid-cols-1 lg:grid-cols-2">
+      <div className="mx-auto max-w-screen-xl px-6 md:px-10 lg:px-16">
+        <div className="grid grid-cols-1 overflow-hidden border border-[#e5ebf3] lg:grid-cols-2">
           <CopyTile
             heading="Daily Messaging:"
             description="So many things make learning hard. Sign up and our messaging arrives each day to help."
             points={messagingPoints}
-            className="border-b border-[#e8edf3] lg:border-r order-1 lg:order-1"
+            className="order-1 border-b border-[#e5ebf3] lg:order-1 lg:border-r"
           />
           <ImageTile
             src="/images/new/3rdImage.jpg"
             alt="Student with a thought bubble representing daily wellbeing check-ins"
             fit="contain"
-            className="border-b border-[#e8edf3] order-2 lg:order-2"
+            className="order-2 border-b border-[#e5ebf3] lg:order-2"
             objectPosition="center"
           />
 
           <ImageTile
             src="/images/new/educationImage1.png"
             alt="Educator working on a laptop"
-            className="border-b border-[#e8edf3] lg:border-r order-4 lg:order-3"
+            className="order-4 border-b border-[#e5ebf3] lg:order-3 lg:border-r"
             objectPosition="center"
           />
           <CopyTile
             heading="For Educators:"
             accentHeading="Personalise The Learning"
             points={educatorPoints}
-            className="border-b border-[#e8edf3] order-3 lg:order-4"
+            className="order-3 border-b border-[#e5ebf3] lg:order-4"
           />
 
           <CopyTile
             heading="For Parents:"
             accentHeading="Safety & Progress"
             points={parentPoints}
-            className="border-b border-[#e8edf3] lg:border-r lg:border-b-0 order-5 lg:order-5"
+            className="order-5 border-b border-[#e5ebf3] lg:order-5 lg:border-b-0 lg:border-r"
           />
           <ImageTile
             src="/images/new/educationImage2.png"

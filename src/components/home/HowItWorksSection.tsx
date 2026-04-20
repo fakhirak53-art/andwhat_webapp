@@ -37,40 +37,35 @@ export default function HowItWorksSection() {
   return (
     <section id="how-it-works" className="py-16 sm:py-20 lg:py-24" style={{ backgroundColor: "#e8eff8" }}>
       <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16">
-        {/* Heading */}
-        <h2 className="text-[26px] sm:text-[34px] lg:text-[44px] font-black text-[#0a1628] text-center mb-14 sm:mb-20 leading-tight uppercase">
+        <h2 className="mb-14 text-center text-[26px] font-black uppercase leading-tight text-[#0a1628] sm:mb-20 sm:text-[34px] lg:text-[44px]">
           Here&#39;s How Our{" "}
           <span className="text-[#0048AE]">Sneaky Extension</span>{" "}
           Works
         </h2>
 
-        {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-6">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3 md:gap-6">
           {steps.map((step, index) => (
             <div key={step.number} className="flex flex-col">
-              {/* Step number + connector line */}
-              <div className="flex items-center mb-5">
-                <span className="text-[12px] font-black text-[#0a1628] tracking-[0.15em] uppercase whitespace-nowrap">
+              <div className="mb-5 flex items-center">
+                <span className="whitespace-nowrap text-[12px] font-black uppercase tracking-[0.12em] text-[#0a1628] sm:text-[14px]">
                   Step {step.number}
                 </span>
                 <div className="flex items-center ml-3 flex-1">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#0a1628] flex-shrink-0" />
+                  <div className="h-3 w-3 flex-shrink-0 rounded-full bg-[#2440a4]" />
                   {index < steps.length - 1 && (
-                    <div className="flex-1 h-px bg-[#0a1628] opacity-25 ml-0" />
+                    <div className="ml-0 h-px flex-1 bg-[#0a1628]/12" />
                   )}
                 </div>
               </div>
 
-              {/* Card */}
-              <div className="bg-white rounded-2xl p-6 sm:p-7 flex-1 shadow-sm">
-                {/* Icon circle */}
-                <div className="w-14 h-14 rounded-full bg-[#0048AE] flex items-center justify-center mb-5">
+              <div className="flex-1 rounded-[24px] border border-[#d9e3f0] bg-white p-6 shadow-[0_18px_36px_rgba(10,22,40,0.05)] sm:p-7">
+                <div className="mb-5 flex h-16 w-16 items-center justify-center rounded-full bg-[#2440a4] text-white">
                   {step.icon}
                 </div>
-                <h3 className="text-[13px] font-black text-[#0a1628] uppercase tracking-wide mb-3 leading-snug">
+                <h3 className="mb-3 text-[14px] font-black uppercase leading-snug text-[#0a1628] sm:text-[16px]">
                   {step.title}
                 </h3>
-                <p className="text-[14px] text-[#4b5563] leading-relaxed">
+                <p className="text-[15px] leading-relaxed text-[#374151]">
                   {step.description}
                 </p>
               </div>

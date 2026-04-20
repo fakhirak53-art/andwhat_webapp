@@ -7,21 +7,22 @@ import HeroSection from "@/components/home/HeroSection";
 import HowItWorksSection from "@/components/home/HowItWorksSection";
 import PowerfulFeaturesSection from "@/components/home/PowerfulFeaturesSection";
 import QuoteSection from "@/components/home/QuoteSection";
-import SupportCardsSection from "@/components/home/SupportCardsSection";
-import TestimonialsSection from "@/components/home/TestimonialsSection";
-import WellbeingPopupWrapper from "@/components/landing/WellbeingPopupWrapper";
+import StudentActionSection from "@/components/home/StudentActionSection";
+
+// import SupportCardsSection from "@/components/home/SupportCardsSection";
+// import TestimonialsSection from "@/components/home/TestimonialsSection";
+// import WellbeingPopupWrapper from "@/components/landing/WellbeingPopupWrapper";
 
 const homeNavLinks = [
   { label: "For Students", href: "/" },
-  { label: "For Schools & RTOs", href: "/schools" },
-  { label: "For Wellbeing & NDIS", href: "/wellbeing" },
 ];
 
 export default function HomePage() {
   return (
     <>
-      <WellbeingPopupWrapper />
-      <Header navLinks={homeNavLinks} activeHref="/" />
+      {/* Removed from the current student landing page design. */}
+      {/* <WellbeingPopupWrapper /> */}
+      <Header navLinks={homeNavLinks} activeHref="/" variant="student-home" />
       <main>
         <HeroSection />
         <QuoteSection />
@@ -29,9 +30,11 @@ export default function HomePage() {
         <PowerfulFeaturesSection />
         <DailyVibeCheckSection />
         <ForEducatorsParentsSection />
-        <FAQSection />
-        <TestimonialsSection />
-        <SupportCardsSection />
+        <StudentActionSection />
+        <FAQSection variant="home" />
+        {/* Removed from the current student landing page design. */}
+        {/* <TestimonialsSection /> */}
+        {/* <SupportCardsSection /> */}
       </main>
       <Footer />
     </>

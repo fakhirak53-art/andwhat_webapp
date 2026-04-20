@@ -2,12 +2,12 @@ import Image from "next/image";
 
 export default function DailyVibeCheckSection() {
   return (
-    <section className="relative overflow-hidden bg-[#fbf8f1] py-16 sm:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-white py-16 sm:py-20 lg:py-24">
       <div
         className="pointer-events-none absolute inset-0 opacity-90"
         style={{
           backgroundImage:
-            "radial-gradient(circle at 50% 100%, rgba(240, 229, 199, 0.58) 0%, rgba(240, 229, 199, 0.58) 21%, transparent 21.25%, transparent 30%, rgba(240, 229, 199, 0.4) 30.25%, rgba(240, 229, 199, 0.4) 39%, transparent 39.25%, transparent 48%, rgba(240, 229, 199, 0.28) 48.25%, rgba(240, 229, 199, 0.28) 57%, transparent 57.25%, transparent 66%, rgba(240, 229, 199, 0.18) 66.25%, rgba(240, 229, 199, 0.18) 75%, transparent 75.25%)",
+            "radial-gradient(circle at 50% 100%, rgba(242, 229, 189, 0.48) 0%, rgba(242, 229, 189, 0.48) 19%, transparent 19.25%, transparent 28%, rgba(242, 229, 189, 0.34) 28.25%, rgba(242, 229, 189, 0.34) 37%, transparent 37.25%, transparent 46%, rgba(242, 229, 189, 0.22) 46.25%, rgba(242, 229, 189, 0.22) 55%, transparent 55.25%, transparent 64%, rgba(242, 229, 189, 0.14) 64.25%, rgba(242, 229, 189, 0.14) 73%, transparent 73.25%)",
         }}
       />
 
