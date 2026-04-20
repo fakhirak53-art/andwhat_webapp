@@ -17,37 +17,13 @@ const actions = [
 
 export default function StudentActionSection() {
   return (
-    <section className="relative overflow-hidden bg-[#eaf2fd] py-20 sm:py-24">
-      <div className="pointer-events-none absolute inset-x-0 top-0">
-        <svg
-          viewBox="0 0 1440 120"
-          xmlns="http://www.w3.org/2000/svg"
-          className="block h-[72px] w-full sm:h-[96px]"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,110 C260,20 500,20 720,70 C950,120 1190,120 1440,30 L1440,0 L0,0 Z"
-            fill="white"
-          />
-        </svg>
-      </div>
+    <section className="relative overflow-hidden ">
+      <svg width="1920" height="565" viewBox="0 0 1920 565" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 135.505C0 135.505 317 -26.2602 875 116.76C1433 259.78 1920 0 1920 0V413.034C1920 413.034 1576.5 618.535 918 515.785C259.5 413.034 0 565 0 565V135.505Z" fill="#F2F7FF" />
+      </svg>
 
-      <div className="pointer-events-none absolute inset-x-0 bottom-0">
-        <svg
-          viewBox="0 0 1440 120"
-          xmlns="http://www.w3.org/2000/svg"
-          className="block h-[72px] w-full sm:h-[96px]"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,90 C280,10 520,10 720,55 C960,110 1200,110 1440,40 L1440,120 L0,120 Z"
-            fill="white"
-          />
-        </svg>
-      </div>
-
-      <div className="relative mx-auto max-w-7xl px-6 md:px-10 lg:px-16">
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-3 md:gap-8">
+      <div className="absolute inset-0 flex items-center justify-center z-10 w-full px-6 md:px-10 lg:px-16">
+        <div className="grid grid-cols-1 w-full max-w-[400px] lg:max-w-[1418px] mx-auto lg:gap-44 gap-10 md:grid-cols-3 md:gap-8">
           {actions.map((action) => (
             <Link
               key={action.label}
@@ -63,3 +39,4 @@ export default function StudentActionSection() {
     </section>
   );
 }
+

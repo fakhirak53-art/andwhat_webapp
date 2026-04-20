@@ -1,3 +1,5 @@
+import { CONTACT_EMAIL } from "@/lib/contact";
+
 import SectionWrapper from "./SectionWrapper";
 import SectionHeader from "./SectionHeader";
 
@@ -91,10 +93,10 @@ export default function ContactSection() {
               <div>
                 <p className="text-[15px] font-bold text-gray-900 mb-1">Email Us</p>
                 <a
-                  href="mailto:hello@andwhat.com"
+                  href={`mailto:${CONTACT_EMAIL}`}
                   className="text-[16px] font-semibold text-[#0048AE] hover:underline"
                 >
-                  hello@andwhat.com
+                  {CONTACT_EMAIL}
                 </a>
               </div>
             </div>

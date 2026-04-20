@@ -17,18 +17,17 @@ export default function HeroSection() {
         }}
       />
 
-      <div className="relative z-10 mx-auto max-w-screen-xl px-6 pb-16 pt-10 md:px-10 lg:px-16 lg:pb-20 lg:pt-12">
-        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-16">
-          <div className="max-w-[560px]">
+      <div className="relative z-10 mx-auto max-w-screen-2xl px-6 pb-16 pt-10 md:px-10 lg:px-16 lg:pb-20 lg:pt-12">
+        <div className="grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-32 py-14">
+          <div className="max-w-[672px]">
             <h1
-              className="mb-6 font-black uppercase leading-[0.94] tracking-[-0.04em] text-[#0a1628]"
-              style={{ fontSize: "clamp(44px, 7vw, 86px)" }}
+              className="mb-6 font-black uppercase leading-[0.94] tracking-[-0.04em] text-[#0a1628] text-[80px] py-8"
+            // style={{ fontSize: "clamp(44px, 7vw, 86px)" }}
             >
               Struggling At
               <br />
               School? <span className="text-[#2440a4]">Let&apos;s Change</span>
-              <br />
-              That
+              &nbsp;That
             </h1>
 
             <p className="mb-8 max-w-[520px] text-[15px] leading-relaxed text-[#374151] sm:mb-10 sm:text-[18px]">
@@ -67,6 +66,7 @@ export default function HeroSection() {
                 className="object-cover"
               />
             </div>
+
           </div>
         </div>
       </div>

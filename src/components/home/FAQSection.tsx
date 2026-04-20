@@ -18,49 +18,41 @@ const defaultFaqs: FAQ[] = [
     question: "How do students log in to the platform?",
     answer:
       "No passwords needed. Just enter the unique Reference Number provided by your teacher to jump straight in.",
-    defaultOpen: true,
   },
   {
     question: "How does the spaced repetition system work?",
     answer:
       "Our \"Sneaky Extension\" tracks what you've seen and resurfaces key concepts right before you're likely to forget them.",
-    defaultOpen: true,
   },
   {
     question: "Can teachers create their own questions?",
     answer:
       "Yes. Teachers can upload custom question sets directly to their dashboard to align with their specific curriculum.",
-    defaultOpen: true,
   },
   {
     question: "What devices are compatible?",
     answer:
       "The core experience is a Chrome Extension for laptops/desktops, paired with a mobile-friendly web app for daily messages.",
-    defaultOpen: true,
   },
   {
     question: "Is student progress tracked?",
     answer:
       "Yes. Students see their own growth, and teachers receive high-level insights to see where the class needs more support.",
-    defaultOpen: true,
   },
   {
     question: "How are schools registered?",
     answer:
       "A school representative simply fills out the Registration Form to get a unique code and set up their pilot program.",
-    defaultOpen: true,
   },
   {
     question: "What is Daily Learning Messages?",
     answer:
       "It's a \"Vibe Check\" that sends daily tips and support to your phone to help manage school stress and mindset.",
-    defaultOpen: true,
   },
   {
     question: "Is there a free trial available?",
     answer:
       "Yes. Schools can sign up for a School Pilot to test the full power of the platform before committing.",
-    defaultOpen: true,
   },
 ];
 

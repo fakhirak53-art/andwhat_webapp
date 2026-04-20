@@ -1,41 +1,62 @@
 "use client";
 
-import { useState } from "react";
+import { type ReactNode, useState } from "react";
 
-const testimonials = [
-  {
-    name: "Jeremy McPeak",
-    handle: "@jwmcpeak",
-    avatar: "/images/student1.png",
-    content:
-      "I just received an invite to Andwhat, and holy crap! It is well thought out, and I can see this being my go-to study platform going forward. Well done! I'm looking forward to seeing how the app progresses.",
-    stars: 5,
-  },
-  {
-    name: "Marcus Brown",
-    handle: "@marcusbrown",
-    avatar: "/images/student2.png",
-    content:
-      "Andwhat helped me stay focused during exam season. The concept of learning while browsing is genius — I barely noticed I was studying!",
-    stars: 5,
-  },
-  {
-    name: "Alex Turner",
-    handle: "@alexturner",
-    avatar: "/images/student3.png",
-    content:
-      "The extension works seamlessly. Every time I go on YouTube or Reddit, I get a quick question from class. After two weeks I aced my history test!",
-    stars: 5,
-  },
-  {
-    name: "Sarah Mitchell",
-    handle: "@sarahmitchell",
-    avatar: "/images/student4.png",
-    content:
-      "My students are so much more engaged since we started using Andwhat. It's seamless and doesn't feel like extra work at all.",
-    stars: 5,
-  },
-];
+import { BrandName } from "@/components/ui/BrandName";
+
+const testimonials: {
+  name: string;
+  handle: string;
+  avatar: string;
+  content: ReactNode;
+  stars: number;
+}[] = [
+    {
+      name: "Jeremy McPeak",
+      handle: "@jwmcpeak",
+      avatar: "/images/student1.png",
+      content: (
+        <>
+          I just received an invite to <BrandName />, and holy crap! It is well thought out, and
+          I can see this being my go-to study platform going forward. Well done! I&apos;m looking
+          forward to seeing how the app progresses.
+        </>
+      ),
+      stars: 5,
+    },
+    {
+      name: "Marcus Brown",
+      handle: "@marcusbrown",
+      avatar: "/images/student2.png",
+      content: (
+        <>
+          <BrandName /> helped me stay focused during exam season. The concept of learning
+          while browsing is genius — I barely noticed I was studying!
+        </>
+      ),
+      stars: 5,
+    },
+    {
+      name: "Alex Turner",
+      handle: "@alexturner",
+      avatar: "/images/student3.png",
+      content:
+        "The extension works seamlessly. Every time I go on YouTube or Reddit, I get a quick question from class. After two weeks I aced my history test!",
+      stars: 5,
+    },
+    {
+      name: "Sarah Mitchell",
+      handle: "@sarahmitchell",
+      avatar: "/images/student4.png",
+      content: (
+        <>
+          My students are so much more engaged since we started using <BrandName />. It&apos;s
+          seamless and doesn&apos;t feel like extra work at all.
+        </>
+      ),
+      stars: 5,
+    },
+  ];
 
 function StarRating({ count }: { count: number }) {
   return (
@@ -62,23 +83,23 @@ export default function TestimonialsSection() {
   return (
     <section id="reviews" className="relative overflow-hidden" style={{ backgroundColor: "#dce9f8" }}>
       {/* Top wave transition from SupportCards */}
-     <div className="w-full overflow-hidden leading-[0]">
-  <svg
-    viewBox="0 0 1440 120"
-    xmlns="http://www.w3.org/2000/svg"
-    className="w-full block"
-    preserveAspectRatio="none"
-  >
-    <path
-      d="M0,60 
+      <div className="w-full overflow-hidden leading-[0]">
+        <svg
+          viewBox="0 0 1440 120"
+          xmlns="http://www.w3.org/2000/svg"
+          className="w-full block"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M0,60 
          C360,0 1080,0 1440,60 
          L1440,0 
          L0,0 
          Z"
-      fill="white"
-    />
-  </svg>
-</div>
+            fill="white"
+          />
+        </svg>
+      </div>
 
       <div className="max-w-screen-xl mx-auto px-6 md:px-10 lg:px-16 py-10 pb-20">
         {/* Heading */}

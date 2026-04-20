@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
+import { CONTACT_EMAIL } from "@/lib/contact";
+
 const usefulLinks = [
   { label: "How it Works", href: "#how-it-works" },
   { label: "Features", href: "#features" },
@@ -116,10 +118,10 @@ export default function Footer() {
                 <div>
                   <p className="text-[12px] text-gray-400">Send email</p>
                   <a
-                    href="mailto:hello@andwhat.com"
+                    href={`mailto:${CONTACT_EMAIL}`}
                     className="text-[14px] font-bold text-white hover:text-blue-300 transition-colors"
                   >
-                    hello@andwhat.com
+                    {CONTACT_EMAIL}
                   </a>
                 </div>
               </div>
