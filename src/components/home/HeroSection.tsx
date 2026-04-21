@@ -17,6 +17,7 @@ export default function HeroSection() {
         }}
       />
 
+
       <div className="relative z-10 mx-auto max-w-screen-2xl px-4 pb-10 pt-6 sm:px-6 sm:pb-14 sm:pt-8 md:px-10 lg:px-16 lg:pb-20 lg:pt-12">
         <div className="grid grid-cols-1 items-center gap-8 py-8 sm:gap-10 sm:py-10 md:gap-12 lg:grid-cols-2 lg:gap-10 lg:py-14 xl:gap-20">
           <div className="max-w-[672px]">
