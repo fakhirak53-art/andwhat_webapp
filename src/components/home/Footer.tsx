@@ -128,7 +128,7 @@ export default function Footer() {
               className="brightness-0 invert mb-5"
             />
             <p className="text-[13px] text-gray-400 leading-relaxed mb-6 max-w-[220px]">
-              <BrandName tone="onDark" /> helps students learn smarter by turning everyday browsing into
+              <BrandName tone="inherit" /> helps students learn smarter by turning everyday browsing into
               quick, effective practice. Build better habits, remember more, and stay
               consistent without extra study.
             </p>
