@@ -1,10 +1,10 @@
 "use client";
 
+import { adminLogin } from "@/app/actions/admin-auth";
+import { Button, Input } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { adminLogin } from "@/app/actions/admin-auth";
-import { Button, Input } from "@/components/ui";
 
 function WarningIcon() {
   return (
@@ -82,10 +82,10 @@ export default function AdminLoginPage() {
         <p className="absolute top-6 right-6 md:top-8 md:right-8 text-muted text-xs">
           Need help?{" "}
           <a
-            href="mailto:hello@andwhat.app"
+            href="mailto:hello@andwhat.au"
             className="text-ink hover:underline"
           >
-            hello@andwhat.app
+            hello@andwhat.au
           </a>
         </p>
 
