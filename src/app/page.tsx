@@ -9,10 +9,6 @@ import PowerfulFeaturesSection from "@/components/home/PowerfulFeaturesSection";
 import QuoteSection from "@/components/home/QuoteSection";
 import StudentActionSection from "@/components/home/StudentActionSection";
 
-// import SupportCardsSection from "@/components/home/SupportCardsSection";
-// import TestimonialsSection from "@/components/home/TestimonialsSection";
-// import WellbeingPopupWrapper from "@/components/landing/WellbeingPopupWrapper";
-
 const homeNavLinks = [
   { label: "For Students", href: "/" },
 ];
@@ -20,8 +16,6 @@ const homeNavLinks = [
 export default function HomePage() {
   return (
     <>
-      {/* Removed from the current student landing page design. */}
-      {/* <WellbeingPopupWrapper /> */}
       <Header navLinks={homeNavLinks} activeHref="/" variant="student-home" />
       <main>
         <HeroSection />
@@ -32,9 +26,6 @@ export default function HomePage() {
         <ForEducatorsParentsSection />
         <StudentActionSection />
         <FAQSection variant="home" />
-        {/* Removed from the current student landing page design. */}
-        {/* <TestimonialsSection /> */}
-        {/* <SupportCardsSection /> */}
       </main>
       <Footer />
     </>

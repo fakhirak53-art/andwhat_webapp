@@ -1,9 +1,11 @@
 import { logout } from "@/app/actions/auth";
+import DailyMhMessageModal from "@/components/dashboard/DailyMhMessageModal";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
 import { Button } from "@/components/ui/Button";
 import { ToastProvider } from "@/components/ui/Toast";
 import { getStudentProfile } from "@/lib/dashboard";
+import { getStudentRow } from "@/lib/student";
 import { marketingTheme } from "@/lib/marketing-theme";
 import { createClient } from "@/utils/supabase/server";
 import Image from "next/image";
@@ -35,7 +37,10 @@ export default async function DashboardLayout({
 
   if (!user) redirect("/login");
 
-  const profileData = await getStudentProfile(user.id);
+  const [profileData, studentRow] = await Promise.all([
+    getStudentProfile(user.id),
+    getStudentRow(user.id),
+  ]);
   const fullName =
     profileData?.profile.full_name ||
     user.user_metadata?.full_name ||
@@ -48,6 +53,10 @@ export default async function DashboardLayout({
 
   return (
     <ToastProvider>
+      <DailyMhMessageModal
+        userId={user.id}
+        schoolId={studentRow?.school_id ?? null}
+      />
       <div className={["min-h-screen", marketingTheme.bgPage].join(" ")}>
         <aside
           className={[

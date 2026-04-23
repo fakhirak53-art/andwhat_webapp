@@ -13,6 +13,8 @@
 # cursor
 .cursor
 
+db_schema.sql
+
 # testing
 /coverage
 
