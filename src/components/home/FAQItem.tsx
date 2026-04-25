@@ -1,10 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 
 interface FAQItemProps {
-  question: string;
-  answer: string;
+  question: ReactNode;
+  answer: ReactNode;
   defaultOpen?: boolean;
   variant?: "default" | "home";
 }
@@ -33,7 +33,7 @@ export default function FAQItem({
       >
         <span className="text-[14px] sm:text-[15px] font-semibold leading-snug">{question}</span>
         <span
-          className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-colors ${
+          className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-colors ${
             isHomeVariant
               ? "bg-[#2440a4] text-white"
               : isOpen

@@ -1,4 +1,6 @@
+import { BrandName } from "@/components/ui/BrandName";
 import Image from "next/image";
+import type { ReactNode } from "react";
 
 function TriangleBullet() {
   return (
@@ -28,8 +30,11 @@ const messagingPoints = [
   "Learning to deal with issues helps. Asking helps.",
 ];
 
-const educatorPoints = [
-  "Andwhat's spaced repetition of learning material helps drive retention of lessons learnt in class.",
+const educatorPoints: ReactNode[] = [
+  <>
+    <BrandName possessive /> spaced repetition of learning material helps drive retention of
+    lessons learnt in class.
+  </>,
   "No IT onboarding required. Teachers upload Question sets with multi-choice answers relating to course material. A reference number is allocated to share with Students and away they go.",
 ];
 
@@ -43,7 +48,7 @@ interface CopyTileProps {
   heading: string;
   accentHeading?: string;
   description?: string;
-  points: string[];
+  points: ReactNode[];
   className?: string;
 }
 
@@ -75,8 +80,8 @@ function CopyTile({
       ) : null}
 
       <ul className="mt-5 flex flex-col gap-3 sm:mt-6 sm:gap-4">
-        {points.map((point) => (
-          <li key={point} className="flex items-start gap-2.5 sm:gap-3">
+        {points.map((point, i) => (
+          <li key={i} className="flex items-start gap-2.5 sm:gap-3">
             <TriangleBullet />
             <span className="text-[11px] leading-relaxed text-[#374151] sm:text-[15px]">
               {point}

@@ -1,3 +1,4 @@
+import { BrandName } from "@/components/ui/BrandName";
 import Link from "next/link";
 
 export default function DailyGoalsCTASection() {
@@ -48,7 +49,7 @@ export default function DailyGoalsCTASection() {
             maxWidth: "520px",
           }}
         >
-          AndWhat Daily Messaging provides practical, person-centred support to
+          <BrandName tone="onDark" /> Daily Messaging provides practical, person-centred support to
           help you build resilience and develop independence. We focus on helping
           you achieve your mental health and wellbeing outcomes&mdash;starting in
           your NDIS plan.

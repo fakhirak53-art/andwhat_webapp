@@ -1,3 +1,4 @@
+import { BrandName } from "@/components/ui/BrandName";
 import Link from "next/link";
 
 export default function RTOHeroSection() {
@@ -49,7 +50,7 @@ export default function RTOHeroSection() {
                 maxWidth: "400px",
               }}
             >
-              AndWhat sits quietly in the background of any website your students
+              <BrandName /> sits quietly in the background of any website your students
               visit. Before a distraction loads, they answer one quick question
               from your course material. Simple for them. Useful for you.
             </p>

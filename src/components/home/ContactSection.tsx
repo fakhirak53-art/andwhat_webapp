@@ -1,3 +1,4 @@
+import { BrandName } from "@/components/ui/BrandName";
 import { CONTACT_EMAIL } from "@/lib/contact";
 
 import SectionWrapper from "./SectionWrapper";
@@ -9,7 +10,7 @@ export default function ContactSection() {
       <SectionWrapper>
         <div className="mb-10 sm:mb-14 text-center">
           <SectionHeader
-            title="Get in Touch with AndWhat"
+            title={<>Get in Touch with <BrandName /></>}
             subtitle="If you have any questions or would like to learn more about Easystuff, please feel free to contact us."
             centered
           />

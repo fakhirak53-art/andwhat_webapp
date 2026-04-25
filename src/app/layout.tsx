@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Instrument_Serif, Inter } from "next/font/google";
+import { DM_Sans, Instrument_Serif, Syne } from "next/font/google";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -15,10 +15,11 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
-const inter = Inter({
-  weight: ["500", "700"],
+/** Display face reserved for inline "AndWhat" wordmark only. */
+const brandWordmark = Syne({
+  weight: ["700", "800"],
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-brand",
 });
 
 export const metadata: Metadata = {
@@ -32,7 +33,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${instrumentSerif.variable} ${dmSans.variable} bg-white`}>
+    <html
+      lang="en"
+      className={`${instrumentSerif.variable} ${dmSans.variable} ${brandWordmark.variable} bg-white`}
+    >
       <body className="font-sans bg-white!">{children}</body>
     </html>
   );

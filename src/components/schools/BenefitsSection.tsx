@@ -1,3 +1,5 @@
+import { BrandName } from "@/components/ui/BrandName";
+
 const benefits = [
   {
     dark: false,
@@ -44,7 +46,7 @@ export default function BenefitsSection() {
             className="font-black text-[#0a1628] uppercase tracking-tight"
             style={{ fontSize: "clamp(26px, 4vw, 46px)" }}
           >
-            How AndWhat Helps Your{" "}
+            How <BrandName /> Helps Your{" "}
             <span className="text-[#0048AE]">Organisation</span>
           </h2>
         </div>

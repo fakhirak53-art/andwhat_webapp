@@ -1,6 +1,6 @@
 "use client";
 
-import { BrandName } from "@/components/ui/BrandName";
+import { BrandName } from "@/components/ui";
 import { createClient } from "@/utils/supabase/client";
 import Image from "next/image";
 import Link from "next/link";
@@ -16,7 +16,7 @@ const usefulLinks = [
   { label: "Features", href: "#features" },
   { label: "Reviews", href: "#reviews" },
   { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const socialLinks = [

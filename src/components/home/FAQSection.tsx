@@ -1,8 +1,10 @@
+import { BrandName } from "@/components/ui/BrandName";
+import type { ReactNode } from "react";
 import FAQItem from "./FAQItem";
 
 export interface FAQ {
-  question: string;
-  answer: string;
+  question: ReactNode;
+  answer: ReactNode;
   defaultOpen?: boolean;
 }
 
@@ -31,8 +33,13 @@ const defaultFaqs: FAQ[] = [
   },
   {
     question: "What devices are compatible?",
-    answer:
-      "The core experience is a Chrome Extension for laptops/desktops, paired with a mobile-friendly web app for daily messages.",
+    answer: (
+      <>
+        <BrandName /> is a responsive web application that works on any modern device -
+        laptops, tablets, and smartphones. Students can access it from any browser without
+        installing an app.
+      </>
+    ),
   },
   {
     question: "Is student progress tracked?",
@@ -41,8 +48,12 @@ const defaultFaqs: FAQ[] = [
   },
   {
     question: "How are schools registered?",
-    answer:
-      "A school representative simply fills out the Registration Form to get a unique code and set up their pilot program.",
+    answer: (
+      <>
+        Schools are onboarded by the <BrandName /> team. Once set up, admins receive their
+        school code and can start adding students and creating question sets immediately.
+      </>
+    ),
   },
   {
     question: "What is Daily Learning Messages?",
@@ -80,9 +91,9 @@ export default function FAQSection({
 
         <div className="grid grid-cols-1 gap-x-8 gap-y-6 md:grid-cols-2">
           <div className="flex flex-col gap-5">
-            {left.map((faq) => (
+            {left.map((faq, i) => (
               <FAQItem
-                key={faq.question}
+                key={`faq-left-${i}`}
                 question={faq.question}
                 answer={faq.answer}
                 defaultOpen={faq.defaultOpen}
@@ -91,9 +102,9 @@ export default function FAQSection({
             ))}
           </div>
           <div className="flex flex-col gap-5">
-            {right.map((faq) => (
+            {right.map((faq, i) => (
               <FAQItem
-                key={faq.question}
+                key={`faq-right-${i}`}
                 question={faq.question}
                 answer={faq.answer}
                 defaultOpen={faq.defaultOpen}
