@@ -5,6 +5,7 @@ import { useMemo, useState, useTransition } from "react";
 import { createQuestionSet, createTextbook } from "@/app/actions/sets-admin";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Form } from "@/components/ui/Form";
 import Input from "@/components/ui/Input";
 import type { Textbook } from "@/lib/admin";
 import type { Subject } from "@/types/database";
@@ -110,7 +111,7 @@ export default function CreateSetForm({
       <h2 className="font-serif text-2xl text-ink">Create question set</h2>
       <p className="text-muted text-sm mt-1">Set details</p>
 
-      <form action={handleCreateSet} className="mt-6 space-y-4">
+      <Form action={handleCreateSet} className="mt-6 space-y-4">
         <Input
           name="set_name"
           label="Set name"
@@ -275,7 +276,7 @@ export default function CreateSetForm({
         <Button type="submit" className="w-full" loading={isPending}>
           Create set →
         </Button>
-      </form>
+      </Form>
     </Card>
   );
 }

@@ -1,24 +1,37 @@
 "use client";
 
-import { login, signup } from "@/app/actions/auth";
-import { Button, Input } from "@/components/ui";
-import Image from "next/image";
+import { login, signInWithGoogle, signup } from "@/app/actions/auth";
+import { AuthErrorAlert } from "@/components/auth/AuthErrorAlert";
+import { StudentAuthShell } from "@/components/auth/StudentAuthShell";
+import { Button, Form, Input } from "@/components/ui";
 import Link from "next/link";
 import { useState } from "react";
 
-function WarningIcon() {
+function GoogleGlyph({ className }: { className?: string }) {
   return (
     <svg
-      className="w-4 h-4 shrink-0"
-      fill="currentColor"
-      viewBox="0 0 20 20"
+      className={className}
+      width="18"
+      height="18"
+      viewBox="0 0 18 18"
+      xmlns="http://www.w3.org/2000/svg"
       aria-hidden
     >
-      <title>Warning</title>
       <path
-        fillRule="evenodd"
-        d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 5a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 5zm0 9a1 1 0 100-2 1 1 0 000 2z"
-        clipRule="evenodd"
+        fill="#4285F4"
+        d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844a4.14 4.14 0 01-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z"
+      />
+      <path
+        fill="#34A853"
+        d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332A8.997 8.997 0 009 18z"
+      />
+      <path
+        fill="#FBBC05"
+        d="M3.964 10.706c-.18-.54-.282-1.117-.282-1.706s.102-1.166.282-1.706V4.962H.957A8.996 8.996 0 000 9c0 1.452.348 2.827.957 4.038l3.007-2.332z"
+      />
+      <path
+        fill="#EA4335"
+        d="M9 3.58c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0A8.997 8.997 0 00.957 4.962L3.964 7.294C4.672 5.163 6.656 3.58 9 3.58z"
       />
     </svg>
   );
@@ -28,6 +41,7 @@ export default function LoginPage() {
   const [isSignup, setIsSignup] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   async function handleSubmit(formData: FormData) {
     setLoading(true);
@@ -41,161 +55,129 @@ export default function LoginPage() {
     }
   }
 
+  async function handleGoogleSignIn() {
+    setGoogleLoading(true);
+    setError(null);
+    const result = await signInWithGoogle();
+    if (result?.error) {
+      setError(result.error);
+      setGoogleLoading(false);
+    }
+  }
+
   return (
-    <main className="min-h-screen flex flex-col md:flex-row">
-      {/* Left column — hidden on mobile */}
-      <div className="hidden md:flex md:flex-col md:justify-between bg-ink text-paper p-12 md:w-1/2">
-        <div>
-          <Link href="/" className="inline-block mb-12">
-            <Image
-              src="/images/logo.png"
-              alt="andwhat"
-              width={300}
-              height={80}
-              className="h-12 w-auto filter brightness-0 invert contrast-125"
-              priority
-            />
-          </Link>
-        </div>
-        <div>
-          <h2 className="font-serif text-3xl md:text-4xl leading-tight mb-6">
-            Turn screen time into <em>learn time.</em>
-          </h2>
-          <ul className="space-y-3 text-paper/90 font-sans text-sm md:text-base">
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
-              Quick quizzes before you browse
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
-              Track your progress over time
-            </li>
-            <li className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-[#0048AE] shrink-0" />
-              Assigned by your school, built for you
-            </li>
-          </ul>
-        </div>
-        <p className="text-paper/50 text-xs mt-8">
-          andwhat.app · Built for Australian schools
-        </p>
+    <StudentAuthShell>
+      <p className="text-muted text-xs uppercase tracking-widest font-medium mb-2">
+        Student portal
+      </p>
+      <h1 className="font-serif text-3xl text-ink mb-1">
+        {isSignup ? "Create account" : "Welcome back"}
+      </h1>
+      <p className="text-muted text-sm mb-8">
+        Log in with your school email to continue.
+      </p>
+
+      <div className="flex gap-1 p-1 rounded-md border border-border bg-cream/50 mb-6">
+        <button
+          type="button"
+          onClick={() => {
+            setIsSignup(false);
+            setError(null);
+          }}
+          className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${!isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"}`}
+        >
+          Log in
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setIsSignup(true);
+            setError(null);
+          }}
+          className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"}`}
+        >
+          Sign up
+        </button>
       </div>
 
-      {/* Right column */}
-      <div className="flex flex-col justify-center bg-paper p-8 md:p-16 md:w-1/2 flex-1 relative">
-        <p className="absolute top-6 right-6 md:top-8 md:right-8 text-muted text-xs">
-          Need help?{" "}
-          <a
-            href="mailto:hello@andwhat.au"
-            className="text-ink hover:underline"
-          >
-            hello@andwhat.au
-          </a>
-        </p>
+      <Form action={handleSubmit} className="space-y-4">
+        {isSignup && (
+          <Input
+            label="Full name"
+            id="full_name"
+            name="full_name"
+            type="text"
+            placeholder="Your name"
+            required
+          />
+        )}
+        <Input
+          label="Email"
+          id="email"
+          name="email"
+          type="email"
+          placeholder="you@school.edu.au"
+          required
+        />
+        <Input
+          label="Password"
+          id="password"
+          name="password"
+          type="password"
+          placeholder="••••••••"
+          required
+          minLength={6}
+        />
 
-        <div className="max-w-sm mx-auto w-full">
-          <p className="text-muted text-xs uppercase tracking-widest font-medium mb-2">
-            Student portal
-          </p>
-          <h1 className="font-serif text-3xl text-ink mb-1">
-            {isSignup ? "Create account" : "Welcome back"}
-          </h1>
-          <p className="text-muted text-sm mb-8">
-            Log in with your school email to continue.
-          </p>
-
-          {/* Tabs */}
-          <div className="flex gap-1 p-1 rounded-md border border-border bg-cream/50 mb-6">
-            <button
-              type="button"
-              onClick={() => {
-                setIsSignup(false);
-                setError(null);
-              }}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${!isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"
-                }`}
+        {!isSignup && (
+          <div className="flex justify-end -mt-1">
+            <Link
+              href="/login/forgot-password"
+              className="text-xs text-[#0048AE] hover:underline font-medium"
             >
-              Log in
-            </button>
-            <button
-              type="button"
-              onClick={() => {
-                setIsSignup(true);
-                setError(null);
-              }}
-              className={`flex-1 py-2 px-3 rounded-md text-sm font-medium transition-all duration-150 ${isSignup ? "bg-ink text-paper" : "text-muted hover:text-ink"
-                }`}
-            >
-              Sign up
-            </button>
+              Forgot password?
+            </Link>
           </div>
+        )}
 
-          <form action={handleSubmit} className="space-y-4">
-            {isSignup && (
-              <Input
-                label="Full name"
-                id="full_name"
-                name="full_name"
-                type="text"
-                placeholder="Your name"
-                required
-              />
-            )}
-            <Input
-              label="Email"
-              id="email"
-              name="email"
-              type="email"
-              placeholder="you@school.edu.au"
-              required
-            />
-            <Input
-              label="Password"
-              id="password"
-              name="password"
-              type="password"
-              placeholder="••••••••"
-              required
-              minLength={6}
-            />
+        {error && <AuthErrorAlert message={error} />}
 
-            {error && (
-              <div
-                className="bg-red-50 border border-error/20 text-error text-sm rounded-md p-3 flex items-start gap-2"
-                role="alert"
-              >
-                <WarningIcon />
-                <span>{error}</span>
-              </div>
-            )}
+        <Button
+          type="submit"
+          variant="primary"
+          size="lg"
+          loading={loading}
+          className="w-full justify-center"
+        >
+          {loading
+            ? "Please wait..."
+            : isSignup
+              ? "Create account →"
+              : "Log in →"}
+        </Button>
+      </Form>
 
-            <Button
-              type="submit"
-              variant="primary"
-              size="lg"
-              loading={loading}
-              className="w-full justify-center"
-            >
-              {loading
-                ? "Please wait..."
-                : isSignup
-                  ? "Create account →"
-                  : "Log in →"}
-            </Button>
-          </form>
-
-          <div className="flex items-center gap-3 my-6">
-            <span className="flex-1 h-px bg-border" />
-            <span className="text-muted text-xs uppercase">or</span>
-            <span className="flex-1 h-px bg-border" />
-          </div>
-
-          <p className="text-muted text-xs text-center">
-            Have a question set reference code? You can enter it after logging
-            in.
-          </p>
-        </div>
+      <div className="flex items-center gap-3 my-6">
+        <span className="flex-1 h-px bg-border" />
+        <span className="text-muted text-xs uppercase">or</span>
+        <span className="flex-1 h-px bg-border" />
       </div>
-    </main>
+
+      <Button
+        type="button"
+        variant="secondary"
+        size="lg"
+        loading={googleLoading}
+        className="w-full justify-center border-border text-ink"
+        onClick={handleGoogleSignIn}
+      >
+        <GoogleGlyph className="shrink-0" />
+        Continue with Google
+      </Button>
+
+      <p className="text-muted text-xs text-center mt-6">
+        Have a question set reference code? You can enter it after logging in.
+      </p>
+    </StudentAuthShell>
   );
 }

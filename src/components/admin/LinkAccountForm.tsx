@@ -5,7 +5,7 @@ import {
   linkStudentAccount,
   unlinkStudentAccount,
 } from "@/app/actions/students-admin";
-import { Button, Input } from "@/components/ui";
+import { Button, Form, Input } from "@/components/ui";
 
 interface LinkAccountFormProps {
   studentId: string;
@@ -60,7 +60,7 @@ export default function LinkAccountForm({
   return (
     <div>
       {!isLinked ? (
-        <form onSubmit={handleLinkSubmit} className="space-y-3">
+        <Form onSubmit={handleLinkSubmit} className="space-y-3">
           <Input
             id="link-email"
             label="Auth user email"
@@ -73,7 +73,7 @@ export default function LinkAccountForm({
           <Button type="submit" loading={isPending}>
             Link account
           </Button>
-        </form>
+        </Form>
       ) : (
         <div className="space-y-3">
           <p className="text-sm text-ink">

@@ -1,10 +1,10 @@
 "use client";
 
-import { adminLogin } from "@/app/actions/admin-auth";
-import { Button, Input } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { adminLogin } from "@/app/actions/admin-auth";
+import { Button, Form, Input } from "@/components/ui";
 
 function WarningIcon() {
   return (
@@ -82,10 +82,10 @@ export default function AdminLoginPage() {
         <p className="absolute top-6 right-6 md:top-8 md:right-8 text-muted text-xs">
           Need help?{" "}
           <a
-            href="mailto:hello@andwhat.au"
+            href="mailto:hello@andwhat.app"
             className="text-ink hover:underline"
           >
-            hello@andwhat.au
+            hello@andwhat.app
           </a>
         </p>
 
@@ -98,7 +98,7 @@ export default function AdminLoginPage() {
             Log in with your admin account to continue.
           </p>
 
-          <form action={handleSubmit} className="space-y-4">
+          <Form action={handleSubmit} className="space-y-4">
             <Input
               label="Email"
               id="email"
@@ -136,7 +136,7 @@ export default function AdminLoginPage() {
             >
               {loading ? "Please wait..." : "Log in →"}
             </Button>
-          </form>
+          </Form>
         </div>
       </div>
     </main>

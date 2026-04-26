@@ -12,6 +12,7 @@ import EmptyState from "@/components/dashboard/EmptyState";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Form } from "@/components/ui/Form";
 import Input from "@/components/ui/Input";
 import { useToast } from "@/components/ui/Toast";
 import { marketingTheme as t } from "@/lib/marketing-theme";
@@ -176,7 +177,7 @@ export default function SetSearch({
         )}
         padding="md"
       >
-        <form onSubmit={onSubmit} className="space-y-4">
+        <Form onSubmit={onSubmit} className="space-y-4">
           <div>
             <p className={["text-sm font-medium", t.textHeading].join(" ")}>
               Enter reference code
@@ -205,7 +206,7 @@ export default function SetSearch({
                 : searchError}
             </p>
           ) : null}
-        </form>
+        </Form>
 
         {searchResult ? (
           <div className="mt-4 bg-white border-2 border-[#0048AE] rounded-lg p-5">

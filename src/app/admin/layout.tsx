@@ -7,6 +7,7 @@ import AdminMobileSidebar from "@/components/admin/AdminMobileSidebar";
 import AdminNav from "@/components/admin/AdminNav";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { Form } from "@/components/ui/Form";
 import { getAdminProfile } from "@/lib/admin";
 import { createClient } from "@/utils/supabase/server";
 
@@ -66,7 +67,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
             {adminProfile.school_code}
           </p>
           <div className="my-4 border-t border-paper/15" />
-          <form action={logout}>
+          <Form action={logout}>
             <Button
               type="submit"
               variant="ghost"
@@ -74,7 +75,7 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
             >
               Logout
             </Button>
-          </form>
+          </Form>
         </div>
       </aside>
 

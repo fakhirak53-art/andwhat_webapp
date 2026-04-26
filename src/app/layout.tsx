@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans, Instrument_Serif, Syne } from "next/font/google";
+import { DM_Sans, Instrument_Serif, Inter } from "next/font/google";
 import "./globals.css";
 
 const instrumentSerif = Instrument_Serif({
@@ -15,11 +15,10 @@ const dmSans = DM_Sans({
   variable: "--font-dm-sans",
 });
 
-/** Display face reserved for inline "AndWhat" wordmark only. */
-const brandWordmark = Syne({
-  weight: ["700", "800"],
+const inter = Inter({
+  weight: ["500", "700"],
   subsets: ["latin"],
-  variable: "--font-brand",
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = {
@@ -35,9 +34,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${instrumentSerif.variable} ${dmSans.variable} ${brandWordmark.variable} bg-white`}
+      className={`${instrumentSerif.variable} ${dmSans.variable} bg-white`}
+      suppressHydrationWarning
     >
-      <body className="font-sans bg-white!">{children}</body>
+      <body className="font-sans bg-white!" suppressHydrationWarning>
+        {children}
+      </body>
     </html>
   );
 }

@@ -28,6 +28,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(function Input(
         ref={ref}
         id={id}
         name={name}
+        suppressHydrationWarning
         className={[
           "w-full bg-[#faf7f2] border rounded-md px-4 py-2.5 text-[#0a1628] placeholder:text-gray-400",
           "focus:outline-none focus:ring-2 focus:ring-[#0048AE] focus:border-transparent",

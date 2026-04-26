@@ -10,6 +10,7 @@ import QuestionCard from "@/components/admin/QuestionCard";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Form } from "@/components/ui/Form";
 import {
   getAdminProfile,
   getAllSubjects,
@@ -110,7 +111,7 @@ export default async function AdminSetDetailPage({
               <Button variant="secondary">Edit details</Button>
             </summary>
             <Card className="mt-2 w-full md:w-[560px]" padding="md">
-              <form action={updateSetAction} className="space-y-3">
+              <Form action={updateSetAction} className="space-y-3">
                 <div>
                   <label
                     htmlFor="edit-set-name"
@@ -200,21 +201,21 @@ export default async function AdminSetDetailPage({
                 <div className="flex items-center gap-2">
                   <Button type="submit">Save</Button>
                 </div>
-              </form>
+              </Form>
             </Card>
           </details>
 
-          <form action={toggleSetAction}>
+          <Form action={toggleSetAction}>
             <Button type="submit" variant="secondary">
               {typedSet.is_active ? "Deactivate" : "Activate"}
             </Button>
-          </form>
+          </Form>
 
-          <form action={deleteSetAction}>
+          <Form action={deleteSetAction}>
             <Button type="submit" variant="ghost" className="text-error">
               Delete set
             </Button>
-          </form>
+          </Form>
         </div>
       </section>
 

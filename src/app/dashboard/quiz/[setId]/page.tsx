@@ -6,6 +6,7 @@ import QuizSessionClient from "@/components/dashboard/QuizSessionClient";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { Form } from "@/components/ui/Form";
 import { marketingTheme as t } from "@/lib/marketing-theme";
 import { createClient } from "@/utils/supabase/server";
 
@@ -107,9 +108,9 @@ export default async function QuizSetPage({ params }: QuizPageProps) {
           <p className={["text-sm mt-2", t.textMuted].join(" ")}>
             Enroll first to start practice for {setData.set_name}.
           </p>
-          <form action={handleEnrollAndStart} className="mt-4">
+          <Form action={handleEnrollAndStart} className="mt-4">
             <Button>Enroll and start</Button>
-          </form>
+          </Form>
         </Card>
       </div>
     );
