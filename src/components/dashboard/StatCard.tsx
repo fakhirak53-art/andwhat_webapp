@@ -24,7 +24,12 @@ export default function StatCard({
       >
         {label}
       </p>
-      <p className={["font-serif text-4xl mt-2", valueClassName].join(" ")}>
+      <p
+        className={[
+          "font-serif text-3xl sm:text-4xl mt-2 tabular-nums",
+          valueClassName,
+        ].join(" ")}
+      >
         {value}
       </p>
       <p className={["text-xs mt-1", marketingTheme.textMuted].join(" ")}>

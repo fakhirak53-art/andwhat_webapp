@@ -1,4 +1,9 @@
+import Image from "next/image";
+import Link from "next/link";
+import { redirect } from "next/navigation";
+import type { ReactNode } from "react";
 import { logout } from "@/app/actions/auth";
+import DailyMhMessageModal from "@/components/dashboard/DailyMhMessageModal";
 import DashboardNav from "@/components/dashboard/DashboardNav";
 import MobileSidebar from "@/components/dashboard/MobileSidebar";
 import { Button } from "@/components/ui/Button";
@@ -7,10 +12,6 @@ import { ToastProvider } from "@/components/ui/Toast";
 import { getStudentProfile } from "@/lib/dashboard";
 import { marketingTheme } from "@/lib/marketing-theme";
 import { createClient } from "@/utils/supabase/server";
-import Image from "next/image";
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import type { ReactNode } from "react";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -49,6 +50,7 @@ export default async function DashboardLayout({
 
   return (
     <ToastProvider>
+      <DailyMhMessageModal userId={user.id} />
       <div className={["min-h-screen", marketingTheme.bgPage].join(" ")}>
         <aside
           className={[
@@ -121,7 +123,9 @@ export default async function DashboardLayout({
             yearLevel={yearLevel}
             schoolName={schoolName}
           />
-          <main className="p-6 md:p-8 max-w-6xl">{children}</main>
+          <main className="max-w-6xl px-4 py-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] sm:px-6 sm:py-6 md:p-8">
+            {children}
+          </main>
         </div>
       </div>
     </ToastProvider>

@@ -66,7 +66,7 @@ export default function MobileSidebar({
 
       <div
         className={[
-          "md:hidden fixed inset-0 z-60 transition-opacity duration-200",
+          "md:hidden fixed inset-0 z-[60] transition-opacity duration-200",
           isOpen
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none",

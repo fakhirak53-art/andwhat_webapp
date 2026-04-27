@@ -79,11 +79,18 @@ export default async function DashboardPage() {
             className={["border-2", t.borderAccent, t.bgAccentTint].join(" ")}
             padding="md"
           >
-            <div className="flex items-center justify-between gap-3">
-              <h2 className={["font-serif text-xl", t.textHeading].join(" ")}>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between sm:gap-3">
+              <h2
+                className={[
+                  "font-serif text-lg sm:text-xl min-w-0",
+                  t.textHeading,
+                ].join(" ")}
+              >
                 🧠 Due for review today
               </h2>
-              <Badge variant="lime">{dueToday.length} sets</Badge>
+              <Badge variant="lime" className="w-fit shrink-0">
+                {dueToday.length} sets
+              </Badge>
             </div>
             <p className={["text-sm mt-2", t.textMuted].join(" ")}>
               Based on your last practice, these sets are ready for review.
@@ -95,7 +102,7 @@ export default async function DashboardPage() {
                 <div
                   key={item.question_set_id}
                   className={[
-                    "flex items-center justify-between gap-3 py-2 border-b last:border-0",
+                    "flex flex-col gap-2 py-2 border-b last:border-0 sm:flex-row sm:items-center sm:justify-between sm:gap-3",
                     t.borderSubtle,
                   ].join(" ")}
                 >
@@ -112,10 +119,15 @@ export default async function DashboardPage() {
                       {item.subject_name}
                     </p>
                   </div>
-                  <div className="flex items-center gap-2 shrink-0">
+                  <div className="flex flex-wrap items-center gap-2 shrink-0 sm:justify-end">
                     <Badge variant="default">{item.accuracy_rate}%</Badge>
-                    <Link href={`/dashboard/quiz/${item.question_set_id}`}>
-                      <Button size="sm">Practice -&gt;</Button>
+                    <Link
+                      href={`/dashboard/quiz/${item.question_set_id}`}
+                      className="w-full sm:w-auto"
+                    >
+                      <Button size="sm" className="w-full sm:w-auto">
+                        Practice -&gt;
+                      </Button>
                     </Link>
                   </div>
                 </div>
@@ -164,7 +176,7 @@ export default async function DashboardPage() {
           {stats.streakDays > 0 ? (
             <Card
               className={[
-                "border rounded-lg p-4 flex items-center justify-between",
+                "border rounded-lg p-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between",
                 t.softBluePanel,
                 t.borderAccentSoft,
               ].join(" ")}
@@ -172,14 +184,16 @@ export default async function DashboardPage() {
             >
               <p
                 className={[
-                  "font-serif text-xl flex items-center gap-2",
+                  "font-serif text-lg sm:text-xl flex items-center gap-2 min-w-0",
                   t.textHeading,
                 ].join(" ")}
               >
-                <Flame className="w-5 h-5 text-[#0048AE]" />
+                <Flame className="w-5 h-5 shrink-0 text-[#0048AE]" />
                 {stats.streakDays} day streak
               </p>
-              <p className={["text-sm", t.textBody].join(" ")}>Keep it up!</p>
+              <p className={["text-sm shrink-0", t.textBody].join(" ")}>
+                Keep it up!
+              </p>
             </Card>
           ) : (
             <Card

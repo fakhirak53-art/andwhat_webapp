@@ -82,6 +82,9 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    // Exclude `/src/*`: devtools / source maps from dependencies (e.g. Supabase)
+    // reference paths like `/src/GoTrueClient.ts`, which are not app routes and
+    // would otherwise hit this matcher on every failed GET.
+    "/((?!_next/static|_next/image|favicon.ico|src/|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };

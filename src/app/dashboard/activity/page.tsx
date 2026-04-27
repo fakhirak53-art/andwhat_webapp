@@ -55,7 +55,7 @@ export default async function DashboardActivityPage() {
         </p>
       </header>
 
-      <section className="grid grid-cols-3 gap-4 mt-6">
+      <section className="grid grid-cols-1 gap-4 mt-6 sm:grid-cols-3">
         <StatCard
           label="Total Answered"
           value={stats.totalAnswered}

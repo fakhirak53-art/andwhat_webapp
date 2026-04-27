@@ -4,13 +4,13 @@ import { Heart } from "lucide-react";
 import { useCallback, useEffect, useId, useState } from "react";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { marketingTheme as t } from "@/lib/marketing-theme";
 import {
   fetchActiveMhCards,
   filterCardsForLocalDay,
   localDateYmd,
   pickDailyMhCard,
 } from "@/lib/mh-cards";
-import { marketingTheme as t } from "@/lib/marketing-theme";
 import type { ParsedMhCard } from "@/types/database";
 import { createClient } from "@/utils/supabase/client";
 
@@ -35,7 +35,9 @@ function parseDismissedDate(raw: string | null): string | null {
   }
 }
 
-async function resolveUserId(propId: string | undefined): Promise<string | null> {
+async function resolveUserId(
+  propId: string | undefined,
+): Promise<string | null> {
   if (propId) return propId;
   const supabase = createClient();
   const {
@@ -143,133 +145,196 @@ export default function DailyMhMessageModal({
   return (
     <div
       className={[
-        "fixed inset-0 z-[100] flex items-center justify-center p-4",
+        "fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto overscroll-contain",
+        "px-3 pt-4 pb-[max(0.75rem,env(safe-area-inset-bottom))] sm:p-4",
         t.overlayScrim,
       ].join(" ")}
       role="presentation"
     >
       <button
         type="button"
-        className="absolute inset-0 cursor-default"
+        className="fixed inset-0 cursor-default"
         aria-label="Close dialog backdrop"
         onClick={dismiss}
       />
 
       <div
-        className="relative z-[101] w-full max-w-lg max-h-[85vh] flex flex-col shadow-xl rounded-lg"
+        className={[
+          "relative z-[101] my-auto flex w-full max-w-lg min-h-0 max-h-[min(92dvh,calc(100dvh-1.5rem))] flex-col",
+          "rounded-lg shadow-xl sm:max-h-[min(88dvh,calc(100dvh-2rem))]",
+        ].join(" ")}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}
       >
-        <Card padding="lg" className={["relative", t.cardSurface].join(" ")}>
-          <div className="flex items-start gap-3">
-            <div
-              className={[
-                "flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
-                t.bgAccentTint,
-              ].join(" ")}
-            >
-              <Heart className="h-5 w-5 text-[#0048AE]" aria-hidden />
-            </div>
-            <div className="min-w-0 flex-1">
-              <p
+        <Card
+          padding="sm"
+          className={[
+            "relative flex max-h-full min-h-0 flex-col overflow-hidden sm:p-8",
+            t.cardSurface,
+          ].join(" ")}
+        >
+          <div className="shrink-0">
+            <div className="flex items-start gap-3">
+              <div
                 className={[
-                  "text-xs font-semibold uppercase tracking-wide",
-                  t.accentText,
+                  "flex h-10 w-10 shrink-0 items-center justify-center rounded-full",
+                  t.bgAccentTint,
                 ].join(" ")}
               >
-                {card.topic}
-              </p>
-              <h2
-                id={titleId}
-                className={["font-serif text-xl mt-1", t.textHeading].join(" ")}
-              >
-                {showResponse ? "Here’s something for you" : "Today’s check-in"}
-              </h2>
-              <p className={["text-xs mt-1", t.textMuted].join(" ")}>
-                {showResponse
-                  ? "Based on what you picked — take what helps, leave the rest."
-                  : "Pick the line that fits you best — there’s no wrong answer."}
-              </p>
+                <Heart className="h-5 w-5 text-[#0048AE]" aria-hidden />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p
+                  className={[
+                    "text-xs font-semibold uppercase tracking-wide",
+                    t.accentText,
+                  ].join(" ")}
+                >
+                  {card.topic}
+                </p>
+                <h2
+                  id={titleId}
+                  className={[
+                    "font-serif text-lg leading-snug sm:text-xl mt-1 break-words",
+                    t.textHeading,
+                  ].join(" ")}
+                >
+                  {showResponse
+                    ? "Here’s something for you"
+                    : "Today’s check-in"}
+                </h2>
+                <p
+                  className={["text-xs mt-1 break-words", t.textMuted].join(
+                    " ",
+                  )}
+                >
+                  {showResponse
+                    ? "Based on what you picked — take what helps, leave the rest."
+                    : "Pick the line that fits you best — there’s no wrong answer."}
+                </p>
+              </div>
             </div>
           </div>
 
-          {!showResponse ? (
-            <>
-              <p
-                className={["mt-5 text-sm leading-relaxed font-medium", t.textHeading].join(
-                  " ",
-                )}
-              >
-                {card.question_text}
-              </p>
-              <ul className="mt-4 flex flex-col gap-2">
-                {card.answerOptions.map((opt, i) => (
-                  <li key={optionLetter(i)}>
-                    <button
-                      type="button"
-                      onClick={() => setUi({ step: "response", selectedIndex: i })}
-                      className={[
-                        "w-full text-left text-sm rounded-lg border px-3 py-2.5 transition",
-                        "hover:bg-[#eef3fc] hover:border-[#0048AE]/40",
-                        t.borderSubtle,
-                        t.textBody,
-                      ].join(" ")}
-                    >
-                      <span className={["font-semibold mr-1.5", t.accentText].join(" ")}>
-                        {optionLetter(i)}.
-                      </span>
-                      {optionPreview(opt)}
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </>
-          ) : (
-            <div
-              className={[
-                "mt-5 max-h-[min(50vh,22rem)] overflow-y-auto text-sm leading-relaxed space-y-4",
-                t.textBody,
-              ].join(" ")}
-            >
-              {card.message ? (
-                <p className={["text-sm italic", t.textMuted].join(" ")}>{card.message}</p>
-              ) : null}
-              <p className="whitespace-pre-wrap">{card.positiveTexts[ui.selectedIndex]}</p>
-              <p className="whitespace-pre-wrap text-[13px]">{card.infoTexts[ui.selectedIndex]}</p>
-            </div>
-          )}
-
-          <p
+          <div
             className={[
-              "mt-5 text-[11px] leading-snug border-t pt-4",
+              "mt-4 min-h-0 flex-1 overflow-y-auto overscroll-contain pr-0.5 -mr-0.5 text-sm leading-relaxed",
+              showResponse ? `space-y-4 ${t.textBody}` : "",
+            ]
+              .filter(Boolean)
+              .join(" ")}
+          >
+            {!showResponse ? (
+              <>
+                <p
+                  className={[
+                    "text-sm leading-relaxed font-medium break-words",
+                    t.textHeading,
+                  ].join(" ")}
+                >
+                  {card.question_text}
+                </p>
+                <ul className="mt-4 flex flex-col gap-2">
+                  {card.answerOptions.map((opt, i) => (
+                    <li key={optionLetter(i)}>
+                      <button
+                        type="button"
+                        onClick={() =>
+                          setUi({ step: "response", selectedIndex: i })
+                        }
+                        className={[
+                          "w-full rounded-lg border px-3 py-2.5 text-left text-sm transition",
+                          "break-words text-left [text-wrap:pretty]",
+                          "hover:bg-[#eef3fc] hover:border-[#0048AE]/40 active:bg-[#eef3fc]",
+                          t.borderSubtle,
+                          t.textBody,
+                        ].join(" ")}
+                      >
+                        <span
+                          className={[
+                            "font-semibold mr-1.5 align-top",
+                            t.accentText,
+                          ].join(" ")}
+                        >
+                          {optionLetter(i)}.
+                        </span>
+                        <span className="align-top">{optionPreview(opt)}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <>
+                {card.message ? (
+                  <p
+                    className={["text-sm italic break-words", t.textMuted].join(
+                      " ",
+                    )}
+                  >
+                    {card.message}
+                  </p>
+                ) : null}
+                <p className="whitespace-pre-wrap break-words">
+                  {card.positiveTexts[ui.selectedIndex]}
+                </p>
+                <p className="whitespace-pre-wrap break-words text-[13px]">
+                  {card.infoTexts[ui.selectedIndex]}
+                </p>
+              </>
+            )}
+          </div>
+
+          <div
+            className={[
+              "mt-4 shrink-0 border-t pt-4 space-y-4",
               t.borderSubtle,
-              t.textMuted,
             ].join(" ")}
           >
-            Our Daily Messaging is for educational purposes only. It is not medical advice
-            and does not replace professional care. If you need help, talk to a trusted
-            adult, your school counsellor, or a health professional. In an emergency, call
-            your local emergency number.
-          </p>
+            <p
+              className={[
+                "text-[11px] leading-snug break-words",
+                t.textMuted,
+              ].join(" ")}
+            >
+              Our Daily Messaging is for educational purposes only. It is not
+              medical advice and does not replace professional care. If you need
+              help, talk to a trusted adult, your school counsellor, or a health
+              professional. In an emergency, call your local emergency number.
+            </p>
 
-          <div className="mt-5 flex flex-wrap justify-end gap-2">
-            {showResponse ? (
+            <div className="flex flex-col-reverse gap-2 sm:flex-row sm:flex-wrap sm:justify-end">
+              {showResponse ? (
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  className="w-full sm:w-auto"
+                  onClick={() => setUi({ step: "question" })}
+                >
+                  Back
+                </Button>
+              ) : null}
               <Button
                 type="button"
                 variant="secondary"
                 size="sm"
-                onClick={() => setUi({ step: "question" })}
+                className="w-full sm:w-auto"
+                onClick={dismiss}
               >
-                Back
+                Not today
               </Button>
-            ) : null}
-            <Button type="button" variant="secondary" size="sm" onClick={dismiss}>
-              Not today
-            </Button>
-            <Button type="button" variant="primary" size="sm" onClick={dismiss}>
-              {showResponse ? "Got it" : "Skip"}
-            </Button>
+              <Button
+                type="button"
+                variant="primary"
+                size="sm"
+                className="w-full sm:w-auto"
+                onClick={dismiss}
+              >
+                {showResponse ? "Got it" : "Skip"}
+              </Button>
+            </div>
           </div>
         </Card>
       </div>

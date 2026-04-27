@@ -202,10 +202,20 @@ export default function QuizEngine({
         </h2>
 
         <div className="mt-6 text-center">
-          <p className={["font-serif text-6xl", t.textHeading].join(" ")}>
+          <p
+            className={[
+              "font-serif text-4xl sm:text-6xl tabular-nums",
+              t.textHeading,
+            ].join(" ")}
+          >
             {result.correct}/{result.total}
           </p>
-          <p className={["font-serif text-2xl mt-2", t.textMuted].join(" ")}>
+          <p
+            className={[
+              "font-serif text-xl sm:text-2xl mt-2",
+              t.textMuted,
+            ].join(" ")}
+          >
             {result.accuracy}%
           </p>
           <p
@@ -316,16 +326,18 @@ export default function QuizEngine({
         </p>
       </div>
 
-      <Card padding="lg" className="mt-6 relative">
-        <div className="absolute top-4 right-4 flex items-center gap-2">
-          {currentQuestion.difficulty ? (
-            <Badge variant="default" className="capitalize">
-              {currentQuestion.difficulty}
-            </Badge>
-          ) : null}
-          <div>
+      <Card padding="lg" className="mt-6">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 pt-0.5">
+            {currentQuestion.difficulty ? (
+              <Badge variant="default" className="capitalize">
+                {currentQuestion.difficulty}
+              </Badge>
+            ) : null}
+          </div>
+          <div className="shrink-0 text-right">
             {showExitConfirm ? (
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center justify-end gap-x-2 gap-y-1">
                 <span className={["text-xs", t.textMuted].join(" ")}>
                   Exit quiz?
                 </span>
@@ -347,7 +359,11 @@ export default function QuizEngine({
             ) : (
               <button
                 type="button"
-                className={["text-sm", t.textMuted, t.linkHover].join(" ")}
+                className={[
+                  "text-sm whitespace-nowrap",
+                  t.textMuted,
+                  t.linkHover,
+                ].join(" ")}
                 onClick={() => setShowExitConfirm(true)}
               >
                 x Exit
@@ -358,7 +374,7 @@ export default function QuizEngine({
 
         <h2
           className={[
-            "font-serif text-xl md:text-2xl leading-relaxed pr-24",
+            "font-serif text-lg sm:text-xl md:text-2xl leading-relaxed mt-4 break-words",
             t.textHeading,
           ].join(" ")}
         >
