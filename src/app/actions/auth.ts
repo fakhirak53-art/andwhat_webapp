@@ -3,6 +3,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
+import { getPilotAccessForUser } from '@/lib/pilot-access'
 
 const MIN_PASSWORD_LENGTH = 6
 
@@ -45,6 +46,20 @@ export async function login(formData: FormData) {
 
     if (error) {
         return { error: error.message }
+    }
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
+    if (user) {
+        const pilotAccess = await getPilotAccessForUser(user.id)
+        if (pilotAccess.blocked) {
+            await supabase.auth.signOut()
+            return {
+                error:
+                    'Your school pilot has expired. Please contact your school administrator.',
+            }
+        }
     }
 
     revalidatePath('/', 'layout')
@@ -100,6 +115,20 @@ export async function signup(formData: FormData) {
 
     if (error) {
         return { error: error.message }
+    }
+
+    const {
+        data: { user },
+    } = await supabase.auth.getUser()
+    if (user) {
+        const pilotAccess = await getPilotAccessForUser(user.id)
+        if (pilotAccess.blocked) {
+            await supabase.auth.signOut()
+            return {
+                error:
+                    'Your school pilot has expired. Please contact your school administrator.',
+            }
+        }
     }
 
     revalidatePath('/', 'layout')

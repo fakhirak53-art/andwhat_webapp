@@ -103,7 +103,10 @@ export default function AdminMobileSidebar({
             </div>
           </div>
           <div className="mt-2">
-            <Badge variant="lime">
+            <Badge
+              variant="lime"
+              className="bg-paper/10 border-paper/30 text-paper"
+            >
               {role === "admin" ? "Admin" : "Teacher"}
             </Badge>
           </div>

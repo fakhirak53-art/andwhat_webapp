@@ -7,6 +7,8 @@ export interface AdminProfile {
   school_name: string;
   school_code: string;
   role: AdminRole;
+  pilot_status?: string | null;
+  pilot_expires_at?: string | null;
 }
 
 export interface AdminStats {

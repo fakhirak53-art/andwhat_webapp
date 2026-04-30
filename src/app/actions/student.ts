@@ -3,6 +3,7 @@
 import { getStudentId, getStudentRow } from "@/lib/student";
 import type { QuizQuestion } from "@/types/database";
 import { createClient } from "@/utils/supabase/server";
+import { getPilotAccessForUser } from "@/lib/pilot-access";
 
 interface ActionResult<T> {
   data?: T;
@@ -21,6 +22,11 @@ export async function enrollInQuestionSet(
 
     if (userError || !user) {
       return { success: false, error: "You need to be logged in." };
+    }
+
+    const pilotAccess = await getPilotAccessForUser(user.id);
+    if (pilotAccess.blocked) {
+      return { success: false, error: "Your school pilot has expired." };
     }
 
     const { error } = await supabase.from("student_enrollments").insert({
@@ -56,6 +62,10 @@ export async function submitQuizAnswer(payload: {
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { success: false, error: "Not authenticated" };
+  const pilotAccess = await getPilotAccessForUser(user.id);
+  if (pilotAccess.blocked) {
+    return { success: false, error: "Your school pilot has expired." };
+  }
 
   const studentRow = await getStudentRow(user.id);
   const candidateStudentIds = Array.from(
@@ -99,6 +109,10 @@ export async function updateSubjectPreferences(
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { success: false, error: "Not authenticated" };
+  const pilotAccess = await getPilotAccessForUser(user.id);
+  if (pilotAccess.blocked) {
+    return { success: false, error: "Your school pilot has expired." };
+  }
 
   const studentId = await getStudentId(user.id);
 
@@ -156,6 +170,8 @@ export async function getQuestionsForSet(
     } = await supabase.auth.getUser();
 
     if (!user) return { error: "Not authenticated" };
+    const pilotAccess = await getPilotAccessForUser(user.id);
+    if (pilotAccess.blocked) return { error: "Your school pilot has expired." };
 
     const { data, error } = await supabase
       .from("questions")
@@ -219,6 +235,10 @@ export async function unenrollFromQuestionSet(
 
     if (userError || !user) {
       return { success: false, error: "You need to be logged in." };
+    }
+    const pilotAccess = await getPilotAccessForUser(user.id);
+    if (pilotAccess.blocked) {
+      return { success: false, error: "Your school pilot has expired." };
     }
 
     const { error } = await supabase

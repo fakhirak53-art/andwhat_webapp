@@ -53,7 +53,10 @@ export default async function AdminLayout({ children }: AdminLayoutProps) {
             <p className="text-paper/50 text-xs truncate mt-1">
               {adminProfile.school_name}
             </p>
-            <Badge variant="lime" className="mt-3">
+            <Badge
+              variant="lime"
+              className="mt-3 bg-paper/10 border-paper/30 text-paper"
+            >
               {adminProfile.role === "admin" ? "Admin" : "Teacher"}
             </Badge>
           </div>

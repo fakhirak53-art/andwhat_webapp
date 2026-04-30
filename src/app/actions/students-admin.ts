@@ -1,6 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
+import { getPilotAccessForSchool } from "@/lib/pilot-access";
 import { createClient } from "@/utils/supabase/server";
 
 async function verifyAdmin(): Promise<{
@@ -21,6 +22,8 @@ async function verifyAdmin(): Promise<{
       .maybeSingle();
 
     if (!teacherSchool) return null;
+    const pilotAccess = await getPilotAccessForSchool(teacherSchool.school_id);
+    if (pilotAccess.blocked) return null;
     return { userId: user.id, schoolId: teacherSchool.school_id };
   } catch {
     return null;

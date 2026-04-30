@@ -70,8 +70,8 @@ export default function SchoolsPage() {
       <Header
         navLinks={schoolsNavLinks}
         activeHref="/schools"
-        registerHref="/login"
-        registerLabel="Register Now"
+        registerHref="/pilot/signup"
+        registerLabel="Start Pilot"
       />
       <main>
         <RTOHeroSection />

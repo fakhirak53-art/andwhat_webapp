@@ -3,6 +3,7 @@
 import {
   BarChart2,
   BookOpen,
+  CalendarClock,
   LayoutDashboard,
   Shield,
   Users,
@@ -19,6 +20,7 @@ const navItems = [
   { href: "/admin/sets", label: "Question Sets", icon: BookOpen },
   { href: "/admin/students", label: "Students", icon: Users },
   { href: "/admin/rules", label: "Site Rules", icon: Shield },
+  { href: "/admin/pilot", label: "Pilot Status", icon: CalendarClock },
   { href: "/admin/analytics", label: "Analytics", icon: BarChart2 },
 ];
 

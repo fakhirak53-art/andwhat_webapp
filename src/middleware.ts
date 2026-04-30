@@ -48,6 +48,45 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
+  if (
+    user &&
+    (request.nextUrl.pathname.startsWith("/dashboard") ||
+      request.nextUrl.pathname.startsWith("/admin")) &&
+    request.nextUrl.pathname !== "/admin/login" &&
+    request.nextUrl.pathname !== "/pilot/expired"
+  ) {
+    const [{ data: teacherSchool }, { data: student }] = await Promise.all([
+      supabase
+        .from("teacher_schools")
+        .select("school_id")
+        .eq("user_id", user.id)
+        .maybeSingle(),
+      supabase
+        .from("students")
+        .select("school_id")
+        .eq("auth_user_id", user.id)
+        .maybeSingle(),
+    ]);
+
+    const schoolId = teacherSchool?.school_id ?? student?.school_id;
+    if (schoolId) {
+      const { data: school } = await supabase
+        .from("schools")
+        .select("pilot_status, pilot_expires_at")
+        .eq("id", schoolId)
+        .maybeSingle();
+
+      const isInactive = school?.pilot_status && school.pilot_status !== "active";
+      const expiresAt = school?.pilot_expires_at;
+      const isExpired =
+        Boolean(expiresAt) && new Date(expiresAt).getTime() <= Date.now();
+
+      if (isInactive || isExpired) {
+        return NextResponse.redirect(new URL("/pilot/expired", request.url));
+      }
+    }
+  }
+
   // Protect /admin/*
   if (
     request.nextUrl.pathname.startsWith("/admin") &&

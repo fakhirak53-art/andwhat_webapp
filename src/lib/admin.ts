@@ -11,6 +11,7 @@ import type {
   QuestionSet,
   Subject,
 } from "@/types/database";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { createClient } from "@/utils/supabase/server";
 
 const EMPTY_STATS: AdminStats = {
@@ -60,18 +61,40 @@ export async function getAdminProfile(
 
     if (teacherSchoolError || !teacherSchool) return null;
 
-    const [{ data: school }, { data: profile }] = await Promise.all([
-      supabase
-        .from("schools")
-        .select("id, name, school_code")
-        .eq("id", teacherSchool.school_id)
-        .maybeSingle(),
-      supabase
-        .from("profiles")
-        .select("id, full_name")
-        .eq("id", userId)
-        .maybeSingle(),
-    ]);
+    const [{ data: schoolFromUserClient }, { data: profile }] = await Promise.all(
+      [
+        supabase
+          .from("schools")
+          .select("id, name, school_code, pilot_status, pilot_expires_at")
+          .eq("id", teacherSchool.school_id)
+          .maybeSingle(),
+        supabase
+          .from("profiles")
+          .select("id, full_name")
+          .eq("id", userId)
+          .maybeSingle(),
+      ],
+    );
+
+    let school = schoolFromUserClient;
+    if (!school) {
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL?.trim();
+      const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+      if (supabaseUrl && serviceRoleKey) {
+        const adminSupabase = createSupabaseClient(supabaseUrl, serviceRoleKey, {
+          auth: { persistSession: false, autoRefreshToken: false },
+        });
+        const { data: schoolFromAdminClient } = await adminSupabase
+          .from("schools")
+          .select("id, name, school_code, pilot_status, pilot_expires_at")
+          .eq("id", teacherSchool.school_id)
+          .maybeSingle();
+        school = schoolFromAdminClient;
+      }
+    }
+
+    const normalizedRole: AdminRole =
+      teacherSchool.role === "admin" ? "admin" : "teacher";
 
     return {
       user_id: teacherSchool.user_id,
@@ -79,7 +102,9 @@ export async function getAdminProfile(
       school_id: teacherSchool.school_id,
       school_name: school?.name ?? "School",
       school_code: school?.school_code ?? "N/A",
-      role: teacherSchool.role as AdminRole,
+      role: normalizedRole,
+      pilot_status: school?.pilot_status ?? null,
+      pilot_expires_at: school?.pilot_expires_at ?? null,
     };
   } catch {
     return null;

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { getPilotAccessForSchool } from "@/lib/pilot-access";
 import { createClient } from "@/utils/supabase/server";
 
 export async function adminLogin(
@@ -28,13 +29,22 @@ export async function adminLogin(
 
   const { data: teacherSchool } = await supabase
     .from("teacher_schools")
-    .select("user_id")
+    .select("user_id, school_id")
     .eq("user_id", user.id)
     .maybeSingle();
 
   if (!teacherSchool) {
     await supabase.auth.signOut();
     return { error: "This account does not have admin access." };
+  }
+
+  const pilotAccess = await getPilotAccessForSchool(teacherSchool.school_id);
+  if (pilotAccess.blocked) {
+    await supabase.auth.signOut();
+    return {
+      error:
+        "This school pilot has expired. Please contact support to reactivate access.",
+    };
   }
 
   revalidatePath("/", "layout");

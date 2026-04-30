@@ -97,6 +97,12 @@ export default function AdminLoginPage() {
           <p className="text-muted text-sm mb-8">
             Log in with your admin account to continue.
           </p>
+          <p className="text-muted text-sm mb-6">
+            New teacher?{" "}
+            <Link href="/teacher/register" className="text-ink hover:underline">
+              Onboard your teacher account
+            </Link>
+          </p>
 
           <Form action={handleSubmit} className="space-y-4">
             <Input

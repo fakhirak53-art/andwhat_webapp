@@ -40,10 +40,10 @@ export default function CTABannerSection() {
                 we&apos;ll help you out in plain English.
               </p>
               <Link
-                href="#contact"
+                href="/pilot/signup"
                 className="inline-flex items-center gap-2 border-2 border-white text-white px-7 py-3.5 rounded-lg text-[14px] sm:text-[15px] font-semibold hover:bg-white hover:text-[#0a1628] transition-colors"
               >
-                Get In Touch
+                Start School Pilot
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
                 </svg>
